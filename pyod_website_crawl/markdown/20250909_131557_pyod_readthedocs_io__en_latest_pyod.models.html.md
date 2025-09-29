@@ -1,0 +1,13495 @@
+# All Models - pyod 2.0.5 documentation
+
+**URL:** https://pyod.readthedocs.io/en/latest/pyod.models.html
+
+**爬取时间:** 2025-09-09 13:15:57.408087
+
+**深度:** 1
+
+---
+
+Contents Menu Expand Light mode Dark mode Auto light/dark, in light mode Auto light/dark, in dark mode
+Hide navigation sidebar
+Hide table of contents sidebar
+[Skip to content](https://pyod.readthedocs.io/en/latest/pyod.models.html#furo-main-content)
+Toggle site navigation sidebar
+[pyod 2.0.5 documentation](https://pyod.readthedocs.io/en/latest/index.html)
+Toggle Light / Dark / Auto color theme
+Toggle table of contents sidebar
+[ pyod 2.0.5 documentation ](https://pyod.readthedocs.io/en/latest/index.html)
+Getting Started
+  * [Installation](https://pyod.readthedocs.io/en/latest/install.html)
+  * [Model Save & Load](https://pyod.readthedocs.io/en/latest/model_persistence.html)
+  * [Fast Train with SUOD](https://pyod.readthedocs.io/en/latest/fast_train.html)
+  * [Examples](https://pyod.readthedocs.io/en/latest/example.html)
+  * [Benchmarks](https://pyod.readthedocs.io/en/latest/benchmark.html)
+
+
+Documentation
+  * [API CheatSheet](https://pyod.readthedocs.io/en/latest/api_cc.html)
+  * [API Reference](https://pyod.readthedocs.io/en/latest/pyod.html)
+Toggle navigation of API Reference
+    * [All Models](https://pyod.readthedocs.io/en/latest/pyod.models.html)
+    * [Utility Functions](https://pyod.readthedocs.io/en/latest/pyod.utils.html)
+
+
+Additional Information
+  * [Known Issues & Warnings](https://pyod.readthedocs.io/en/latest/issues.html)
+  * [Outlier Detection 101](https://pyod.readthedocs.io/en/latest/relevant_knowledge.html)
+  * [Citations & Achievements](https://pyod.readthedocs.io/en/latest/pubs.html)
+  * [Frequently Asked Questions](https://pyod.readthedocs.io/en/latest/faq.html)
+  * [About us](https://pyod.readthedocs.io/en/latest/about.html)
+
+
+[ Back to top ](https://pyod.readthedocs.io/en/latest/pyod.models.html)
+[ View this page ](https://pyod.readthedocs.io/en/latest/_sources/pyod.models.rst.txt "View this page")
+Toggle Light / Dark / Auto color theme
+Toggle table of contents sidebar
+# All Models[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#all-models "Link to this heading")
+## pyod.models.abod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.abod "Link to this heading")
+Angle-based Outlier Detector (ABOD) 
+
+_class_ pyod.models.abod.ABOD(_contamination =0.1_, _n_neighbors =5_, _method ='fast'_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/abod.html#ABOD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+ABOD class for Angle-base Outlier Detection. For an observation, the variance of its weighted cosine scores to all neighbors could be viewed as the outlying score. See [[BKZ+08](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1118 "Hans-Peter Kriegel, Arthur Zimek, and others. Angle-based outlier detection in high-dimensional data. In Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining, 444–452. ACM, 2008.")] for details.
+Two version of ABOD are supported:
+  * Fast ABOD: use k nearest neighbors to approximate.
+  * Original ABOD: consider all training points with high time complexity at O(n^3).
+
+
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#parameters "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_neighborsint, optional (default=10) 
+    
+Number of neighbors to use by default for k neighbors queries. 
+
+method: str, optional (default=’fast’)
+    
+Valid values for metric are:
+  * ‘fast’: fast ABOD. Only consider n_neighbors of training points
+  * ‘default’: original ABOD with all training points, which could be slow
+
+
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#attributes "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1173)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1175)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1177)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id2 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#returns "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/abod.html#ABOD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id3 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id4 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/abod.html#ABOD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id5 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id6 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id7 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id8 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id9 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id10 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id11 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id12 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id14 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id15 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id17 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id18 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id19 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id20 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.ae1svm module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.ae1svm "Link to this heading")
+Using AE-1SVM with Outlier Detection (PyTorch) Source: <https://arxiv.org/pdf/1804.04888> There is another implementation of this model by Minh Nghia: <https://github.com/minh-nghia/AE-1SVM> (Tensorflow) 
+
+_class_ pyod.models.ae1svm.AE1SVM(_hidden_neurons =None_, _hidden_activation ='relu'_, _batch_norm =True_, _learning_rate =0.001_, _epochs =50_, _batch_size =32_, _dropout_rate =0.2_, _weight_decay =1e-05_, _preprocessing =True_, _loss_fn =None_, _contamination =0.1_, _alpha =1.0_, _sigma =1.0_, _nu =0.1_, _kernel_approx_features =1000_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ae1svm.html#AE1SVM)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Auto Encoder with One-class SVM for anomaly detection.
+Note: self.device is needed or all tensors may not be on the same device (if device w/ GPU running)
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id21 "Link to this heading") 
+
+hidden_neuronslist, optional (default=[64, 32]) 
+    
+Number of neurons in each hidden layer. 
+
+hidden_activationstr, optional (default=’relu’) 
+    
+Activation function for the hidden layers. 
+
+batch_normbool, optional (default=True) 
+    
+Whether to use batch normalization. 
+
+learning_ratefloat, optional (default=1e-3) 
+    
+Learning rate for training the model. 
+
+epochsint, optional (default=50) 
+    
+Number of training epochs. 
+
+batch_sizeint, optional (default=32) 
+    
+Size of each training batch. 
+
+dropout_ratefloat, optional (default=0.2) 
+    
+Dropout rate for regularization. 
+
+weight_decayfloat, optional (default=1e-5) 
+    
+Weight decay (L2 penalty) for the optimizer. 
+
+preprocessingbool, optional (default=True) 
+    
+Whether to apply standard scaling to the input data. 
+
+loss_fncallable, optional (default=torch.nn.MSELoss) 
+    
+Loss function to use for reconstruction loss. 
+
+contaminationfloat, optional (default=0.1) 
+    
+Proportion of outliers in the data. 
+
+alphafloat, optional (default=1.0) 
+    
+Weight for the reconstruction loss in the final loss computation. 
+
+sigmafloat, optional (default=1.0) 
+    
+Scaling factor for the random Fourier features. 
+
+nufloat, optional (default=0.1) 
+    
+Parameter for the SVM loss. 
+
+kernel_approx_featuresint, optional (default=1000) 
+    
+Number of random Fourier features to approximate the kernel. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id22 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id23 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ae1svm.html#AE1SVM.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id24 "Link to this heading") 
+
+Xnumpy.ndarray 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id25 "Link to this heading") 
+
+numpy.ndarray
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ae1svm.html#AE1SVM.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.fit "Link to this definition") 
+    
+Fit the model to the data.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id26 "Link to this heading") 
+
+Xnumpy.ndarray 
+    
+Input data. 
+
+yNone 
+    
+Ignored, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id27 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id28 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id29 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id30 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id31 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id32 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id33 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id35 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id36 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id38 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id39 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id40 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id41 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.alad module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.alad "Link to this heading")
+Using Adversarially Learned Anomaly Detection 
+
+_class_ pyod.models.alad.ALAD(_activation_hidden_gen ='tanh'_, _activation_hidden_disc ='tanh'_, _output_activation =None_, _dropout_rate =0.2_, _latent_dim =2_, _dec_layers =[5, 10, 25]_, _enc_layers =[25, 10, 5]_, _disc_xx_layers =[25, 10, 5]_, _disc_zz_layers =[25, 10, 5]_, _disc_xz_layers =[25, 10, 5]_, _learning_rate_gen =0.0001_, _learning_rate_disc =0.0001_, _add_recon_loss =False_, _lambda_recon_loss =0.1_, _epochs =200_, _verbose =0_, _preprocessing =False_, _add_disc_zz_loss =True_, _spectral_normalization =False_, _batch_size =32_, _contamination =0.1_, _device =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/alad.html#ALAD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Adversarially Learned Anomaly Detection (ALAD). Paper: <https://arxiv.org/pdf/1812.02288.pdf>
+See [[BZRF+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1163 "Houssam Zenati, Manon Romain, Chuan-Sheng Foo, Bruno Lecouat, and Vijay Chandrasekhar. Adversarially learned anomaly detection. In 2018 IEEE International conference on data mining \(ICDM\), 727–736. IEEE, 2018.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id43 "Link to this heading") 
+
+output_activationstr, optional (default=None) 
+    
+Activation function to use for output layers for encoder and dector. 
+
+activation_hidden_discstr, optional (default=’tanh’) 
+    
+Activation function to use for hidden layers in discrimators. 
+
+activation_hidden_genstr, optional (default=’tanh’) 
+    
+Activation function to use for hidden layers in encoder and decoder (i.e. generator). 
+
+epochsint, optional (default=500) 
+    
+Number of epochs to train the model. 
+
+batch_sizeint, optional (default=32) 
+    
+Number of samples per gradient update. 
+
+dropout_ratefloat in (0., 1), optional (default=0.2) 
+    
+The dropout to be used across all layers. 
+
+dec_layerslist, optional (default=[5,10,25]) 
+    
+List that indicates the number of nodes per hidden layer for the d ecoder network. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+enc_layerslist, optional (default=[25,10,5]) 
+    
+List that indicates the number of nodes per hidden layer for the encoder network. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+disc_xx_layerslist, optional (default=[25,10,5]) 
+    
+List that indicates the number of nodes per hidden layer for discriminator_xx. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+disc_zz_layerslist, optional (default=[25,10,5]) 
+    
+List that indicates the number of nodes per hidden layer for discriminator_zz. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+disc_xz_layerslist, optional (default=[25,10,5]) 
+    
+List that indicates the number of nodes per hidden layer for discriminator_xz. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+learning_rate_gen: float in (0., 1), optional (default=0.001)
+    
+learning rate of training the encoder and decoder 
+
+learning_rate_disc: float in (0., 1), optional (default=0.001)
+    
+learning rate of training the discriminators 
+
+add_recon_loss: bool optional (default=False)
+    
+add an extra loss for encoder and decoder based on the reconstruction error 
+
+lambda_recon_loss: float in (0., 1), optional (default=0.1)
+    
+if `add_recon_loss= True`, the reconstruction loss gets multiplied by `lambda_recon_loss` and added to the total loss for the generator
+> (i.e. encoder and decoder). 
+
+preprocessingbool, optional (default=True) 
+    
+If True, apply standardization on the data. 
+
+verboseint, optional (default=1) 
+    
+Verbosity mode. - 0 = silent - 1 = progress bar 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. When fitting this is used to define the threshold on the decision function. 
+
+devicestr or None, optional (default=None) 
+    
+The device to use for computation. If None, the default device will be used. Possible values include ‘cpu’ or ‘gpu’. This parameter allows the user to specify the preferred device for running the model.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id44 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1179)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data [0,1]. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1181)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1183)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id45 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id46 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/alad.html#ALAD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector. The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id47 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_, _noise_std =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/alad.html#ALAD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id48 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id49 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id50 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id51 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id52 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+plot_learning_curves(_start_ind =0_, _window_smoothening =10_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/alad.html#ALAD.plot_learning_curves)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.plot_learning_curves "Link to this definition") 
+
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id53 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id54 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id56 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id57 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id59 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id60 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id61 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id62 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.anogan module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.anogan "Link to this heading")
+Anomaly Detection with Generative Adversarial Networks (AnoGAN) Paper: <https://arxiv.org/pdf/1703.05921.pdf> Note, that this is another implementation of AnoGAN as the one from <https://github.com/fuchami/ANOGAN> 
+
+_class_ pyod.models.anogan.AnoGAN(_activation_hidden ='tanh'_, _dropout_rate =0.2_, _latent_dim_G =2_, _G_layers =[20, 10, 3, 10, 20]_, _verbose =0_, _D_layers =[20, 10, 5]_, _index_D_layer_for_recon_error =1_, _epochs =500_, _preprocessing =False_, _learning_rate =0.001_, _learning_rate_query =0.01_, _epochs_query =20_, _batch_size =32_, _output_activation =None_, _contamination =0.1_, _device =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/anogan.html#AnoGAN)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Anomaly Detection with Generative Adversarial Networks (AnoGAN). See the original paper “Unsupervised anomaly detection with generative adversarial networks to guide marker discovery”.
+See [[BSSeebockW+17](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1159 "Thomas Schlegl, Philipp Seeböck, Sebastian M Waldstein, Ursula Schmidt-Erfurth, and Georg Langs. Unsupervised anomaly detection with generative adversarial networks to guide marker discovery. In International conference on information processing in medical imaging, 146–157. Springer, 2017.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id64 "Link to this heading") 
+
+output_activationstr, optional (default=None) 
+    
+Activation function to use for output layer. 
+
+activation_hiddenstr, optional (default=’tanh’) 
+    
+Activation function to use for output layer. 
+
+epochsint, optional (default=500) 
+    
+Number of epochs to train the model. 
+
+batch_sizeint, optional (default=32) 
+    
+Number of samples per gradient update. 
+
+dropout_ratefloat in (0., 1), optional (default=0.2) 
+    
+The dropout to be used across all layers. 
+
+G_layerslist, optional (default=[20,10,3,10,20]) 
+    
+List that indicates the number of nodes per hidden layer for the generator. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+D_layerslist, optional (default=[20,10,5]) 
+    
+List that indicates the number of nodes per hidden layer for the discriminator. Thus, [10,10] indicates 2 hidden layers having each 10 nodes. 
+
+learning_rate: float in (0., 1), optional (default=0.001)
+    
+learning rate of training the network 
+
+index_D_layer_for_recon_error: int, optional (default = 1)
+    
+This is the index of the hidden layer in the discriminator for which the reconstruction error will be determined between query sample and the sample created from the latent space. 
+
+learning_rate_query: float in (0., 1), optional (default=0.001)
+    
+learning rate for the backpropagation steps needed to find a point in the latent space of the generator that approximate the query sample 
+
+epochs_query: int, optional (default=20) 
+    
+Number of epochs to approximate the query sample in the latent space of the generator 
+
+preprocessingbool, optional (default=True) 
+    
+If True, apply standardization on the data. 
+
+verboseint, optional (default=1) 
+    
+Verbosity mode. - 0 = silent - 1 = progress bar 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. When fitting this is used to define the threshold on the decision function.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id65 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1185)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data [0,1]. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1187)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1189)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id66 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id67 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/anogan.html#AnoGAN.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id68 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id69 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/anogan.html#AnoGAN.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id70 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id71 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id72 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id73 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id74 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id75 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id76 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id77 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+plot_learning_curves(_start_ind =0_, _window_smoothening =10_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/anogan.html#AnoGAN.plot_learning_curves)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.plot_learning_curves "Link to this definition") 
+
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id78 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id79 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id81 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id82 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id84 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id85 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id86 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id87 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id88 "Link to this heading")
+self : object
+## pyod.models.auto_encoder module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.auto_encoder "Link to this heading")
+Using AutoEncoder with Outlier Detection 
+
+_class_ pyod.models.auto_encoder.AutoEncoder(_contamination =0.1_, _preprocessing =True_, _lr =0.001_, _epoch_num =10_, _batch_size =32_, _optimizer_name ='adam'_, _device =None_, _random_state =42_, _use_compile =False_, _compile_mode ='default'_, _verbose =1_, _optimizer_params :[dict](https://docs.python.org/3/library/stdtypes.html#dict "\(in Python v3.13\)")={'weight_decay': 1e-05}_, _hidden_neuron_list =[64, 32]_, _hidden_activation_name ='relu'_, _batch_norm =True_, _dropout_rate =0.2_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/auto_encoder.html#AutoEncoder)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder "Link to this definition") 
+    
+Bases: `BaseDeepLearningDetector`
+Auto Encoder (AE) is a type of neural networks for learning useful data representations in an unsupervised manner. Similar to PCA, AE could be used to detect outlying objects in the data by calculating the reconstruction errors. See [[BAgg15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1122 "Charu C Aggarwal. Outlier analysis. In Data mining, 75–79. Springer, 2015.")] Chapter 3 for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id90 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+preprocessingbool, optional (default=True) 
+    
+If True, apply the preprocessing procedure before training models. 
+
+lrfloat, optional (default=1e-3) 
+    
+The initial learning rate for the optimizer. 
+
+epoch_numint, optional (default=10) 
+    
+The number of epochs for training. 
+
+batch_sizeint, optional (default=32) 
+    
+The batch size for training. 
+
+optimizer_namestr, optional (default=’adam’) 
+    
+The name of theoptimizer used to train the model. 
+
+devicestr, optional (default=None) 
+    
+The device to use for the model. If None, it will be decided automatically. If you want to use MPS, set it to ‘mps’. 
+
+random_stateint, optional (default=42) 
+    
+The random seed for reproducibility. 
+
+use_compilebool, optional (default=False) 
+    
+Whether to compile the model. If True, the model will be compiled before training. This is only available for PyTorch version >= 2.0.0. and Python < 3.12. 
+
+compile_modestr, optional (default=’default’) 
+    
+The mode to compile the model. Can be either “default”, “reduce-overhead”, “max-autotune” or “max-autotune-no-cudagraphs”. See <https://pytorch.org/docs/stable/generated/torch.compile.html#torch-compile> for details. 
+
+verboseint, optional (default=1) 
+    
+Verbosity mode. - 0 = silent - 1 = progress bar - 2 = one line per epoch. 
+
+optimizer_paramsdict, optional (default={‘weight_decay’: 1e-5}) 
+    
+Additional parameters for the optimizer. For example, optimizer_params={‘weight_decay’: 1e-5}. 
+
+hidden_neuron_listlist, optional (default=[64, 32]) 
+    
+The number of neurons per hidden layers. So the network has the structure as [feature_size, 64, 32, 32, 64, feature_size]. 
+
+hidden_activation_namestr, optional (default=’relu’) 
+    
+The activation function used in hidden layers. 
+
+batch_normboolean, optional (default=True) 
+    
+Whether to apply Batch Normalization, See <https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html> 
+
+dropout_ratefloat in (0., 1), optional (default=0.2) 
+    
+The dropout to be used across all layers.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id91 "Link to this heading") 
+
+modeltorch.nn.Module 
+    
+The underlying AutoEncoder model. 
+
+optimizertorch.optim 
+    
+The optimizer used to train the model. 
+
+criteriontorch.nn.modules 
+    
+The loss function used to train the model. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1191)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1193)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1195)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+build_model()[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/auto_encoder.html#AutoEncoder.build_model)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.build_model "Link to this definition") 
+    
+Need to define model in this method. self.feature_size is the number of features in the input data. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id92 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id93 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_ , _batch_size =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The training input samples. Sparse matrices are accepted only if they are supported by the base estimator. 
+
+batch_sizeint, optional (default=None) 
+    
+The batch size for processing the input samples. If not specified, the default batch size is used.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id94 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+evaluate(_data_loader_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.evaluate "Link to this definition") 
+    
+Evaluate the deep learning model.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id95 "Link to this heading") 
+
+data_loadertorch.utils.data.DataLoader 
+    
+The data loader for evaluating the model.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id96 "Link to this heading") 
+
+outlier_scoresnumpy array of shape (n_samples,) 
+    
+The outlier scores of the input samples. 
+
+fit(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id97 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+ynumpy array of shape (n_samples,), optional (default=None) 
+    
+The ground truth of input samples. Not used in unsupervised methods. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id98 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id99 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id100 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id101 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id102 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id103 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id105 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id106 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id108 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id109 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id110 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id111 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+save(_path_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.save "Link to this definition") 
+    
+Save the model to the specified path.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id112 "Link to this heading") 
+
+pathstr 
+    
+The path to save the model. 
+
+train(_train_loader_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.train "Link to this definition") 
+    
+Train the deep learning model.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id113 "Link to this heading") 
+
+train_loadertorch.utils.data.DataLoader 
+    
+The data loader for training the model. 
+
+training_forward(_batch_data_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/auto_encoder.html#AutoEncoder.training_forward)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.training_forward "Link to this definition") 
+    
+Forward pass for training the model. Abstract method to be implemented.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id114 "Link to this heading") 
+
+batch_datatuple 
+    
+The batch data for training the model.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id115 "Link to this heading") 
+
+lossfloat or tuple of float 
+    
+The loss.item of the model, or a tuple of loss.item if there are multiple losses. 
+
+training_prepare()[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.training_prepare "Link to this definition") 
+
+## pyod.models.auto_encoder_torch module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod-models-auto-encoder-torch-module "Link to this heading")
+## pyod.models.cblof module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.cblof "Link to this heading")
+Clustering Based Local Outlier Factor (CBLOF) 
+
+_class_ pyod.models.cblof.CBLOF(_n_clusters =8_, _contamination =0.1_, _clustering_estimator =None_, _alpha =0.9_, _beta =5_, _use_weights =False_, _check_estimator =False_, _random_state =None_, _n_jobs =1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cblof.html#CBLOF)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+The CBLOF operator calculates the outlier score based on cluster-based local outlier factor.
+CBLOF takes as an input the data set and the cluster model that was generated by a clustering algorithm. It classifies the clusters into small clusters and large clusters using the parameters alpha and beta. The anomaly score is then calculated based on the size of the cluster the point belongs to as well as the distance to the nearest large cluster.
+Use weighting for outlier factor based on the sizes of the clusters as proposed in the original publication. Since this might lead to unexpected behavior (outliers close to small clusters are not found), it is disabled by default.Outliers scores are solely computed based on their distance to the closest large cluster center.
+By default, kMeans is used for clustering algorithm instead of Squeezer algorithm mentioned in the original paper for multiple reasons.
+See [[BHXD03](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1127 "Zengyou He, Xiaofei Xu, and Shengchun Deng. Discovering cluster-based local outliers. Pattern Recognition Letters, 24\(9-10\):1641–1650, 2003.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id117 "Link to this heading") 
+
+n_clustersint, optional (default=8) 
+    
+The number of clusters to form as well as the number of centroids to generate. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+clustering_estimatorEstimator, optional (default=None) 
+    
+The base clustering algorithm for performing data clustering. A valid clustering algorithm should be passed in. The estimator should have standard sklearn APIs, fit() and predict(). The estimator should have attributes `labels_` and `cluster_centers_`. If `cluster_centers_` is not in the attributes once the model is fit, it is calculated as the mean of the samples in a cluster.
+If not set, CBLOF uses KMeans for scalability. See <https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html> 
+
+alphafloat in (0.5, 1), optional (default=0.9) 
+    
+Coefficient for deciding small and large clusters. The ratio of the number of samples in large clusters to the number of samples in small clusters. 
+
+betaint or float in (1,), optional (default=5). 
+    
+Coefficient for deciding small and large clusters. For a list sorted clusters by size |C1|, |C2|, …, |Cn|, beta = |Ck|/|Ck-1| 
+
+use_weightsbool, optional (default=False) 
+    
+If set to True, the size of clusters are used as weights in outlier score calculation. 
+
+check_estimatorbool, optional (default=False) 
+    
+If set to True, check whether the base estimator is consistent with sklearn standard.
+Warning
+check_estimator may throw errors with scikit-learn 0.20 above. 
+
+random_stateint, RandomState or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id118 "Link to this heading") 
+
+[clustering_estimator_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1197)Estimator, sklearn instance 
+    
+Base estimator for clustering. 
+
+[cluster_labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1199)list of shape (n_samples,) 
+    
+Cluster assignment for the training samples. 
+
+[n_clusters_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1201)int 
+    
+Actual number of clusters (possibly different from n_clusters). 
+
+[cluster_sizes_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1203)list of shape ([n_clusters_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1205),) 
+    
+The size of each cluster once fitted with the training data. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1207)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[cluster_centers_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1209)numpy array of shape ([n_clusters_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1211), n_features) 
+    
+The center of each cluster. 
+
+[small_cluster_labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1213)list of clusters numbers 
+    
+The cluster assignments belonging to small clusters. 
+
+[large_cluster_labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1215)list of clusters numbers 
+    
+The cluster assignments belonging to large clusters. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1217)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1219)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id119 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id120 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cblof.html#CBLOF.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id121 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id122 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cblof.html#CBLOF.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id123 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id124 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id125 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id126 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id127 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id128 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id129 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id130 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id132 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id133 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id135 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id136 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id137 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id138 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.cof module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.cof "Link to this heading")
+Connectivity-Based Outlier Factor (COF) Algorithm 
+
+_class_ pyod.models.cof.COF(_contamination =0.1_, _n_neighbors =20_, _method ='fast'_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cof.html#COF)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Connectivity-Based Outlier Factor (COF) COF uses the ratio of average chaining distance of data point and the average of average chaining distance of k nearest neighbor of the data point, as the outlier score for observations.
+See [[BTCFC02](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1137 "Jian Tang, Zhixiang Chen, Ada Wai-Chee Fu, and David W Cheung. Enhancing effectiveness of outlier detections for low density patterns. In Pacific-Asia Conference on Knowledge Discovery and Data Mining, 535–548. Springer, 2002.")] for details.
+Two version of COF are supported:
+  * Fast COF: computes the entire pairwise distance matrix at the cost of a O(n^2) memory requirement.
+  * Memory efficient COF: calculates pairwise distances incrementally. Use this implementation when it is not feasible to fit the n-by-n distance in memory. This leads to a linear overhead because many distances will have to be recalculated.
+
+
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id140 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_neighborsint, optional (default=20) 
+    
+Number of neighbors to use by default for k neighbors queries. Note that n_neighbors should be less than the number of samples. If n_neighbors is larger than the number of samples provided, all samples will be used. 
+
+methodstring, optional (default=’fast’) 
+    
+Valid values for method are:
+  * ‘fast’ Fast COF, computes the full pairwise distance matrix up front.
+  * ‘memory’ Memory-efficient COF, computes pairwise distances only when needed at the cost of computational speed.
+
+
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id141 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1221)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1223)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1225)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+[n_neighbors_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1227): int
+    
+Number of neighbors to use by default for k neighbors queries. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id142 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id143 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cof.html#COF.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector. The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id144 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id145 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cof.html#COF.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id146 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id147 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id148 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id149 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id150 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id151 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id152 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id153 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id155 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id156 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id158 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id159 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id160 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id161 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.combination module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.combination "Link to this heading")
+A collection of model combination functionalities. 
+
+pyod.models.combination.aom(_scores_ , _n_buckets =5_, _method ='static'_, _bootstrap_estimators =False_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/combination.html#aom)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.aom "Link to this definition") 
+    
+Average of Maximum - An ensemble method for combining multiple estimators. See [[BAS15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1115 "Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17\(1\):24–47, 2015.")] for details.
+First dividing estimators into subgroups, take the maximum score as the subgroup score. Finally, take the average of all subgroup outlier scores.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id163 "Link to this heading") 
+
+scoresnumpy array of shape (n_samples, n_estimators) 
+    
+The score matrix outputted from various estimators 
+
+n_bucketsint, optional (default=5) 
+    
+The number of subgroups to build 
+
+methodstr, optional (default=’static’) 
+    
+{‘static’, ‘dynamic’}, if ‘dynamic’, build subgroups randomly with dynamic bucket size. 
+
+bootstrap_estimatorsbool, optional (default=False) 
+    
+Whether estimators are drawn with replacement. 
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id164 "Link to this heading") 
+
+combined_scoresNumpy array of shape (n_samples,) 
+    
+The combined outlier scores. 
+
+pyod.models.combination.average(_scores_ , _estimator_weights =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/combination.html#average)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.average "Link to this definition") 
+    
+Combination method to merge the outlier scores from multiple estimators by taking the average.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id165 "Link to this heading") 
+
+scoresnumpy array of shape (n_samples, n_estimators) 
+    
+Score matrix from multiple estimators on the same samples. 
+
+estimator_weightslist of shape (1, n_estimators) 
+    
+If specified, using weighted average
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id166 "Link to this heading") 
+
+combined_scoresnumpy array of shape (n_samples, ) 
+    
+The combined outlier scores. 
+
+pyod.models.combination.majority_vote(_scores_ , _weights =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/combination.html#majority_vote)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.majority_vote "Link to this definition") 
+    
+Combination method to merge the scores from multiple estimators by majority vote.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id167 "Link to this heading") 
+
+scoresnumpy array of shape (n_samples, n_estimators) 
+    
+Score matrix from multiple estimators on the same samples. 
+
+weightsnumpy array of shape (1, n_estimators) 
+    
+If specified, using weighted majority weight.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id168 "Link to this heading") 
+
+combined_scoresnumpy array of shape (n_samples, ) 
+    
+The combined scores. 
+
+pyod.models.combination.maximization(_scores_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/combination.html#maximization)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.maximization "Link to this definition") 
+    
+Combination method to merge the outlier scores from multiple estimators by taking the maximum.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id169 "Link to this heading") 
+
+scoresnumpy array of shape (n_samples, n_estimators) 
+    
+Score matrix from multiple estimators on the same samples.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id170 "Link to this heading") 
+
+combined_scoresnumpy array of shape (n_samples, ) 
+    
+The combined outlier scores. 
+
+pyod.models.combination.median(_scores_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/combination.html#median)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.median "Link to this definition") 
+    
+Combination method to merge the scores from multiple estimators by taking the median.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id171 "Link to this heading") 
+
+scoresnumpy array of shape (n_samples, n_estimators) 
+    
+Score matrix from multiple estimators on the same samples.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id172 "Link to this heading") 
+
+combined_scoresnumpy array of shape (n_samples, ) 
+    
+The combined scores. 
+
+pyod.models.combination.moa(_scores_ , _n_buckets =5_, _method ='static'_, _bootstrap_estimators =False_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/combination.html#moa)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.moa "Link to this definition") 
+    
+Maximization of Average - An ensemble method for combining multiple estimators. See [[BAS15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1115 "Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17\(1\):24–47, 2015.")] for details.
+First dividing estimators into subgroups, take the average score as the subgroup score. Finally, take the maximization of all subgroup outlier scores.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id174 "Link to this heading") 
+
+scoresnumpy array of shape (n_samples, n_estimators) 
+    
+The score matrix outputted from various estimators 
+
+n_bucketsint, optional (default=5) 
+    
+The number of subgroups to build 
+
+methodstr, optional (default=’static’) 
+    
+{‘static’, ‘dynamic’}, if ‘dynamic’, build subgroups randomly with dynamic bucket size. 
+
+bootstrap_estimatorsbool, optional (default=False) 
+    
+Whether estimators are drawn with replacement. 
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id175 "Link to this heading") 
+
+combined_scoresNumpy array of shape (n_samples,) 
+    
+The combined outlier scores.
+## pyod.models.cd module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.cd "Link to this heading")
+Cook’s distance outlier detection (CD) 
+
+_class_ pyod.models.cd.CD(_contamination =0.1_, _model =LinearRegression()_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cd.html#CD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector") 
+
+Cook’s distance can be used to identify points that negatively
+    
+affect a regression model. A combination of each observation’s leverage and residual values are used in the measurement. Higher leverage and residuals relate to higher Cook’s distances. Note that this method is unsupervised and requires at least two features for X with which to calculate the mean Cook’s distance for each datapoint. Read more in the [[BCoo77](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1155 "R Dennis Cook. Detection of influential observation in linear regression. Technometrics, 19\(1\):15–18, 1977.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id177 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+modelobject, optional (default=LinearRegression()) 
+    
+Regression model used to calculate the Cook’s distance
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id178 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1229)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1231)float 
+    
+The modified z-score to use as a threshold. Observations with a modified z-score (based on the median absolute deviation) greater than this value will be classified as outliers. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1233)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id179 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id180 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cd.html#CD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id181 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id182 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/cd.html#CD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.fit "Link to this definition") 
+    
+“Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id183 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id184 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id185 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id186 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id187 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id188 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id189 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id190 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id192 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id193 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id195 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id196 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id197 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id198 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.copod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.copod "Link to this heading")
+Copula Based Outlier Detector (COPOD) 
+
+_class_ pyod.models.copod.COPOD(_contamination =0.1_, _n_jobs =1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/copod.html#COPOD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+COPOD class for Copula Based Outlier Detector. COPOD is a parameter-free, highly interpretable outlier detection algorithm based on empirical copula models. See [[BLZB+20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1148 "Zheng Li, Yue Zhao, Nicola Botta, Cezar Ionescu, and Xiyang Hu. COPOD: copula-based outlier detection. In IEEE International Conference on Data Mining \(ICDM\). IEEE, 2020.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id200 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_jobsoptional (default=1) 
+    
+The number of jobs to run in parallel for both fit and predict. If -1, then the number of jobs is set to the number of cores.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id201 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1235)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1237)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1239)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id202 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id203 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/copod.html#COPOD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.decision_function "Link to this definition") 
+     
+
+Predict raw anomaly score of X using the fitted detector.
+    
+For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id204 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id205 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+explain_outlier(_ind_ , _columns =None_, _cutoffs =None_, _feature_names =None_, _file_name =None_, _file_type =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/copod.html#COPOD.explain_outlier)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.explain_outlier "Link to this definition") 
+    
+Plot dimensional outlier graph for a given data point within the dataset.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id206 "Link to this heading") 
+
+indint 
+    
+The index of the data point one wishes to obtain a dimensional outlier graph for. 
+
+columnslist 
+    
+Specify a list of features/dimensions for plotting. If not specified, use all features. 
+
+cutoffslist of floats in (0., 1), optional (default=[0.95, 0.99]) 
+    
+The significance cutoff bands of the dimensional outlier graph. 
+
+feature_nameslist of strings 
+    
+The display names of all columns of the dataset, to show on the x-axis of the plot. 
+
+file_namestring 
+    
+The name to save the figure 
+
+file_typestring 
+    
+The file type to save the figure
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id207 "Link to this heading") 
+
+Plotmatplotlib plot 
+    
+The dimensional outlier graph for data point with index ind. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/copod.html#COPOD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id208 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id209 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id210 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id211 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id212 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id213 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id214 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id215 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id216 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id218 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id219 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id221 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id222 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id223 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id224 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id225 "Link to this heading")
+self : object 
+
+pyod.models.copod.skew(_X_ , _axis =0_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/copod.html#skew)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.skew "Link to this definition") 
+
+## pyod.models.deep_svdd module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.deep_svdd "Link to this heading")
+Deep One-Class Classification for outlier detection 
+
+_class_ pyod.models.deep_svdd.DeepSVDD(_n_features_ , _c =None_, _use_ae =False_, _hidden_neurons =None_, _hidden_activation ='relu'_, _output_activation ='sigmoid'_, _optimizer ='adam'_, _epochs =100_, _batch_size =32_, _dropout_rate =0.2_, _l2_regularizer =0.1_, _validation_size =0.1_, _preprocessing =True_, _verbose =1_, _random_state =None_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/deep_svdd.html#DeepSVDD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Deep One-Class Classifier with AutoEncoder (AE) is a type of neural networks for learning useful data representations in an unsupervised way. DeepSVDD trains a neural network while minimizing the volume of a hypersphere that encloses the network representations of the data, forcing the network to extract the common factors of variation. Similar to PCA, DeepSVDD could be used to detect outlying objects in the data by calculating the distance from center See [[BRVG+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1151 "Lukas Ruff, Robert Vandermeulen, Nico Görnitz, Lucas Deecke, Shoaib Siddiqui, Alexander Binder, Emmanuel Müller, and Marius Kloft. Deep one-class classification. International conference on machine learning, 2018.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id227 "Link to this heading") 
+
+n_features: int, 
+    
+Number of features in the input data. 
+
+c: float, optional (default=’forwad_nn_pass’)
+    
+Deep SVDD center, the default will be calculated based on network initialization first forward pass. To get repeated results set random_state if c is set to None. 
+
+use_ae: bool, optional (default=False)
+    
+The AutoEncoder type of DeepSVDD it reverse neurons from hidden_neurons if set to True. 
+
+hidden_neuronslist, optional (default=[64, 32]) 
+    
+The number of neurons per hidden layers. if use_ae is True, neurons will be reversed eg. [64, 32] -> [64, 32, 32, 64, n_features] 
+
+hidden_activationstr, optional (default=’relu’) 
+    
+Activation function to use for hidden layers. All hidden layers are forced to use the same type of activation. See <https://keras.io/activations/> 
+
+output_activationstr, optional (default=’sigmoid’) 
+    
+Activation function to use for output layer. See <https://keras.io/activations/> 
+
+optimizerstr, optional (default=’adam’) 
+    
+String (name of optimizer) or optimizer instance. See <https://keras.io/optimizers/> 
+
+epochsint, optional (default=100) 
+    
+Number of epochs to train the model. 
+
+batch_sizeint, optional (default=32) 
+    
+Number of samples per gradient update. 
+
+dropout_ratefloat in (0., 1), optional (default=0.2) 
+    
+The dropout to be used across all layers. 
+
+l2_regularizerfloat in (0., 1), optional (default=0.1) 
+    
+The regularization strength of activity_regularizer applied on each layer. By default, l2 regularizer is used. See <https://keras.io/regularizers/> 
+
+validation_sizefloat in (0., 1), optional (default=0.1) 
+    
+The percentage of data to be used for validation. 
+
+preprocessingbool, optional (default=True) 
+    
+If True, apply standardization on the data. 
+
+random_staterandom_state: int, RandomState instance or None, optional 
+    
+(default=None) If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. When fitting this is used to define the threshold on the decision function.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id228 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1241)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1243)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1245)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id229 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id230 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/deep_svdd.html#DeepSVDD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id231 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id232 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/deep_svdd.html#DeepSVDD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id233 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id234 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id235 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id236 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id237 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id238 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id239 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id240 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id241 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id242 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id244 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id245 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id247 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id248 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id249 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id250 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id251 "Link to this heading")
+self : object
+## pyod.models.devnet module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.devnet "Link to this heading")
+Deep anomaly detection with deviation networks Part of the codes are adapted from <https://github.com/GuansongPang/deviation-network> 
+
+_class_ pyod.models.devnet.DevNet(_network_depth =2_, _batch_size =512_, _epochs =50_, _nb_batch =20_, _known_outliers =30_, _cont_rate =0.02_, _data_format =0_, _random_seed =42_, _device =None_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/devnet.html#DevNet)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector") 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id252 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id253 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/devnet.html#DevNet.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.decision_function "Link to this definition") 
+    
+Predict raw anomaly scores of X using the fitted detector.
+The anomaly score of an input sample is computed based on the fitted detector. For consistency, outliers are assigned with higher anomaly scores.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id254 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id255 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/devnet.html#DevNet.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id256 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id257 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id258 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id259 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/devnet.html#DevNet.fit_predict_score)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.fit_predict_score "Link to this definition") 
+    
+Fit the detector with labels, predict on samples, and evaluate the model by predefined metrics.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id260 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+ynumpy array of shape (n_samples,) 
+    
+The labels or target values corresponding to X. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric: - ‘roc_auc_score’: ROC score - ‘prc_n_score’: Precision @ rank n score
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id261 "Link to this heading")
+score : float 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id262 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id263 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id264 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id265 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id267 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id268 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id270 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id271 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id272 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id273 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id274 "Link to this heading")
+self : object
+## pyod.models.dif module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.dif "Link to this heading")
+Deep Isolation Forest for Anomaly Detection (DIF) 
+
+_class_ pyod.models.dif.DIF(_batch_size =1000_, _representation_dim =20_, _hidden_neurons =None_, _hidden_activation ='tanh'_, _skip_connection =False_, _n_ensemble =50_, _n_estimators =6_, _max_samples =256_, _contamination =0.1_, _random_state =None_, _device =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/dif.html#DIF)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Deep Isolation Forest (DIF) is an extension of iForest. It uses deep representation ensemble to achieve non-linear isolation on original data space. See [[BXPWW23](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1166 "Hongzuo Xu, Guansong Pang, Yijie Wang, and Yongjun Wang. Deep isolation forest for anomaly detection. IEEE Transactions on Knowledge and Data Engineering, \(\):1-14, 2023. doi:10.1109/TKDE.2023.3270293.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id276 "Link to this heading") 
+
+batch_sizeint, optional (default=1000) 
+    
+Number of samples per gradient update. 
+
+representation_dim, int, optional (default=20)
+    
+Dimensionality of the representation space. 
+
+hidden_neurons, list, optional (default=[64, 32])
+    
+The number of neurons per hidden layers. So the network has the structure as [n_features, hidden_neurons[0], hidden_neurons[1], …, representation_dim] 
+
+hidden_activation, str, optional (default=’tanh’)
+    
+Activation function to use for hidden layers. All hidden layers are forced to use the same type of activation. See <https://pytorch.org/docs/stable/nn.html> for details. Currently only ‘relu’: nn.ReLU() ‘sigmoid’: nn.Sigmoid() ‘tanh’: nn.Tanh() are supported. See pyod/utils/torch_utility.py for details. 
+
+skip_connection, boolean, optional (default=False)
+    
+If True, apply skip-connection in the neural network structure. 
+
+n_ensemble, int, optional (default=50)
+    
+The number of deep representation ensemble members. 
+
+n_estimators, int, optional (default=6)
+    
+The number of isolation forest of each representation. 
+
+max_samples, int, optional (default=256)
+    
+The number of samples to draw from X to train each base isolation tree. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+random_stateint or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If None, the random number generator is the RandomState instance used by np.random. 
+
+device, ‘cuda’, ‘cpu’, or None, optional (default=None)
+    
+if ‘cuda’, use GPU acceleration in torch if ‘cpu’, use cpu in torch if None, automatically determine whether GPU is available
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id277 "Link to this heading") 
+
+net_lstlist of torch.Module 
+    
+The list of representation neural networks. 
+
+iForest_lstlist of iForest 
+    
+The list of instantiated iForest model. 
+
+x_reduced_lst: list of numpy array
+    
+The list of training data representations 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1247)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1249)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1251)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id278 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id279 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/dif.html#DIF.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id280 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id281 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/dif.html#DIF.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id282 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id283 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id284 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id285 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id286 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id287 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id288 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id289 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id290 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id291 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id293 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id294 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id296 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id297 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id298 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id299 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id300 "Link to this heading")
+self : object
+## pyod.models.ecod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.ecod "Link to this heading")
+Unsupervised Outlier Detection Using Empirical Cumulative Distribution Functions (ECOD) 
+
+_class_ pyod.models.ecod.ECOD(_contamination =0.1_, _n_jobs =1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ecod.html#ECOD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+ECOD class for Unsupervised Outlier Detection Using Empirical Cumulative Distribution Functions (ECOD) ECOD is a parameter-free, highly interpretable outlier detection algorithm based on empirical CDF functions. See [[BLZH+22](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1154 "Zheng Li, Yue Zhao, Xiyang Hu, Nicola Botta, Cezar Ionescu, and H. George Chen. Ecod: unsupervised outlier detection using empirical cumulative distribution functions. IEEE Transactions on Knowledge and Data Engineering, 2022.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id302 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_jobsoptional (default=1) 
+    
+The number of jobs to run in parallel for both fit and predict. If -1, then the number of jobs is set to the number of cores.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id303 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1253)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1255)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1257)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id304 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id305 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ecod.html#ECOD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.decision_function "Link to this definition") 
+     
+
+Predict raw anomaly score of X using the fitted detector.
+    
+For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id306 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id307 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+explain_outlier(_ind_ , _columns =None_, _cutoffs =None_, _feature_names =None_, _file_name =None_, _file_type =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ecod.html#ECOD.explain_outlier)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.explain_outlier "Link to this definition") 
+    
+Plot dimensional outlier graph for a given data point within the dataset.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id308 "Link to this heading") 
+
+indint 
+    
+The index of the data point one wishes to obtain a dimensional outlier graph for. 
+
+columnslist 
+    
+Specify a list of features/dimensions for plotting. If not specified, use all features. 
+
+cutoffslist of floats in (0., 1), optional (default=[0.95, 0.99]) 
+    
+The significance cutoff bands of the dimensional outlier graph. 
+
+feature_nameslist of strings 
+    
+The display names of all columns of the dataset, to show on the x-axis of the plot. 
+
+file_namestring 
+    
+The name to save the figure 
+
+file_typestring 
+    
+The file type to save the figure
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id309 "Link to this heading") 
+
+Plotmatplotlib plot 
+    
+The dimensional outlier graph for data point with index ind. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ecod.html#ECOD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id310 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id311 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id312 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id313 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id314 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id315 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id316 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id317 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id318 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id320 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id321 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id323 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id324 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id325 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id326 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id327 "Link to this heading")
+self : object 
+
+pyod.models.ecod.skew(_X_ , _axis =0_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ecod.html#skew)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.skew "Link to this definition") 
+
+## pyod.models.feature_bagging module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.feature_bagging "Link to this heading")
+Feature bagging detector 
+
+_class_ pyod.models.feature_bagging.FeatureBagging(_base_estimator =None_, _n_estimators =10_, _contamination =0.1_, _max_features =1.0_, _bootstrap_features =False_, _check_detector =True_, _check_estimator =False_, _n_jobs =1_, _random_state =None_, _combination ='average'_, _verbose =0_, _estimator_params =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/feature_bagging.html#FeatureBagging)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+A feature bagging detector is a meta estimator that fits a number of base detectors on various sub-samples of the dataset and use averaging or other combination methods to improve the predictive accuracy and control over-fitting.
+The sub-sample size is always the same as the original input sample size but the features are randomly sampled from half of the features to all features.
+By default, LOF is used as the base estimator. However, any estimator could be used as the base estimator, such as kNN and ABOD.
+Feature bagging first construct n subsamples by random selecting a subset of features, which induces the diversity of base estimators.
+Finally, the prediction score is generated by averaging/taking the maximum of all base detectors. See [[BLK05](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1119 "Aleksandar Lazarevic and Vipin Kumar. Feature bagging for outlier detection. In Proceedings of the eleventh ACM SIGKDD international conference on Knowledge discovery in data mining, 157–166. ACM, 2005.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id329 "Link to this heading") 
+
+base_estimatorobject or None, optional (default=None) 
+    
+The base estimator to fit on random subsets of the dataset. If None, then the base estimator is a LOF detector. 
+
+n_estimatorsint, optional (default=10) 
+    
+The number of base estimators in the ensemble. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+max_featuresint or float, optional (default=1.0) 
+    
+The number of features to draw from X to train each base estimator.
+  * If int, then draw max_features features.
+  * If float, then draw max_features * X.shape[1] features.
+
+
+
+bootstrap_featuresbool, optional (default=False) 
+    
+Whether features are drawn with replacement. 
+
+check_detectorbool, optional (default=True) 
+    
+If set to True, check whether the base estimator is consistent with pyod standard. 
+
+check_estimatorbool, optional (default=False) 
+    
+If set to True, check whether the base estimator is consistent with sklearn standard.
+Deprecated since version 0.6.9: check_estimator will be removed in pyod 0.8.0.; it will be replaced by check_detector. 
+
+n_jobsoptional (default=1) 
+    
+The number of jobs to run in parallel for both fit and predict. If -1, then the number of jobs is set to the number of cores. 
+
+random_stateint, RandomState or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random. 
+
+combinationstr, optional (default=’average’) 
+    
+The method of combination:
+  * if ‘average’: take the average of all detectors
+  * if ‘max’: take the maximum scores of all detectors
+
+
+
+verboseint, optional (default=0) 
+    
+Controls the verbosity of the building process. 
+
+estimator_paramsdict, optional (default=None) 
+    
+The list of attributes to use as parameters when instantiating a new base estimator. If none are given, default parameters are used.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id330 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1259)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1261)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1263)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id331 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id332 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/feature_bagging.html#FeatureBagging.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id333 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id334 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/feature_bagging.html#FeatureBagging.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id335 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id336 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id337 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id338 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id339 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id340 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id341 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id342 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id343 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id344 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id346 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id347 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id349 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id350 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id351 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id352 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id353 "Link to this heading")
+self : object
+## pyod.models.gmm module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.gmm "Link to this heading")
+Outlier detection based on Gaussian Mixture Model (GMM). 
+
+_class_ pyod.models.gmm.GMM(_n_components =1_, _covariance_type ='full'_, _tol =0.001_, _reg_covar =1e-06_, _max_iter =100_, _n_init =1_, _init_params ='kmeans'_, _weights_init =None_, _means_init =None_, _precisions_init =None_, _random_state =None_, _warm_start =False_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/gmm.html#GMM)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Wrapper of scikit-learn Gaussian Mixture Model with more functionalities. Unsupervised Outlier Detection.
+See [[BAgg15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1122 "Charu C Aggarwal. Outlier analysis. In Data mining, 75–79. Springer, 2015.")] Chapter 2 for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id355 "Link to this heading") 
+
+n_componentsint, default=1 
+    
+The number of mixture components. 
+
+covariance_type{‘full’, ‘tied’, ‘diag’, ‘spherical’}, default=’full’ 
+    
+String describing the type of covariance parameters to use. 
+
+tolfloat, default=1e-3 
+    
+The convergence threshold. EM iterations will stop when the lower bound average gain is below this threshold. 
+
+reg_covarfloat, default=1e-6 
+    
+Non-negative regularization added to the diagonal of covariance. Allows to assure that the covariance matrices are all positive. 
+
+max_iterint, default=100 
+    
+The number of EM iterations to perform. 
+
+n_initint, default=1 
+    
+The number of initializations to perform. The best results are kept. 
+
+init_params{‘kmeans’, ‘random’}, default=’kmeans’ 
+    
+The method used to initialize the weights, the means and the precisions. 
+
+weights_initarray-like of shape (n_components, ), default=None 
+    
+The user-provided initial weights. If it is None, weights are initialized using the init_params method. 
+
+means_initarray-like of shape (n_components, n_features), default=None 
+    
+The user-provided initial means, If it is None, means are initialized using the init_params method. 
+
+precisions_initarray-like, default=None 
+    
+The user-provided initial precisions (inverse of the covariance matrices). If it is None, precisions are initialized using the ‘init_params’ method. 
+
+random_stateint, RandomState instance or None, default=None 
+    
+Controls the random seed given to the method chosen to initialize the parameters. 
+
+warm_startbool, default=False 
+    
+If ‘warm_start’ is True, the solution of the last fitting is used as initialization for the next call of fit(). 
+
+verboseint, default=0 
+    
+Enable verbose output. 
+
+verbose_intervalint, default=10 
+    
+Number of iteration done before the next print. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id356 "Link to this heading") 
+
+[weights_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1265)array-like of shape (n_components,) 
+    
+The weights of each mixture components. 
+
+[means_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1267)array-like of shape (n_components, n_features) 
+    
+The mean of each mixture component. 
+
+[covariances_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1269)array-like 
+    
+The covariance of each mixture component. 
+
+[precisions_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1271)array-like 
+    
+The precision matrices for each component in the mixture. 
+
+[precisions_cholesky_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1273)array-like 
+    
+The cholesky decomposition of the precision matrices of each mixture component. 
+
+[converged_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1275)bool 
+    
+True when convergence was reached in fit(), False otherwise. 
+
+[n_iter_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1277)int 
+    
+Number of step used by the best fit of EM to reach the convergence. 
+
+[lower_bound_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1279)float 
+    
+Lower bound value on the log-likelihood (of the training data with respect to the model) of the best fit of EM. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1281)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1283)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1285)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id357 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id358 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/gmm.html#GMM.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id359 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id360 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/gmm.html#GMM.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id361 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+sample_weightarray-like, shape (n_samples,) 
+    
+Per-sample weights. Rescale C per sample. Higher weights force the classifier to put more emphasis on these points.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id362 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id363 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id364 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id365 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id366 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+_property_ precisions_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.precisions_ "Link to this definition") 
+    
+The precision matrices for each component in the mixture. Decorator for scikit-learn Gaussian Mixture Model attributes. 
+
+_property_ precisions_cholesky_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.precisions_cholesky_ "Link to this definition") 
+     
+
+The cholesky decomposition of the precision matrices
+    
+of each mixture component.
+Decorator for scikit-learn Gaussian Mixture Model attributes. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id367 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id368 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id370 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id371 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id373 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id374 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id375 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id376 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.hbos module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.hbos "Link to this heading")
+Histogram-based Outlier Detection (HBOS) 
+
+_class_ pyod.models.hbos.HBOS(_n_bins =10_, _alpha =0.1_, _tol =0.5_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/hbos.html#HBOS)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Histogram- based outlier detection (HBOS) is an efficient unsupervised method. It assumes the feature independence and calculates the degree of outlyingness by building histograms. See [[BGD12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1120 "Markus Goldstein and Andreas Dengel. Histogram-based outlier score \(hbos\): a fast unsupervised anomaly detection algorithm. KI-2012: Poster and Demo Track, pages 59–63, 2012.")] for details.
+Two versions of HBOS are supported: - Static number of bins: uses a static number of bins for all features. - Automatic number of bins: every feature uses a number of bins deemed to
+> be optimal according to the Birge-Rozenblac method ([[BBirgeR06](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1152 "Lucien Birgé and Yves Rozenholc. How many bins should be put in a regular histogram. ESAIM: Probability and Statistics, 10:24–45, 2006.")]).
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id379 "Link to this heading") 
+
+n_binsint or string, optional (default=10) 
+    
+The number of bins. “auto” uses the birge-rozenblac method for automatic selection of the optimal number of bins for each feature. 
+
+alphafloat in (0, 1), optional (default=0.1) 
+    
+The regularizer for preventing overflow. 
+
+tolfloat in (0, 1), optional (default=0.5) 
+    
+The parameter to decide the flexibility while dealing the samples falling outside the bins. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id380 "Link to this heading") 
+
+[bin_edges_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1287)numpy array of shape (n_bins + 1, n_features ) 
+    
+The edges of the bins. 
+
+[hist_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1289)numpy array of shape (n_bins, n_features) 
+    
+The density of each histogram. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1291)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1293)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1295)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id381 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id382 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/hbos.html#HBOS.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id383 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id384 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/hbos.html#HBOS.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id385 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id386 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id387 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id388 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id389 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id390 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id391 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id392 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id393 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id394 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id396 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id397 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id399 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id400 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id401 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id402 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id403 "Link to this heading")
+self : object
+## pyod.models.iforest module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.iforest "Link to this heading")
+IsolationForest Outlier Detector. Implemented on scikit-learn library. 
+
+_class_ pyod.models.iforest.IForest(_n_estimators =100_, _max_samples ='auto'_, _contamination =0.1_, _max_features =1.0_, _bootstrap =False_, _n_jobs =1_, _behaviour ='old'_, _random_state =None_, _verbose =0_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/iforest.html#IForest)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Wrapper of scikit-learn Isolation Forest with more functionalities.
+The IsolationForest ‘isolates’ observations by randomly selecting a feature and then randomly selecting a split value between the maximum and minimum values of the selected feature. See [[BLTZ08](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1112 "Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Isolation forest. In Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on, 413–422. IEEE, 2008."), [BLTZ12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1113 "Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Isolation-based anomaly detection. ACM Transactions on Knowledge Discovery from Data \(TKDD\), 6\(1\):3, 2012.")] for details.
+Since recursive partitioning can be represented by a tree structure, the number of splittings required to isolate a sample is equivalent to the path length from the root node to the terminating node.
+This path length, averaged over a forest of such random trees, is a measure of normality and our decision function.
+Random partitioning produces noticeably shorter paths for anomalies. Hence, when a forest of random trees collectively produce shorter path lengths for particular samples, they are highly likely to be anomalies.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id405 "Link to this heading") 
+
+n_estimatorsint, optional (default=100) 
+    
+The number of base estimators in the ensemble. 
+
+max_samplesint or float, optional (default=”auto”) 
+    
+The number of samples to draw from X to train each base estimator.
+>   * If int, then draw max_samples samples.
+>   * If float, then draw max_samples * X.shape[0] samples.
+>   * If “auto”, then max_samples=min(256, n_samples).
+> 
+
+If max_samples is larger than the number of samples provided, all samples will be used for all trees (no sampling). 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+max_featuresint or float, optional (default=1.0) 
+    
+The number of features to draw from X to train each base estimator.
+>   * If int, then draw max_features features.
+>   * If float, then draw max_features * X.shape[1] features.
+> 
+
+
+bootstrapbool, optional (default=False) 
+    
+If True, individual trees are fit on random subsets of the training data sampled with replacement. If False, sampling without replacement is performed. 
+
+n_jobsinteger, optional (default=1) 
+    
+The number of jobs to run in parallel for both fit and predict. If -1, then the number of jobs is set to the number of cores. 
+
+behaviourstr, default=’old’ 
+    
+Behaviour of the `decision_function` which can be either ‘old’ or ‘new’. Passing `behaviour='new'` makes the `decision_function` change to match other anomaly detection algorithm API which will be the default behaviour in the future. As explained in details in the `offset_` attribute documentation, the `decision_function` becomes dependent on the contamination parameter, in such a way that 0 becomes its natural threshold to detect outliers.
+Added in version 0.7.0: `behaviour` is added in 0.7.0 for back-compatibility purpose.
+Deprecated since version 0.20: `behaviour='old'` is deprecated in sklearn 0.20 and will not be possible in 0.22.
+Deprecated since version 0.22: `behaviour` parameter will be deprecated in sklearn 0.22 and removed in 0.24.
+Warning
+Only applicable for sklearn 0.20 above. 
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random. 
+
+verboseint, optional (default=0) 
+    
+Controls the verbosity of the tree building process.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id406 "Link to this heading") 
+
+[estimators_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1297)list of DecisionTreeClassifier 
+    
+The collection of fitted sub-estimators. 
+
+[estimators_samples_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1299)list of arrays 
+    
+The subset of drawn samples (i.e., the in-bag samples) for each base estimator. 
+
+[max_samples_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1301)integer 
+    
+The actual number of samples 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1303)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1305)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1307)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id407 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id408 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/iforest.html#IForest.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id409 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id410 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+_property_ feature_importances_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.feature_importances_ "Link to this definition") 
+    
+The impurity-based feature importance. The higher, the more important the feature. The importance of a feature is computed as the (normalized) total reduction of the criterion brought by that feature. It is also known as the Gini importance.
+impurity-based feature importance can be misleading for high cardinality features (many unique values). See <https://scikit-learn.org/stable/modules/generated/sklearn.inspection.permutation_importance.html> as an alternative.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id411 "Link to this heading") 
+
+[feature_importances_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1309)ndarray of shape (n_features,) 
+    
+The values of this array sum to 1, unless all trees are single node trees consisting of only the root node, in which case it will be an array of zeros. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/iforest.html#IForest.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id412 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id413 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id414 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id415 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id416 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id417 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+_property_ max_samples_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.max_samples_ "Link to this definition") 
+    
+The actual number of samples. Decorator for scikit-learn Isolation Forest attributes. 
+
+_property_ n_features_in_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.n_features_in_ "Link to this definition") 
+    
+The number of features seen during the fit. Decorator for scikit-learn Isolation Forest attributes. 
+
+_property_ offset_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.offset_ "Link to this definition") 
+    
+Offset used to define the decision function from the raw scores. Decorator for scikit-learn Isolation Forest attributes. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id418 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id419 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id421 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id422 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id424 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id425 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id426 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id427 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True;
+## pyod.models.inne module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.inne "Link to this heading")
+Isolation-based anomaly detection using nearest-neighbor ensembles. Part of the codes are adapted from <https://github.com/xhan97/inne> 
+
+_class_ pyod.models.inne.INNE(_n_estimators =200_, _max_samples ='auto'_, _contamination =0.1_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/inne.html#INNE)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Isolation-based anomaly detection using nearest-neighbor ensembles.
+The INNE algorithm uses the nearest neighbour ensemble to isolate anomalies. It partitions the data space into regions using a subsample and determines an isolation score for each region. As each region adapts to local distribution, the calculated isolation score is a local measure that is relative to the local neighbourhood, enabling it to detect both global and local anomalies. INNE has linear time complexity to efficiently handle large and high-dimensional datasets with complex distributions.
+See [[BBTA+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1158 "Tharindu R Bandaragoda, Kai Ming Ting, David Albrecht, Fei Tony Liu, Ye Zhu, and Jonathan R Wells. Isolation-based anomaly detection using nearest-neighbor ensembles. Computational Intelligence, 34\(4\):968–998, 2018.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id429 "Link to this heading") 
+
+n_estimatorsint, default=200 
+    
+The number of base estimators in the ensemble. 
+
+max_samplesint or float, optional (default=”auto”) 
+    
+The number of samples to draw from X to train each base estimator.
+>   * If int, then draw max_samples samples.
+>   * If float, then draw max_samples * X.shape[0]` samples.
+>   * If “auto”, then max_samples=min(8, n_samples).
+> 
+
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id430 "Link to this heading") 
+
+[max_samples_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1311)integer 
+    
+The actual number of samples 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1313)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1315)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1317)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id431 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id432 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/inne.html#INNE.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id433 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id434 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/inne.html#INNE.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id435 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id436 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id437 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id438 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id439 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id440 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id441 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id442 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id443 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id444 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id446 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id447 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id449 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id450 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id451 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id452 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id453 "Link to this heading")
+self : object
+## pyod.models.kde module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.kde "Link to this heading")
+Kernel Density Estimation (KDE) for Unsupervised Outlier Detection. 
+
+_class_ pyod.models.kde.KDE(_contamination =0.1_, _bandwidth =1.0_, _algorithm ='auto'_, _leaf_size =30_, _metric ='minkowski'_, _metric_params =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/kde.html#KDE)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+KDE class for outlier detection.
+For an observation, its negative log probability density could be viewed as the outlying score.
+See [[BLLP07](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1156 "Longin Jan Latecki, Aleksandar Lazarevic, and Dragoljub Pokrajac. Outlier detection with kernel density functions. In International Workshop on Machine Learning and Data Mining in Pattern Recognition, 61–75. Springer, 2007.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id455 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+bandwidthfloat, optional (default=1.0) 
+    
+The bandwidth of the kernel. 
+
+algorithm{‘auto’, ‘ball_tree’, ‘kd_tree’}, optional 
+    
+Algorithm used to compute the kernel density estimator:
+  * ‘ball_tree’ will use BallTree
+  * ‘kd_tree’ will use KDTree
+  * ‘auto’ will attempt to decide the most appropriate algorithm based on the values passed to [`fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit "pyod.models.kde.KDE.fit") method.
+
+
+
+leaf_sizeint, optional (default = 30) 
+    
+Leaf size passed to BallTree. This can affect the speed of the construction and query, as well as the memory required to store the tree. The optimal value depends on the nature of the problem. 
+
+metricstring or callable, default ‘minkowski’ 
+    
+metric to use for distance computation. Any metric from scikit-learn or scipy.spatial.distance can be used.
+If metric is a callable function, it is called on each pair of instances (rows) and the resulting value recorded. The callable should take two arrays as input and return one value indicating the distance between them. This works for Scipy’s metrics, but is less efficient than passing the metric name as a string.
+Distance matrices are not supported.
+Valid values for metric are:
+  * from scikit-learn: [‘cityblock’, ‘cosine’, ‘euclidean’, ‘l1’, ‘l2’, ‘manhattan’]
+  * from scipy.spatial.distance: [‘braycurtis’, ‘canberra’, ‘chebyshev’, ‘correlation’, ‘dice’, ‘hamming’, ‘jaccard’, ‘kulsinski’, ‘mahalanobis’, ‘matching’, ‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’, ‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’]
+
+
+See the documentation for scipy.spatial.distance for details on these metrics. 
+
+metric_paramsdict, optional (default = None) 
+    
+Additional keyword arguments for the metric function.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id456 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1319)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1321)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1323)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id457 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id458 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/kde.html#KDE.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id459 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id460 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/kde.html#KDE.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id461 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id462 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id463 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id464 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id465 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id466 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id467 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id468 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id469 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id470 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id472 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id473 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id475 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id476 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id477 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id478 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id479 "Link to this heading")
+self : object
+## pyod.models.knn module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.knn "Link to this heading")
+k-Nearest Neighbors Detector (kNN) 
+
+_class_ pyod.models.knn.KNN(_contamination =0.1_, _n_neighbors =5_, _method ='largest'_, _radius =1.0_, _algorithm ='auto'_, _leaf_size =30_, _metric ='minkowski'_, _p =2_, _metric_params =None_, _n_jobs =1_, _** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/knn.html#KNN)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+kNN class for outlier detection. For an observation, its distance to its kth nearest neighbor could be viewed as the outlying score. It could be viewed as a way to measure the density. See [[BAP02](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1117 "Fabrizio Angiulli and Clara Pizzuti. Fast outlier detection in high dimensional spaces. In European Conference on Principles of Data Mining and Knowledge Discovery, 15–27. Springer, 2002."), [BRRS00](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1116 "Sridhar Ramaswamy, Rajeev Rastogi, and Kyuseok Shim. Efficient algorithms for mining outliers from large data sets. In ACM Sigmod Record, volume 29, 427–438. ACM, 2000.")] for details.
+Three kNN detectors are supported: largest: use the distance to the kth neighbor as the outlier score mean: use the average of all k neighbors as the outlier score median: use the median of the distance to k neighbors as the outlier score
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id481 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_neighborsint, optional (default = 5) 
+    
+Number of neighbors to use by default for k neighbors queries. 
+
+methodstr, optional (default=’largest’) 
+    
+{‘largest’, ‘mean’, ‘median’}
+  * ‘largest’: use the distance to the kth neighbor as the outlier score
+  * ‘mean’: use the average of all k neighbors as the outlier score
+  * ‘median’: use the median of the distance to k neighbors as the outlier score
+
+
+
+radiusfloat, optional (default = 1.0) 
+    
+Range of parameter space to use by default for radius_neighbors queries. 
+
+algorithm{‘auto’, ‘ball_tree’, ‘kd_tree’, ‘brute’}, optional 
+    
+Algorithm used to compute the nearest neighbors:
+  * ‘ball_tree’ will use BallTree
+  * ‘kd_tree’ will use KDTree
+  * ‘brute’ will use a brute-force search.
+  * ‘auto’ will attempt to decide the most appropriate algorithm based on the values passed to [`fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit "pyod.models.knn.KNN.fit") method.
+
+
+Note: fitting on sparse input will override the setting of this parameter, using brute force.
+Deprecated since version 0.74: `algorithm` is deprecated in PyOD 0.7.4 and will not be possible in 0.7.6. It has to use BallTree for consistency. 
+
+leaf_sizeint, optional (default = 30) 
+    
+Leaf size passed to BallTree. This can affect the speed of the construction and query, as well as the memory required to store the tree. The optimal value depends on the nature of the problem. 
+
+metricstring or callable, default ‘minkowski’ 
+    
+metric to use for distance computation. Any metric from scikit-learn or scipy.spatial.distance can be used.
+If metric is a callable function, it is called on each pair of instances (rows) and the resulting value recorded. The callable should take two arrays as input and return one value indicating the distance between them. This works for Scipy’s metrics, but is less efficient than passing the metric name as a string.
+Distance matrices are not supported.
+Valid values for metric are:
+  * from scikit-learn: [‘cityblock’, ‘euclidean’, ‘l1’, ‘l2’, ‘manhattan’]
+  * from scipy.spatial.distance: [‘braycurtis’, ‘canberra’, ‘chebyshev’, ‘correlation’, ‘dice’, ‘hamming’, ‘jaccard’, ‘kulsinski’, ‘mahalanobis’, ‘matching’, ‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’, ‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’]
+
+
+See the documentation for scipy.spatial.distance for details on these metrics. 
+
+pinteger, optional (default = 2) 
+    
+Parameter for the Minkowski metric from sklearn.metrics.pairwise.pairwise_distances. When p = 1, this is equivalent to using manhattan_distance (l1), and euclidean_distance (l2) for p = 2. For arbitrary p, minkowski_distance (l_p) is used. See <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.pairwise_distances> 
+
+metric_paramsdict, optional (default = None) 
+    
+Additional keyword arguments for the metric function. 
+
+n_jobsint, optional (default = 1) 
+    
+The number of parallel jobs to run for neighbors search. If `-1`, then the number of jobs is set to the number of CPU cores. Affects only kneighbors and kneighbors_graph methods.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id482 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1325)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1327)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1329)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id483 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id484 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/knn.html#KNN.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id485 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id486 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/knn.html#KNN.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id487 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id488 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id489 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id490 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id491 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id492 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id493 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id494 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id495 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id496 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id498 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id499 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id501 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id502 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id503 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id504 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id505 "Link to this heading")
+self : object
+## pyod.models.kpca module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.kpca "Link to this heading")
+Kernel Principal Component Analysis (KPCA) Outlier Detector 
+
+_class_ pyod.models.kpca.KPCA(_contamination =0.1_, _n_components =None_, _n_selected_components =None_, _kernel ='rbf'_, _gamma =None_, _degree =3_, _coef0 =1_, _kernel_params =None_, _alpha =1.0_, _eigen_solver ='auto'_, _tol =0_, _max_iter =None_, _remove_zero_eig =False_, _copy_X =True_, _n_jobs =None_, _sampling =False_, _subset_size =20_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/kpca.html#KPCA)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+KPCA class for outlier detection.
+PCA is performed on the feature space uniquely determined by the kernel, and the reconstruction error on the feature space is used as the anomaly score.
+See [[BHof07](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1164 "Heiko Hoffmann. Kernel pca for novelty detection. Pattern recognition, 40\(3\):863–874, 2007.")] Heiko Hoffmann, “Kernel PCA for novelty detection,” Pattern Recognition, vol.40, no.3, pp. 863-874, 2007. <https://www.sciencedirect.com/science/article/pii/S0031320306003414> for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id507 "Link to this heading") 
+
+n_componentsint, optional (default=None) 
+    
+Number of components. If None, all non-zero components are kept. 
+
+n_selected_componentsint, optional (default=None) 
+    
+Number of selected principal components for calculating the outlier scores. It is not necessarily equal to the total number of the principal components. If not set, use all principal components. 
+
+kernelstring {‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, 
+    
+> ‘cosine’, ‘precomputed’}, optional (default=’rbf’)
+Kernel used for PCA. 
+
+gammafloat, optional (default=None) 
+    
+Kernel coefficient for rbf, poly and sigmoid kernels. Ignored by other kernels. If `gamma` is `None`, then it is set to `1/n_features`. 
+
+degreeint, optional (default=3) 
+    
+Degree for poly kernels. Ignored by other kernels. 
+
+coef0float, optional (default=1) 
+    
+Independent term in poly and sigmoid kernels. Ignored by other kernels. 
+
+kernel_paramsdict, optional (default=None) 
+    
+Parameters (keyword arguments) and values for kernel passed as callable object. Ignored by other kernels. 
+
+alphafloat, optional (default=1.0) 
+    
+Hyperparameter of the ridge regression that learns the inverse transform (when inverse_transform=True). 
+
+eigen_solverstring, {‘auto’, ‘dense’, ‘arpack’, ‘randomized’}, default=’auto’ 
+    
+Select eigensolver to use. If n_components is much less than the number of training samples, randomized (or arpack to a smaller extend) may be more efficient than the dense eigensolver. Randomized SVD is performed according to the method of Halko et al. 
+
+auto :
+    
+the solver is selected by a default policy based on n_samples (the number of training samples) and n_components: if the number of components to extract is less than 10 (strict) and the number of samples is more than 200 (strict), the ‘arpack’ method is enabled. Otherwise the exact full eigenvalue decomposition is computed and optionally truncated afterwards (‘dense’ method). 
+
+dense :
+    
+run exact full eigenvalue decomposition calling the standard LAPACK solver via scipy.linalg.eigh, and select the components by postprocessing. 
+
+arpack :
+    
+run SVD truncated to n_components calling ARPACK solver using scipy.sparse.linalg.eigsh. It requires strictly 0 < n_components < n_samples 
+
+randomized :
+    
+run randomized SVD. implementation selects eigenvalues based on their module; therefore using this method can lead to unexpected results if the kernel is not positive semi-definite. 
+
+tolfloat, optional (default=0) 
+    
+Convergence tolerance for arpack. If 0, optimal value will be chosen by arpack. 
+
+max_iterint, optional (default=None) 
+    
+Maximum number of iterations for arpack. If None, optimal value will be chosen by arpack. 
+
+remove_zero_eigbool, optional (default=False) 
+    
+If True, then all components with zero eigenvalues are removed, so that the number of components in the output may be < n_components (and sometimes even zero due to numerical instability). When n_components is None, this parameter is ignored and components with zero eigenvalues are removed regardless. 
+
+copy_Xbool, optional (default=True) 
+    
+If True, input X is copied and stored by the model in the X_fit_ attribute. If no further changes will be done to X, setting copy_X=False saves memory by storing a reference. 
+
+n_jobsint, optional (default=None) 
+    
+The number of parallel jobs to run. `None` means 1 unless in a `joblib.parallel_backend` context. `-1` means using all processors. 
+
+samplingbool, optional (default=False) 
+    
+If True, sampling subset from the dataset is performed only once, in order to reduce time complexity while keeping detection performance. 
+
+subset_sizefloat in (0., 1.0) or int (0, n_samples), optional (default=20) 
+    
+If sampling is True, the size of subset is specified. 
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id508 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1331)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1333)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1335)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id509 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id510 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/kpca.html#KPCA.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id511 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id512 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/kpca.html#KPCA.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id513 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id514 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id515 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id516 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id517 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id518 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id519 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id520 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id521 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id522 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id524 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id525 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id527 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id528 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id529 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id530 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id531 "Link to this heading")
+self : object
+## pyod.models.lmdd module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lmdd "Link to this heading")
+Linear Model Deviation-base outlier detection (LMDD). 
+
+_class_ pyod.models.lmdd.LMDD(_contamination =0.1_, _n_iter =50_, _dis_measure ='aad'_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lmdd.html#LMDD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Linear Method for Deviation-based Outlier Detection.
+LMDD employs the concept of the smoothing factor which indicates how much the dissimilarity can be reduced by removing a subset of elements from the data-set. Read more in the [[BAAR96](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1143 "Andreas Arning, Rakesh Agrawal, and Prabhakar Raghavan. A linear method for deviation detection in large databases. In KDD, volume 1141, 972–981. 1996.")].
+Note: this implementation has minor modification to make it output scores instead of labels.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id533 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_iterint, optional (default=50) 
+    
+Number of iterations where in each iteration, the process is repeated after randomizing the order of the input. Note that n_iter is a very important factor that affects the accuracy. The higher the better the accuracy and the longer the execution. 
+
+dis_measure: str, optional (default=’aad’)
+    
+Dissimilarity measure to be used in calculating the smoothing factor for points, options available:
+  * ‘aad’: Average Absolute Deviation
+  * ‘var’: Variance
+  * ‘iqr’: Interquartile Range
+
+
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id534 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1337)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1339)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1341)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id535 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id536 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lmdd.html#LMDD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id537 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id538 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lmdd.html#LMDD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id539 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id540 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id541 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id542 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id543 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id544 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id545 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id546 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id547 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id548 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id550 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id551 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id553 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id554 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id555 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id556 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id557 "Link to this heading")
+self : object
+## pyod.models.loda module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.loda "Link to this heading")
+Loda: Lightweight on-line detector of anomalies Adapted from tilitools (<https://github.com/nicococo/tilitools>) by 
+
+_class_ pyod.models.loda.LODA(_contamination =0.1_, _n_bins =10_, _n_random_cuts =100_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/loda.html#LODA)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Loda: Lightweight on-line detector of anomalies. See [[BPevny16](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1145 "Tomáš Pevn\\`y. Loda: lightweight on-line detector of anomalies. Machine Learning, 102\(2\):275–304, 2016.")] for more information.
+Two versions of LODA are supported: - Static number of bins: uses a static number of bins for all random cuts. - Automatic number of bins: every random cut uses a number of bins deemed
+> to be optimal according to the Birge-Rozenblac method ([[BBirgeR06](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1152 "Lucien Birgé and Yves Rozenholc. How many bins should be put in a regular histogram. ESAIM: Probability and Statistics, 10:24–45, 2006.")]).
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id560 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_binsint or string, optional (default = 10) 
+    
+The number of bins for the histogram. If set to “auto”, the Birge-Rozenblac method will be used to automatically determine the optimal number of bins. 
+
+n_random_cutsint, optional (default = 100) 
+    
+The number of random cuts.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id561 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1343)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1345)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1347)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id562 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id563 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/loda.html#LODA.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id564 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id565 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/loda.html#LODA.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id566 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id567 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id568 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id569 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id570 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id571 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id572 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id573 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id574 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id575 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id577 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id578 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id580 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id581 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id582 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id583 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id584 "Link to this heading")
+self : object
+## pyod.models.lof module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lof "Link to this heading")
+Local Outlier Factor (LOF). Implemented on scikit-learn library. 
+
+_class_ pyod.models.lof.LOF(_n_neighbors =20_, _algorithm ='auto'_, _leaf_size =30_, _metric ='minkowski'_, _p =2_, _metric_params =None_, _contamination =0.1_, _n_jobs =1_, _novelty =True_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lof.html#LOF)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Wrapper of scikit-learn LOF Class with more functionalities. Unsupervised Outlier Detection using Local Outlier Factor (LOF).
+The anomaly score of each sample is called Local Outlier Factor. It measures the local deviation of density of a given sample with respect to its neighbors. It is local in that the anomaly score depends on how isolated the object is with respect to the surrounding neighborhood. More precisely, locality is given by k-nearest neighbors, whose distance is used to estimate the local density. By comparing the local density of a sample to the local densities of its neighbors, one can identify samples that have a substantially lower density than their neighbors. These are considered outliers. See [[BBKNS00](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1123 "Markus M Breunig, Hans-Peter Kriegel, Raymond T Ng, and Jörg Sander. Lof: identifying density-based local outliers. In ACM sigmod record, volume 29, 93–104. ACM, 2000.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id586 "Link to this heading") 
+
+n_neighborsint, optional (default=20) 
+    
+Number of neighbors to use by default for kneighbors queries. If n_neighbors is larger than the number of samples provided, all samples will be used. 
+
+algorithm{‘auto’, ‘ball_tree’, ‘kd_tree’, ‘brute’}, optional 
+    
+Algorithm used to compute the nearest neighbors:
+  * ‘ball_tree’ will use BallTree
+  * ‘kd_tree’ will use KDTree
+  * ‘brute’ will use a brute-force search.
+  * ‘auto’ will attempt to decide the most appropriate algorithm based on the values passed to [`fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit "pyod.models.lof.LOF.fit") method.
+
+
+Note: fitting on sparse input will override the setting of this parameter, using brute force. 
+
+leaf_sizeint, optional (default=30) 
+    
+Leaf size passed to BallTree or KDTree. This can affect the speed of the construction and query, as well as the memory required to store the tree. The optimal value depends on the nature of the problem. 
+
+metricstring or callable, default ‘minkowski’ 
+    
+metric used for the distance computation. Any metric from scikit-learn or scipy.spatial.distance can be used.
+If ‘precomputed’, the training input X is expected to be a distance matrix.
+If metric is a callable function, it is called on each pair of instances (rows) and the resulting value recorded. The callable should take two arrays as input and return one value indicating the distance between them. This works for Scipy’s metrics, but is less efficient than passing the metric name as a string.
+Valid values for metric are:
+  * from scikit-learn: [‘cityblock’, ‘cosine’, ‘euclidean’, ‘l1’, ‘l2’, ‘manhattan’]
+  * from scipy.spatial.distance: [‘braycurtis’, ‘canberra’, ‘chebyshev’, ‘correlation’, ‘dice’, ‘hamming’, ‘jaccard’, ‘kulsinski’, ‘mahalanobis’, ‘matching’, ‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’, ‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’]
+
+
+See the documentation for scipy.spatial.distance for details on these metrics: <http://docs.scipy.org/doc/scipy/reference/spatial.distance.html> 
+
+pinteger, optional (default = 2) 
+    
+Parameter for the Minkowski metric from sklearn.metrics.pairwise.pairwise_distances. When p = 1, this is equivalent to using manhattan_distance (l1), and euclidean_distance (l2) for p = 2. For arbitrary p, minkowski_distance (l_p) is used. See <http://scikit-learn.org/stable/modules/generated/sklearn.metrics.pairwise.pairwise_distances> 
+
+metric_paramsdict, optional (default = None) 
+    
+Additional keyword arguments for the metric function. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. When fitting this is used to define the threshold on the decision function. 
+
+n_jobsint, optional (default = 1) 
+    
+The number of parallel jobs to run for neighbors search. If `-1`, then the number of jobs is set to the number of CPU cores. Affects only kneighbors and kneighbors_graph methods. 
+
+noveltybool (default=False) 
+    
+By default, LocalOutlierFactor is only meant to be used for outlier detection (novelty=False). Set novelty to True if you want to use LocalOutlierFactor for novelty detection. In this case be aware that that you should only use predict, decision_function and score_samples on new unseen data and not on the training set.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id587 "Link to this heading") 
+
+[n_neighbors_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1349)int 
+    
+The actual number of neighbors used for kneighbors queries. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1351)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1353)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1355)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id588 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id589 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lof.html#LOF.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id590 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id591 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lof.html#LOF.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id592 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id593 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id594 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id595 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id596 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id597 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id598 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id599 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id600 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id601 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id603 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id604 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id606 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id607 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id608 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id609 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id610 "Link to this heading")
+self : object
+## pyod.models.loci module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.loci "Link to this heading")
+Local Correlation Integral (LOCI). Part of the codes are adapted from <https://github.com/Cloudy10/loci> 
+
+_class_ pyod.models.loci.LOCI(_contamination =0.1_, _alpha =0.5_, _k =3_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/loci.html#LOCI)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Local Correlation Integral.
+LOCI is highly effective for detecting outliers and groups of outliers ( a.k.a.micro-clusters), which offers the following advantages and novelties: (a) It provides an automatic, data-dictated cut-off to determine whether a point is an outlier—in contrast, previous methods force users to pick cut-offs, without any hints as to what cut-off value is best for a given dataset. (b) It can provide a LOCI plot for each point; this plot summarizes a wealth of information about the data in the vicinity of the point, determining clusters, micro-clusters, their diameters and their inter-cluster distances. None of the existing outlier-detection methods can match this feature, because they output only a single number for each point: its outlierness score.(c) It can be computed as quickly as the best previous methods Read more in the [[BPKGF03](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1130 "Spiros Papadimitriou, Hiroyuki Kitagawa, Phillip B Gibbons, and Christos Faloutsos. Loci: fast outlier detection using the local correlation integral. In Data Engineering, 2003. Proceedings. 19th International Conference on, 315–326. IEEE, 2003.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id612 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1)  
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+alphaint, default = 0.5 
+    
+The neighbourhood parameter measures how large of a neighbourhood should be considered “local”. 
+
+k: int, default = 3
+    
+An outlier cutoff threshold for determine whether or not a point should be considered an outlier.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id613 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1357)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1359)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1361)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`.
+### Examples[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#examples "Link to this heading")
+```
+>>> frompyod.models.lociimport LOCI
+>>> frompyod.utils.dataimport generate_data
+>>> n_train = 50
+>>> n_test = 50
+>>> contamination = 0.1
+>>> X_train, y_train, X_test, y_test = generate_data(
+...     n_train=n_train, n_test=n_test,
+...     contamination=contamination, random_state=42)
+>>> clf = LOCI()
+>>> clf.fit(X_train)
+LOCI(alpha=0.5, contamination=0.1, k=None)
+
+```
+
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id614 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id615 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/loci.html#LOCI.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.decision_function "Link to this definition") 
+    
+Predict raw anomaly scores of X using the fitted detector.
+The anomaly score of an input sample is computed based on the fitted detector. For consistency, outliers are assigned with higher anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id616 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id617 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/loci.html#LOCI.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.fit "Link to this definition") 
+    
+Fit the model using X as training data.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id618 "Link to this heading") 
+
+Xarray, shape (n_samples, n_features) 
+    
+Training data. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id619 "Link to this heading")
+self : object 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id620 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id621 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id622 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id623 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id624 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id625 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id626 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id627 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id629 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id630 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id632 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id633 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id634 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id635 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id636 "Link to this heading")
+self : object
+## pyod.models.lunar module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lunar "Link to this heading")
+LUNAR: Unifying Local Outlier Detection Methods via Graph Neural Networks 
+
+_class_ pyod.models.lunar.LUNAR(_model_type ='WEIGHT'_, _n_neighbours =5_, _negative_sampling ='MIXED'_, _val_size =0.1_, _scaler =MinMaxScaler()_, _epsilon =0.1_, _proportion =1.0_, _n_epochs =200_, _lr =0.001_, _wd =0.1_, _verbose =0_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lunar.html#LUNAR)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+LUNAR class for outlier detection. See <https://www.aaai.org/AAAI22Papers/AAAI-51.GoodgeA.pdf> for details. For an observation, its ordered list of distances to its k nearest neighbours is input to a neural network, with one of the following outputs:
+>   1. SCORE_MODEL: network directly outputs the anomaly score.
+>   2. 
+
+WEIGHT_MODEL: network outputs a set of weights for the k distances, the anomaly score is then the
+    
+> sum of weighted distances.
+> 
+
+See [[BGHNN22](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1160 "Adam Goodge, Bryan Hooi, See-Kiong Ng, and Wee Siong Ng. Lunar: unifying local outlier detection methods via graph neural networks. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 36, 6737–6745. 2022.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id638 "Link to this heading") 
+
+model_type: str in [‘WEIGHT’, ‘SCORE’], optional (default = ‘WEIGHT’)
+    
+Whether to use WEIGHT_MODEL or SCORE_MODEL for anomaly scoring. 
+
+n_neighbors: int, optional (default = 5)
+    
+Number of neighbors to use by default for k neighbors queries. 
+
+negative_sampling: str in [‘UNIFORM’, ‘SUBSPACE’, MIXED’], optional (default = ‘MIXED)
+    
+Type of negative samples to use between:
+  * ‘UNIFORM’: uniformly distributed samples
+  * ‘SUBSPACE’: subspace perturbation (additive random noise in a subset of features)
+  * ‘MIXED’: a combination of both types of samples
+
+
+
+val_size: float in [0,1], optional (default = 0.1)
+    
+Proportion of samples to be used for model validation 
+
+scaler: object in {StandardScaler(), MinMaxScaler(), optional (default = MinMaxScaler())
+    
+Method of data normalization 
+
+epsilon: float, optional (default = 0.1)
+    
+Hyper-parameter for the generation of negative samples. A smaller epsilon results in negative samples more similar to normal samples. 
+
+proportion: float, optional (default = 1.0)
+    
+Hyper-parameter for the proprotion of negative samples to use relative to the number of normal training samples. 
+
+n_epochs: int, optional (default = 200)
+    
+Number of epochs to train neural network. 
+
+lr: float, optional (default = 0.001)
+    
+Learning rate. 
+
+wd: float, optional (default = 0.1)
+    
+Weight decay. 
+
+verbose: int in {0,1}, optional (default = 0):
+    
+To view or hide training progress
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id639 "Link to this heading") 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id640 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id641 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lunar.html#LUNAR.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector. For consistency, outliers are assigned with larger anomaly scores. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The training input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id642 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lunar.html#LUNAR.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.fit "Link to this definition") 
+    
+Fit detector. y is assumed to be 0 for all training samples. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The input samples. 
+
+yIgnored 
+    
+Overwritten with 0 for all training samples (assumed to be normal).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id643 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id644 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id645 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id646 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id647 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id648 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id649 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id650 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id651 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id653 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id654 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id656 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id657 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id658 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id659 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id660 "Link to this heading")
+self : object
+## pyod.models.lscp module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lscp "Link to this heading")
+Locally Selective Combination of Parallel Outlier Ensembles (LSCP). Adapted from the original implementation. 
+
+_class_ pyod.models.lscp.LSCP(_detector_list_ , _local_region_size =30_, _local_max_features =1.0_, _n_bins =10_, _random_state =None_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lscp.html#LSCP)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Locally Selection Combination in Parallel Outlier Ensembles
+LSCP is an unsupervised parallel outlier detection ensemble which selects competent detectors in the local region of a test instance. This implementation uses an Average of Maximum strategy. First, a heterogeneous list of base detectors is fit to the training data and then generates a pseudo ground truth for each train instance is generated by taking the maximum outlier score.
+For each test instance: 1) The local region is defined to be the set of nearest training points in randomly sampled feature subspaces which occur more frequently than a defined threshold over multiple iterations.
+2) Using the local region, a local pseudo ground truth is defined and the pearson correlation is calculated between each base detector’s training outlier scores and the pseudo ground truth.
+3) A histogram is built out of pearson correlation scores; detectors in the largest bin are selected as competent base detectors for the given test instance.
+4) The average outlier score of the selected competent detectors is taken to be the final score.
+See [[BZNHL19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1131 "Yue Zhao, Zain Nasrullah, Maciej K Hryniewicki, and Zheng Li. LSCP: locally selective combination in parallel outlier ensembles. In Proceedings of the 2019 SIAM International Conference on Data Mining, SDM 2019, 585–593. Calgary, Canada, May 2019. SIAM. URL: https://doi.org/10.1137/1.9781611975673.66, doi:10.1137/1.9781611975673.66.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id662 "Link to this heading") 
+
+detector_listList, length must be greater than 1 
+    
+Base unsupervised outlier detectors from PyOD. (Note: requires fit and decision_function methods) 
+
+local_region_sizeint, optional (default=30) 
+    
+Number of training points to consider in each iteration of the local region generation process (30 by default). 
+
+local_max_featuresfloat in (0.5, 1.), optional (default=1.0) 
+    
+Maximum proportion of number of features to consider when defining the local region (1.0 by default). 
+
+n_binsint, optional (default=10) 
+    
+Number of bins to use when selecting the local region 
+
+random_stateRandomState, optional (default=None) 
+    
+A random number generator instance to define the state of the random permutations generator. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function (0.1 by default).
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id663 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1363)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1365)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1367)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`.
+### Examples[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id664 "Link to this heading")
+```
+>>> frompyod.utils.dataimport generate_data
+>>> frompyod.utils.utilityimport standardizer
+>>> frompyod.models.lscpimport LSCP
+>>> frompyod.models.lofimport LOF
+>>> X_train, y_train, X_test, y_test = generate_data(
+...     n_train=50, n_test=50,
+...     contamination=0.1, random_state=42)
+>>> X_train, X_test = standardizer(X_train, X_test)
+>>> detector_list = [LOF(), LOF()]
+>>> clf = LSCP(detector_list)
+>>> clf.fit(X_train)
+LSCP(...)
+
+```
+
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id665 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id666 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lscp.html#LSCP.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id667 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id668 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/lscp.html#LSCP.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id669 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id670 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id671 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id672 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id673 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id674 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id675 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id676 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id677 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id678 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id680 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id681 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id683 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id684 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id685 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id686 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id687 "Link to this heading")
+self : object
+## pyod.models.mad module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.mad "Link to this heading")
+Median Absolute deviation (MAD) Algorithm. Strictly for Univariate Data. 
+
+_class_ pyod.models.mad.MAD(_threshold =3.5_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mad.html#MAD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Median Absolute Deviation: for measuring the distances between data points and the median in terms of median distance. See [[BIH93](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1147 "Boris Iglewicz and David Caster Hoaglin. How to detect and handle outliers. Volume 16. Asq Press, 1993.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id689 "Link to this heading") 
+
+thresholdfloat, optional (default=3.5) 
+    
+The modified z-score to use as a threshold. Observations with a modified z-score (based on the median absolute deviation) greater than this value will be classified as outliers.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id690 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1369)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1371)float 
+    
+The modified z-score to use as a threshold. Observations with a modified z-score (based on the median absolute deviation) greater than this value will be classified as outliers. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1373)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id691 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id692 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mad.html#MAD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector. The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id693 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator. Note that n_features must equal 1.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id694 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mad.html#MAD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id695 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. Note that n_features must equal 1. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id696 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id697 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id698 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id699 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id700 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id701 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id702 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id703 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id704 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id706 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id707 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id709 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id710 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id711 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id712 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id713 "Link to this heading")
+self : object
+## pyod.models.mcd module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.mcd "Link to this heading")
+Outlier Detection with Minimum Covariance Determinant (MCD) 
+
+_class_ pyod.models.mcd.MCD(_contamination =0.1_, _store_precision =True_, _assume_centered =False_, _support_fraction =None_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mcd.html#MCD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Detecting outliers in a Gaussian distributed dataset using Minimum Covariance Determinant (MCD): robust estimator of covariance.
+The Minimum Covariance Determinant covariance estimator is to be applied on Gaussian-distributed data, but could still be relevant on data drawn from a unimodal, symmetric distribution. It is not meant to be used with multi-modal data (the algorithm used to fit a MinCovDet object is likely to fail in such a case). One should consider projection pursuit methods to deal with multi-modal datasets.
+First fit a minimum covariance determinant model and then compute the Mahalanobis distance as the outlier degree of the data
+See [[BHR04](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1126 "Johanna Hardin and David M Rocke. Outlier detection in the multiple cluster setting using the minimum covariance determinant estimator. Computational Statistics & Data Analysis, 44\(4\):625–638, 2004."), [BRD99](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1125 "Peter J Rousseeuw and Katrien Van Driessen. A fast algorithm for the minimum covariance determinant estimator. Technometrics, 41\(3\):212–223, 1999.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id715 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+store_precisionbool 
+    
+Specify if the estimated precision is stored. 
+
+assume_centeredbool 
+    
+If True, the support of the robust location and the covariance estimates is computed, and a covariance estimate is recomputed from it, without centering the data. Useful to work with data whose mean is significantly equal to zero but is not exactly zero. If False, the robust location and covariance are directly computed with the FastMCD algorithm without additional treatment. 
+
+support_fractionfloat, 0 < support_fraction < 1 
+    
+The proportion of points to be included in the support of the raw MCD estimate. Default is None, which implies that the minimum value of support_fraction will be used within the algorithm: [n_sample + n_features + 1] / 2 
+
+random_stateint, RandomState instance or None, optional (default=None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id716 "Link to this heading") 
+
+[raw_location_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1375)array-like, shape (n_features,) 
+    
+The raw robust estimated location before correction and re-weighting. 
+
+[raw_covariance_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1377)array-like, shape (n_features, n_features) 
+    
+The raw robust estimated covariance before correction and re-weighting. 
+
+[raw_support_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1379)array-like, shape (n_samples,) 
+    
+A mask of the observations that have been used to compute the raw robust estimates of location and shape, before correction and re-weighting. 
+
+[location_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1381)array-like, shape (n_features,) 
+    
+Estimated robust location 
+
+[covariance_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1383)array-like, shape (n_features, n_features) 
+    
+Estimated robust covariance matrix 
+
+[precision_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1385)array-like, shape (n_features, n_features) 
+    
+Estimated pseudo inverse matrix. (stored only if store_precision is True) 
+
+[support_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1387)array-like, shape (n_samples,) 
+    
+A mask of the observations that have been used to compute the robust estimates of location and shape. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1389)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. Mahalanobis distances of the training set (on which :meth:`fit is called) observations. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1391)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1393)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id717 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id718 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mcd.html#MCD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id719 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id720 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mcd.html#MCD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id721 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id722 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id723 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id724 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id725 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id726 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id727 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id728 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id729 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id730 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id732 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id733 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id735 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id736 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id737 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id738 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id739 "Link to this heading")
+self : object
+## pyod.models.mo_gaal module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.mo_gaal "Link to this heading")
+Multiple-Objective Generative Adversarial Active Learning. Part of the codes are adapted from <https://github.com/leibinghe/GAAL-based-outlier-detection> 
+
+_class_ pyod.models.mo_gaal.MO_GAAL(_k =10_, _stop_epochs =20_, _lr_d =0.01_, _lr_g =0.0001_, _momentum =0.9_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mo_gaal.html#MO_GAAL)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Multi-Objective Generative Adversarial Active Learning.
+MO_GAAL directly generates informative potential outliers to assist the classifier in describing a boundary that can separate outliers from normal data effectively. Moreover, to prevent the generator from falling into the mode collapsing problem, the network structure of SO-GAAL is expanded from a single generator (SO-GAAL) to multiple generators with different objectives (MO-GAAL) to generate a reasonable reference distribution for the whole dataset. Read more in the [[BLLZ+19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1132 "Yezheng Liu, Zhe Li, Chong Zhou, Yuanchun Jiang, Jianshan Sun, Meng Wang, and Xiangnan He. Generative adversarial active learning for unsupervised outlier detection. IEEE Transactions on Knowledge and Data Engineering, 2019.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id741 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+kint, optional (default=10) 
+    
+The number of sub generators. 
+
+stop_epochsint, optional (default=20) 
+    
+The number of epochs of training. The number of total epochs equals to three times of stop_epochs. 
+
+lr_dfloat, optional (default=0.01) 
+    
+The learn rate of the discriminator. 
+
+lr_gfloat, optional (default=0.0001) 
+    
+The learn rate of the generator. 
+
+momentumfloat, optional (default=0.9) 
+    
+The momentum parameter for SGD.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id742 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1395)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1397)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1399)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id743 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id744 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mo_gaal.html#MO_GAAL.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id745 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id746 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/mo_gaal.html#MO_GAAL.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id747 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id748 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id749 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id750 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id751 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id752 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id753 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id754 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id755 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id756 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id758 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id759 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id761 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id762 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id763 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id764 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id765 "Link to this heading")
+self : object
+## pyod.models.ocsvm module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.ocsvm "Link to this heading")
+One-class SVM detector. Implemented on scikit-learn library. 
+
+_class_ pyod.models.ocsvm.OCSVM(_kernel ='rbf'_, _degree =3_, _gamma ='auto'_, _coef0 =0.0_, _tol =0.001_, _nu =0.5_, _shrinking =True_, _cache_size =200_, _verbose =False_, _max_iter =-1_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ocsvm.html#OCSVM)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Wrapper of scikit-learn one-class SVM Class with more functionalities. Unsupervised Outlier Detection.
+Estimate the support of a high-dimensional distribution.
+The implementation is based on libsvm. See <http://scikit-learn.org/stable/modules/svm.html#svm-outlier-detection> and [[BScholkopfPST+01](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1136 "Bernhard Schölkopf, John C Platt, John Shawe-Taylor, Alex J Smola, and Robert C Williamson. Estimating the support of a high-dimensional distribution. Neural computation, 13\(7\):1443–1471, 2001.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id767 "Link to this heading") 
+
+kernelstring, optional (default=’rbf’) 
+    
+Specifies the kernel type to be used in the algorithm. It must be one of ‘linear’, ‘poly’, ‘rbf’, ‘sigmoid’, ‘precomputed’ or a callable. If none is given, ‘rbf’ will be used. If a callable is given it is used to precompute the kernel matrix. 
+
+nufloat, optional 
+    
+An upper bound on the fraction of training errors and a lower bound of the fraction of support vectors. Should be in the interval (0, 1]. By default 0.5 will be taken. 
+
+degreeint, optional (default=3) 
+    
+Degree of the polynomial kernel function (‘poly’). Ignored by all other kernels. 
+
+gammafloat, optional (default=’auto’) 
+    
+Kernel coefficient for ‘rbf’, ‘poly’ and ‘sigmoid’. If gamma is ‘auto’ then 1/n_features will be used instead. 
+
+coef0float, optional (default=0.0) 
+    
+Independent term in kernel function. It is only significant in ‘poly’ and ‘sigmoid’. 
+
+tolfloat, optional 
+    
+Tolerance for stopping criterion. 
+
+shrinkingbool, optional 
+    
+Whether to use the shrinking heuristic. 
+
+cache_sizefloat, optional 
+    
+Specify the size of the kernel cache (in MB). 
+
+verbosebool, default: False 
+    
+Enable verbose output. Note that this setting takes advantage of a per-process runtime setting in libsvm that, if enabled, may not work properly in a multithreaded context. 
+
+max_iterint, optional (default=-1) 
+    
+Hard limit on iterations within solver, or -1 for no limit. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id768 "Link to this heading") 
+
+[support_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1401)array-like, shape = [n_SV] 
+    
+Indices of support vectors. 
+
+[support_vectors_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1403)array-like, shape = [nSV, n_features] 
+    
+Support vectors. 
+
+[dual_coef_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1405)array, shape = [1, n_SV] 
+    
+Coefficients of the support vectors in the decision function. 
+
+[coef_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1407)array, shape = [1, n_features] 
+    
+Weights assigned to the features (coefficients in the primal problem). This is only available in the case of a linear kernel.
+coef_ is readonly property derived from dual_coef_ and support_vectors_ 
+
+[intercept_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1409)array, shape = [1,] 
+    
+Constant in the decision function. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1411)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1413)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1415)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id769 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id770 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ocsvm.html#OCSVM.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id771 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id772 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_, _sample_weight =None_, _** params_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ocsvm.html#OCSVM.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id773 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+sample_weightarray-like, shape (n_samples,) 
+    
+Per-sample weights. Rescale C per sample. Higher weights force the classifier to put more emphasis on these points.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id774 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id775 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id776 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id777 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id778 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id779 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id780 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id781 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id782 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id784 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id785 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id787 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id788 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id789 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id790 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id791 "Link to this heading")
+self : object
+## pyod.models.pca module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.pca "Link to this heading")
+Principal Component Analysis (PCA) Outlier Detector 
+
+_class_ pyod.models.pca.PCA(_n_components =None_, _n_selected_components =None_, _contamination =0.1_, _copy =True_, _whiten =False_, _svd_solver ='auto'_, _tol =0.0_, _iterated_power ='auto'_, _random_state =None_, _weighted =True_, _standardization =True_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/pca.html#PCA)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Principal component analysis (PCA) can be used in detecting outliers. PCA is a linear dimensionality reduction using Singular Value Decomposition of the data to project it to a lower dimensional space.
+In this procedure, covariance matrix of the data can be decomposed to orthogonal vectors, called eigenvectors, associated with eigenvalues. The eigenvectors with high eigenvalues capture most of the variance in the data.
+Therefore, a low dimensional hyperplane constructed by k eigenvectors can capture most of the variance in the data. However, outliers are different from normal data points, which is more obvious on the hyperplane constructed by the eigenvectors with small eigenvalues.
+Therefore, outlier scores can be obtained as the sum of the projected distance of a sample on all eigenvectors. See [[BAgg15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1122 "Charu C Aggarwal. Outlier analysis. In Data mining, 75–79. Springer, 2015."), [BSCSC03](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1121 "Mei-Ling Shyu, Shu-Ching Chen, Kanoksri Sarinnapakorn, and LiWu Chang. A novel anomaly detection scheme based on principal component classifier. Technical Report, MIAMI UNIV CORAL GABLES FL DEPT OF ELECTRICAL AND COMPUTER ENGINEERING, 2003.")] for details.
+Score(X) = Sum of weighted euclidean distance between each sample to the hyperplane constructed by the selected eigenvectors
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id793 "Link to this heading") 
+
+n_componentsint, float, None or string 
+    
+Number of components to keep. if n_components is not set all components are kept:
+```
+n_components == min(n_samples, n_features)
+
+```
+
+if n_components == ‘mle’ and svd_solver == ‘full’, Minka’s MLE is used to guess the dimension if `0 < n_components < 1` and svd_solver == ‘full’, select the number of components such that the amount of variance that needs to be explained is greater than the percentage specified by n_components n_components cannot be equal to n_features for svd_solver == ‘arpack’. 
+
+n_selected_componentsint, optional (default=None) 
+    
+Number of selected principal components for calculating the outlier scores. It is not necessarily equal to the total number of the principal components. If not set, use all principal components. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+copybool (default True) 
+    
+If False, data passed to fit are overwritten and running fit(X).transform(X) will not yield the expected results, use fit_transform(X) instead. 
+
+whitenbool, optional (default False) 
+    
+When True (False by default) the components_ vectors are multiplied by the square root of n_samples and then divided by the singular values to ensure uncorrelated outputs with unit component-wise variances.
+Whitening will remove some information from the transformed signal (the relative variance scales of the components) but can sometime improve the predictive accuracy of the downstream estimators by making their data respect some hard-wired assumptions. 
+
+svd_solverstring {‘auto’, ‘full’, ‘arpack’, ‘randomized’} 
+     
+
+auto :
+    
+the solver is selected by a default policy based on X.shape and n_components: if the input data is larger than 500x500 and the number of components to extract is lower than 80% of the smallest dimension of the data, then the more efficient ‘randomized’ method is enabled. Otherwise the exact full SVD is computed and optionally truncated afterwards. 
+
+full :
+    
+run exact full SVD calling the standard LAPACK solver via scipy.linalg.svd and select the components by postprocessing 
+
+arpack :
+    
+run SVD truncated to n_components calling ARPACK solver via scipy.sparse.linalg.svds. It requires strictly 0 < n_components < X.shape[1] 
+
+randomized :
+    
+run randomized SVD by the method of Halko et al. 
+
+tolfloat >= 0, optional (default .0) 
+    
+Tolerance for singular values computed by svd_solver == ‘arpack’. 
+
+iterated_powerint >= 0, or ‘auto’, (default ‘auto’) 
+    
+Number of iterations for the power method computed by svd_solver == ‘randomized’. 
+
+random_stateint, RandomState instance or None, optional (default None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random. Used when `svd_solver` == ‘arpack’ or ‘randomized’. 
+
+weightedbool, optional (default=True) 
+    
+If True, the eigenvalues are used in score computation. The eigenvectors with small eigenvalues comes with more importance in outlier score calculation. 
+
+standardizationbool, optional (default=True) 
+    
+If True, perform standardization first to convert data to zero mean and unit variance. See <http://scikit-learn.org/stable/auto_examples/preprocessing/plot_scaling_importance.html>
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id794 "Link to this heading") 
+
+[components_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1417)array, shape (n_components, n_features) 
+    
+Principal axes in feature space, representing the directions of maximum variance in the data. The components are sorted by `explained_variance_`. 
+
+[explained_variance_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1419)array, shape (n_components,) 
+    
+The amount of variance explained by each of the selected components.
+Equal to n_components largest eigenvalues of the covariance matrix of X. 
+
+[explained_variance_ratio_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1421)array, shape (n_components,) 
+    
+Percentage of variance explained by each of the selected components.
+If `n_components` is not set then all components are stored and the sum of explained variances is equal to 1.0. 
+
+[singular_values_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1423)array, shape (n_components,) 
+    
+The singular values corresponding to each of the selected components. The singular values are equal to the 2-norms of the `n_components` variables in the lower-dimensional space. 
+
+[mean_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1425)array, shape (n_features,) 
+    
+Per-feature empirical mean, estimated from the training set.
+Equal to X.mean(axis=0). 
+
+[n_components_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1427)int 
+    
+The estimated number of components. When n_components is set to ‘mle’ or a number between 0 and 1 (with svd_solver == ‘full’) this number is estimated from input data. Otherwise it equals the parameter n_components, or n_features if n_components is None. 
+
+[noise_variance_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1429)float 
+    
+The estimated noise covariance following the Probabilistic PCA model from Tipping and Bishop 1999. See “Pattern Recognition and Machine Learning” by C. Bishop, 12.2.1 p. 574 or <http://www.miketipping.com/papers/met-mppca.pdf>. It is required to computed the estimated data covariance and score samples.
+Equal to the average of (min(n_features, n_samples) - n_components) smallest eigenvalues of the covariance matrix of X. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1431)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1433)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1435)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id795 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id796 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/pca.html#PCA.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id797 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id798 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+_property_ explained_variance_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.explained_variance_ "Link to this definition") 
+    
+The amount of variance explained by each of the selected components.
+Equal to n_components largest eigenvalues of the covariance matrix of X.
+Decorator for scikit-learn PCA attributes. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/pca.html#PCA.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id799 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id800 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id801 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id802 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id803 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id804 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id805 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id806 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+_property_ noise_variance_[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.noise_variance_ "Link to this definition") 
+    
+The estimated noise covariance following the Probabilistic PCA model from Tipping and Bishop 1999. See “Pattern Recognition and Machine Learning” by C. Bishop, 12.2.1 p. 574 or <http://www.miketipping.com/papers/met-mppca.pdf>. It is required to computed the estimated data covariance and score samples.
+Equal to the average of (min(n_features, n_samples) - n_components) smallest eigenvalues of the covariance matrix of X.
+Decorator for scikit-learn PCA attributes. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id807 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id808 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id810 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id811 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id813 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id814 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id815 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id816 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id817 "Link to this heading")
+self : object
+## pyod.models.qmcd module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.qmcd "Link to this heading")
+Quasi-Monte Carlo Discrepancy outlier detection (QMCD) 
+
+_class_ pyod.models.qmcd.QMCD(_contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/qmcd.html#QMCD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector") 
+
+The Wrap-around Quasi-Monte Carlo discrepancy is a uniformity criterion 
+    
+which is used to assess the space filling of a number of samples in a hypercube. It quantifies the distance between the continuous uniform distribution on a hypercube and the discrete uniform distribution on distinct sample points. Therefore, lower discrepancy values for a sample point indicates that it provides better coverage of the parameter space with regard to the rest of the samples. This method is kernel based and a higher discrepancy score is relative to the rest of the samples, the higher the likelihood of it being an outlier. Read more in the [[BFM01](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1165 "Kai-Tai Fang and Chang-Xing Ma. Wrap-around l2-discrepancy of random sampling, latin hypercube and uniform designs. Journal of complexity, 17\(4\):608–624, 2001.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id819 "Link to this heading")
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id820 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1437)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1439)float 
+    
+The modified z-score to use as a threshold. Observations with a modified z-score (based on the median absolute deviation) greater than this value will be classified as outliers. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1441)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id821 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id822 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/qmcd.html#QMCD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id823 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The independent and dependent/target samples with the target samples being the last column of the numpy array such that eg: X = np.append(x, y.reshape(-1,1), axis=1). Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id824 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/qmcd.html#QMCD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.fit "Link to this definition") 
+    
+Fit detector
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id825 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id826 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id827 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id828 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id829 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id830 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id831 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id832 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id833 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id835 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id836 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id838 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id839 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id840 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id841 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id842 "Link to this heading")
+self : object
+## pyod.models.rgraph module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.rgraph "Link to this heading")
+R-graph 
+
+_class_ pyod.models.rgraph.RGraph(_transition_steps =10_, _n_nonzero =10_, _gamma =50.0_, _gamma_nz =True_, _algorithm ='lasso_lars'_, _tau =1.0_, _maxiter_lasso =1000_, _preprocessing =True_, _contamination =0.1_, _blocksize_test_data =10_, _support_init ='L2'_, _maxiter =40_, _support_size =100_, _active_support =True_, _fit_intercept_LR =False_, _verbose =True_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rgraph.html#RGraph)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Outlier Detection via R-graph. Paper: <https://openaccess.thecvf.com/content_cvpr_2017/papers/You_Provable_Self-Representation_Based_CVPR_2017_paper.pdf> See [[BYRV17](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1162 "Chong You, Daniel P Robinson, and René Vidal. Provable self-representation based outlier detection in a union of subspaces. In Proceedings of the IEEE conference on computer vision and pattern recognition, 3395–3404. 2017.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id844 "Link to this heading") 
+
+transition_stepsint, optional (default=20) 
+    
+Number of transition steps that are taken in the graph, after which the outlier scores are determined.
+gamma : float 
+
+gamma_nzboolean, default True 
+    
+gamma and gamma_nz together determines the parameter alpha. When `gamma_nz = False`, alpha = gamma. When `gamma_nz = True`, then alpha = gamma * alpha0, where alpha0 is the largest number such that the solution to the optimization problem with alpha = alpha0 is the zero vector (see Proposition 1 in [1]). Therefore, when `gamma_nz = True`, gamma should be a value greater than 1.0. A good choice is typically in the range [5, 500]. 
+
+taufloat, default 1.0 
+    
+Parameter for elastic net penalty term. When tau = 1.0, the method reduces to sparse subspace clustering with basis pursuit (SSC-BP) [2]. When tau = 0.0, the method reduces to least squares regression (LSR). 
+
+algorithmstring, default `lasso_lars` 
+    
+Algorithm for computing the representation. Either lasso_lars or lasso_cd. Note: `lasso_lars` and `lasso_cd` only support tau = 1. For cases tau << 1 linear regression is used. 
+
+fit_intercept_LR: bool, optional (default=False)
+    
+For `gamma` > 10000 linear regression is used instead of `lasso_lars` or `lasso_cd`. This parameter determines whether the intercept for the model is calculated. 
+
+maxiter_lassoint, default 1000 
+    
+The maximum number of iterations for `lasso_lars` and `lasso_cd`. 
+
+n_nonzeroint, default 50 
+    
+This is an upper bound on the number of nonzero entries of each representation vector. If there are more than n_nonzero nonzero entries, only the top n_nonzero number of entries with largest absolute value are kept. 
+
+active_support: boolean, default True
+    
+Set to True to use the active support algorithm in [1] for solving the optimization problem. This should significantly reduce the running time when n_samples is large. 
+
+active_support_params: dictionary of string to any, optional
+    
+Parameters (keyword arguments) and values for the active support algorithm. It may be used to set the parameters `support_init`, `support_size` and `maxiter`, see `active_support_elastic_net` for details. Example: active_support_params={‘support_size’:50, ‘maxiter’:100} Ignored when `active_support=False` 
+
+preprocessingbool, optional (default=True) 
+    
+If True, apply standardization on the data. 
+
+verboseint, optional (default=1) 
+    
+Verbosity mode.
+  * 0 = silent
+  * 1 = progress bar
+  * 2 = one line per epoch.
+
+
+For verbose >= 1, model summary may be printed. 
+
+random_staterandom_state: int, RandomState instance or None, optional 
+    
+(default=None) If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. When fitting this is used to define the threshold on the decision function. 
+
+blocksize_test_data: int, optional (default=10)
+    
+Test set is splitted into blocks of the size `blocksize_test_data` to at least partially separate test - and train set
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id845 "Link to this heading") 
+
+[transition_matrix_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1443)numpy array of shape (n_samples,) 
+    
+Transition matrix from the last fitted data, this might include training + test data 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1445)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1447)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1449)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+active_support_elastic_net(_X_ , _y_ , _alpha_ , _tau =1.0_, _algorithm ='lasso_lars'_, _support_init ='L2'_, _support_size =100_, _maxiter =40_, _maxiter_lasso =1000_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rgraph.html#RGraph.active_support_elastic_net)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.active_support_elastic_net "Link to this definition") 
+     
+
+Source: <https://github.com/ChongYou/subspace-clustering/blob/master/cluster/selfrepresentation.py> 
+    
+An active support based algorithm for solving the elastic net optimization problem min_{c} tau ||c||_1 + (1-tau)/2 ||c||_2^2 + alpha / 2 ||y - c X ||_2^2.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id846 "Link to this heading")
+X : array-like, shape (n_samples, n_features)
+y : array-like, shape (1, n_features)
+alpha : float
+tau : float, default 1.0 
+
+algorithmstring, default `spams` 
+    
+Algorithm for computing solving the subproblems. Either lasso_lars or lasso_cd or spams (installation of spams package is required). Note: `lasso_lars` and `lasso_cd` only support tau = 1. 
+
+support_init: string, default `knn` 
+    
+This determines how the active support is initialized. It can be either `knn` or `L2`. 
+
+support_size: int, default 100
+    
+This determines the size of the working set. A small support_size decreases the runtime per iteration while increase the number of iterations. 
+
+maxiter: int default 40
+    
+Termination condition for active support update.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id847 "Link to this heading") 
+
+cshape n_samples 
+    
+The optimal solution to the optimization problem. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id848 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id849 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rgraph.html#RGraph.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id850 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id851 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+elastic_net_subspace_clustering(_X_ , _gamma =50.0_, _gamma_nz =True_, _tau =1.0_, _algorithm ='lasso_lars'_, _fit_intercept_LR =False_, _active_support =True_, _active_support_params =None_, _n_nonzero =50_, _maxiter_lasso =1000_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rgraph.html#RGraph.elastic_net_subspace_clustering)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.elastic_net_subspace_clustering "Link to this definition") 
+    
+Source: <https://github.com/ChongYou/subspace-clustering/blob/master/cluster/selfrepresentation.py>
+Elastic net subspace clustering (EnSC) [1]. Compute self-representation matrix C from solving the following optimization problem min_{c_j} tau ||c_j||_1 + (1-tau)/2 ||c_j||_2^2 + alpha / 2 ||x_j - c_j X ||_2^2 s.t. c_jj = 0, where c_j and x_j are the j-th rows of C and X, respectively.
+Parameter `algorithm` specifies the algorithm for solving the optimization problem. `lasso_lars` and `lasso_cd` are algorithms implemented in sklearn, `spams` refers to the same algorithm as `lasso_lars` but is implemented in spams package available at <http://spams-devel.gforge.inria.fr/> (installation required) In principle, all three algorithms give the same result. For large scale data (e.g. with > 5000 data points), use any of these algorithms in conjunction with `active_support=True`. It adopts an efficient active support strategy that solves the optimization problem by breaking it into a sequence of small scale optimization problems as described in [1]. If tau = 1.0, the method reduces to sparse subspace clustering with basis pursuit (SSC-BP) [2]. If tau = 0.0, the method reduces to least squares regression (LSR) [3]. Note: `lasso_lars` and `lasso_cd` only support tau = 1. Parameters ———– X : array-like, shape (n_samples, n_features)
+> Input data to be clustered
+gamma : float gamma_nz : boolean, default True
+> gamma and gamma_nz together determines the parameter alpha. When `gamma_nz = False`, alpha = gamma. When `gamma_nz = True`, then alpha = gamma * alpha0, where alpha0 is the largest number such that the solution to the optimization problem with alpha = alpha0 is the zero vector (see Proposition 1 in [1]). Therefore, when `gamma_nz = True`, gamma should be a value greater than 1.0. A good choice is typically in the range [5, 500]. 
+
+taufloat, default 1.0 
+    
+Parameter for elastic net penalty term. When tau = 1.0, the method reduces to sparse subspace clustering with basis pursuit (SSC-BP) [2]. When tau = 0.0, the method reduces to least squares regression (LSR) [3]. 
+
+algorithmstring, default `lasso_lars` 
+    
+Algorithm for computing the representation. Either lasso_lars or lasso_cd or spams (installation of spams package is required). Note: `lasso_lars` and `lasso_cd` only support tau = 1. 
+
+n_nonzeroint, default 50 
+    
+This is an upper bound on the number of nonzero entries of each representation vector. If there are more than n_nonzero nonzero entries, only the top n_nonzero number of entries with largest absolute value are kept. 
+
+active_support: boolean, default True
+    
+Set to True to use the active support algorithm in [1] for solving the optimization problem. This should significantly reduce the running time when n_samples is large. 
+
+active_support_params: dictionary of string to any, optional
+    
+Parameters (keyword arguments) and values for the active support algorithm. It may be used to set the parameters `support_init`, `support_size` and `maxiter`, see `active_support_elastic_net` for details. Example: active_support_params={‘support_size’:50, ‘maxiter’:100} Ignored when `active_support=False`
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id852 "Link to this heading") 
+
+[representation_matrix_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1451)csr matrix, shape: n_samples by n_samples 
+    
+The self-representation matrix.
+#### References[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#references "Link to this heading")
+[1] C. You, C.-G. Li, D. Robinson, R. Vidal, Oracle Based Active Set Algorithm for Scalable Elastic Net Subspace Clustering, CVPR 2016 [2] E. Elhaifar, R. Vidal, Sparse Subspace Clustering: Algorithm, Theory, and Applications, TPAMI 2013 [3] C. Lu, et al. Robust and efficient subspace segmentation via least squares regression, ECCV 2012 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rgraph.html#RGraph.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id853 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id854 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id855 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id856 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id857 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id858 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id859 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id860 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id861 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id863 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id864 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id866 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id867 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id868 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id869 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id870 "Link to this heading")
+self : object
+## pyod.models.rod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.rod "Link to this heading")
+Rotation-based Outlier Detector (ROD) 
+
+_class_ pyod.models.rod.ROD(_contamination =0.1_, _parallel_execution =False_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rod.html#ROD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Rotation-based Outlier Detection (ROD), is a robust and parameter-free algorithm that requires no statistical distribution assumptions and works intuitively in three-dimensional space, where the 3D-vectors, representing the data points, are rotated about the geometric median two times counterclockwise using Rodrigues rotation formula. The results of the rotation are parallelepipeds where their volumes are mathematically analyzed as cost functions and used to calculate the Median Absolute Deviations to obtain the outlying score. For high dimensions > 3, the overall score is calculated by taking the average of the overall 3D-subspaces scores, that were resulted from decomposing the original data space. See [[BABC20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1149 "Yahya Almardeny, Noureddine Boujnah, and Frances Cleary. A novel outlier detection method for multivariate data. IEEE Transactions on Knowledge and Data Engineering, 2020.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id872 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+parallel_execution: bool, optional (default=False).
+    
+If set to True, the algorithm will run in parallel, for a better execution time. It is recommended to set this parameter to True ONLY for high dimensional data > 10, and if a proper hardware is available.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id873 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1453)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1455)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1457)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id874 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id875 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rod.html#ROD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id876 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id877 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/rod.html#ROD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id878 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id879 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id880 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id881 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id882 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id883 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id884 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id885 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id886 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id887 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id889 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id890 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id892 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id893 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id894 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id895 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id896 "Link to this heading")
+self : object
+## pyod.models.sampling module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.sampling "Link to this heading")
+Outlier detection based on Sampling (SP) 
+
+_class_ pyod.models.sampling.Sampling(_contamination =0.1_, _subset_size =20_, _metric ='minkowski'_, _metric_params =None_, _random_state =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sampling.html#Sampling)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Sampling class for outlier detection.
+Sugiyama, M., Borgwardt, K. M.: Rapid Distance-Based Outlier Detection via Sampling, Advances in Neural Information Processing Systems (NIPS 2013), 467-475, 2013.
+See [[BSB13](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1157 "Mahito Sugiyama and Karsten Borgwardt. Rapid distance-based outlier detection via sampling. Advances in neural information processing systems, 2013.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id898 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+subset_sizefloat in (0., 1.0) or int (0, n_samples), optional (default=20) 
+    
+The size of subset of the data set. Sampling subset from the data set is performed only once. 
+
+metricstring or callable, default ‘minkowski’ 
+    
+metric to use for distance computation. Any metric from scikit-learn or scipy.spatial.distance can be used.
+If metric is a callable function, it is called on each pair of instances (rows) and the resulting value recorded. The callable should take two arrays as input and return one value indicating the distance between them. This works for Scipy’s metrics, but is less efficient than passing the metric name as a string.
+Distance matrices are not supported.
+Valid values for metric are:
+  * from scikit-learn: [‘cityblock’, ‘cosine’, ‘euclidean’, ‘l1’, ‘l2’, ‘manhattan’]
+  * from scipy.spatial.distance: [‘braycurtis’, ‘canberra’, ‘chebyshev’, ‘correlation’, ‘dice’, ‘hamming’, ‘jaccard’, ‘kulsinski’, ‘mahalanobis’, ‘matching’, ‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’, ‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’]
+
+
+See the documentation for scipy.spatial.distance for details on these metrics. 
+
+metric_paramsdict, optional (default = None) 
+    
+Additional keyword arguments for the metric function. 
+
+random_stateint, RandomState instance or None, optional (default None) 
+    
+If int, random_state is the seed used by the random number generator; If RandomState instance, random_state is the random number generator; If None, the random number generator is the RandomState instance used by np.random.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id899 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1459)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1461)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1463)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id900 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id901 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sampling.html#Sampling.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id902 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The test input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id903 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sampling.html#Sampling.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id904 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id905 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id906 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id907 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id908 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id909 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id910 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id911 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id912 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id913 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id915 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id916 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id918 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id919 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id920 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id921 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id922 "Link to this heading")
+self : object
+## pyod.models.sod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.sod "Link to this heading")
+Subspace Outlier Detection (SOD) 
+
+_class_ pyod.models.sod.SOD(_contamination =0.1_, _n_neighbors =20_, _ref_set =10_, _alpha =0.8_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sod.html#SOD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Subspace outlier detection (SOD) schema aims to detect outlier in varying subspaces of a high dimensional feature space. For each data object, SOD explores the axis-parallel subspace spanned by the data object’s neighbors and determines how much the object deviates from the neighbors in this subspace.
+See [[BKKrogerSZ09](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1139 "Hans-Peter Kriegel, Peer Kröger, Erich Schubert, and Arthur Zimek. Outlier detection in axis-parallel subspaces of high dimensional data. In Pacific-Asia Conference on Knowledge Discovery and Data Mining, 831–838. Springer, 2009.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id924 "Link to this heading") 
+
+n_neighborsint, optional (default=20) 
+    
+Number of neighbors to use by default for k neighbors queries. 
+
+ref_set: int, optional (default=10)
+    
+specifies the number of shared nearest neighbors to create the reference set. Note that ref_set must be smaller than n_neighbors. 
+
+alpha: float in (0., 1.), optional (default=0.8)
+    
+specifies the lower limit for selecting subspace. 0.8 is set as default as suggested in the original paper. 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id925 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1465)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1467)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1469)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id926 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id927 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sod.html#SOD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector. The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id928 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id929 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sod.html#SOD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id930 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id931 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id932 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id933 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id934 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id935 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id936 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id937 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id938 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id939 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id941 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id942 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id944 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id945 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id946 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id947 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id948 "Link to this heading")
+self : object
+## pyod.models.so_gaal module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.so_gaal "Link to this heading")
+Single-Objective Generative Adversarial Active Learning. Part of the codes are adapted from <https://github.com/leibinghe/GAAL-based-outlier-detection> 
+
+_class_ pyod.models.so_gaal.SO_GAAL(_stop_epochs =20_, _lr_d =0.01_, _lr_g =0.0001_, _momentum =0.9_, _contamination =0.1_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/so_gaal.html#SO_GAAL)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Single-Objective Generative Adversarial Active Learning.
+SO-GAAL directly generates informative potential outliers to assist the classifier in describing a boundary that can separate outliers from normal data effectively. Moreover, to prevent the generator from falling into the mode collapsing problem, the network structure of SO-GAAL is expanded from a single generator (SO-GAAL) to multiple generators with different objectives (MO-GAAL) to generate a reasonable reference distribution for the whole dataset. Read more in the [[BLLZ+19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1132 "Yezheng Liu, Zhe Li, Chong Zhou, Yuanchun Jiang, Jianshan Sun, Meng Wang, and Xiangnan He. Generative adversarial active learning for unsupervised outlier detection. IEEE Transactions on Knowledge and Data Engineering, 2019.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id950 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+stop_epochsint, optional (default=20) 
+     
+
+The number of epochs of training. The number of total epochs equals to
+    
+three times of stop_epochs. 
+
+lr_dfloat, optional (default=0.01) 
+    
+The learn rate of the discriminator. 
+
+lr_gfloat, optional (default=0.0001) 
+    
+The learn rate of the generator. 
+
+momentumfloat, optional (default=0.9) 
+    
+The momentum parameter for SGD.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id951 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1471)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1473)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1475)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id952 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id953 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/so_gaal.html#SO_GAAL.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id954 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id955 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/so_gaal.html#SO_GAAL.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id956 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id957 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id958 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id959 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id960 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id961 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id962 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id963 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id964 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id965 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id967 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id968 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id970 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id971 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id972 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id973 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id974 "Link to this heading")
+self : object
+## pyod.models.sos module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.sos "Link to this heading")
+Stochastic Outlier Selection (SOS). Part of the codes are adapted from <https://github.com/jeroenjanssens/scikit-sos> 
+
+_class_ pyod.models.sos.SOS(_contamination =0.1_, _perplexity =4.5_, _metric ='euclidean'_, _eps =1e-05_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sos.html#SOS)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+Stochastic Outlier Selection.
+SOS employs the concept of affinity to quantify the relationship from one data point to another data point. Affinity is proportional to the similarity between two data points. So, a data point has little affinity with a dissimilar data point. A data point is selected as an outlier when all the other data points have insufficient affinity with it. Read more in the [[BJHuszarPvdH12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1129 "JHM Janssens, Ferenc Huszár, EO Postma, and HJ van den Herik. Stochastic outlier selection. Technical Report, Technical report TiCC TR 2012-001, Tilburg University, Tilburg Center for Cognition and Communication, Tilburg, The Netherlands, 2012.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id976 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1)  
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+perplexityfloat, optional (default=4.5) 
+    
+A smooth measure of the effective number of neighbours. The perplexity parameter is similar to the parameter k in kNN algorithm (the number of nearest neighbors). The range of perplexity can be any real number between 1 and n-1, where n is the number of samples. 
+
+metric: str, default ‘euclidean’
+    
+Metric used for the distance computation. Any metric from scipy.spatial.distance can be used.
+Valid values for metric are:
+  * ‘euclidean’
+  * from scipy.spatial.distance: [‘braycurtis’, ‘canberra’, ‘chebyshev’, ‘correlation’, ‘dice’, ‘hamming’, ‘jaccard’, ‘kulsinski’, ‘mahalanobis’, ‘matching’, ‘minkowski’, ‘rogerstanimoto’, ‘russellrao’, ‘seuclidean’, ‘sokalmichener’, ‘sokalsneath’, ‘sqeuclidean’, ‘yule’]
+
+
+See the documentation for scipy.spatial.distance for details on these metrics: <http://docs.scipy.org/doc/scipy/reference/spatial.distance.html> 
+
+epsfloat, optional (default = 1e-5) 
+    
+Tolerance threshold for floating point errors.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id977 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1477)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1479)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1481)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`.
+### Examples[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id978 "Link to this heading")
+```
+>>> frompyod.models.sosimport SOS
+>>> frompyod.utils.dataimport generate_data
+>>> n_train = 50
+>>> n_test = 50
+>>> contamination = 0.1
+>>> X_train, y_train, X_test, y_test = generate_data(
+...     n_train=n_train, n_test=n_test,
+...     contamination=contamination, random_state=42)
+>>>
+>>> clf = SOS()
+>>> clf.fit(X_train)
+SOS(contamination=0.1, eps=1e-05, metric='euclidean', perplexity=4.5)
+
+```
+
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id979 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id980 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sos.html#SOS.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id981 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id982 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/sos.html#SOS.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id983 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id984 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id985 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id986 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id987 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id988 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id989 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id990 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id991 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id992 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id994 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id995 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id997 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id998 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id999 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1000 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1001 "Link to this heading")
+self : object
+## pyod.models.suod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.suod "Link to this heading")
+SUOD 
+
+_class_ pyod.models.suod.SUOD(_base_estimators =None_, _contamination =0.1_, _combination ='average'_, _n_jobs =None_, _rp_clf_list =None_, _rp_ng_clf_list =None_, _rp_flag_global =True_, _target_dim_frac =0.5_, _jl_method ='basic'_, _bps_flag =True_, _approx_clf_list =None_, _approx_ng_clf_list =None_, _approx_flag_global =True_, _approx_clf =None_, _verbose =False_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/suod.html#SUOD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+SUOD (Scalable Unsupervised Outlier Detection) is an acceleration framework for large scale unsupervised outlier detector training and prediction. See [[BZHC+21](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1150 "Yue Zhao, Xiyang Hu, Cheng Cheng, Cong Wang, Changlin Wan, Wen Wang, Jianing Yang, Haoping Bai, Zheng Li, Cao Xiao, Yunlong Wang, Zhi Qiao, Jimeng Sun, and Leman Akoglu. Suod: accelerating large-scale unsupervised heterogeneous outlier detection. Proceedings of Machine Learning and Systems, 2021.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1003 "Link to this heading") 
+
+base_estimatorslist, length must be greater than 1 
+    
+A list of base estimators. Certain methods must be present, e.g., fit and predict. 
+
+combinationstr, optional (default=’average’) 
+    
+Decide how to aggregate the results from multiple models:
+  * “average” : average the results from all base detectors
+  * “maximization” : output the max value across all base detectors
+
+
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+n_jobsoptional (default=1) 
+    
+The number of jobs to run in parallel for both fit and predict. If -1, then the number of jobs is set to the the number of jobs that can actually run in parallel. 
+
+rp_clf_listlist, optional (default=None) 
+    
+The list of outlier detection models to use random projection. The detector name should be consistent with PyOD. 
+
+rp_ng_clf_listlist, optional (default=None) 
+    
+The list of outlier detection models NOT to use random projection. The detector name should be consistent with PyOD. 
+
+rp_flag_globalbool, optional (default=True) 
+    
+If set to False, random projection is turned off for all base models. 
+
+target_dim_fracfloat in (0., 1), optional (default=0.5) 
+    
+The target compression ratio. 
+
+jl_methodstring, optional (default = ‘basic’) 
+    
+The JL projection method:
+  * “basic”: each component of the transformation matrix is taken at random in N(0,1).
+  * “discrete”, each component of the transformation matrix is taken at random in {-1,1}.
+  * “circulant”: the first row of the transformation matrix is taken at random in N(0,1), and each row is obtained from the previous one by a one-left shift.
+  * “toeplitz”: the first row and column of the transformation matrix is taken at random in N(0,1), and each diagonal has a constant value taken from these first vector.
+
+
+
+bps_flagbool, optional (default=True) 
+    
+If set to False, balanced parallel scheduling is turned off. 
+
+approx_clf_listlist, optional (default=None) 
+    
+The list of outlier detection models to use pseudo-supervised approximation. The detector name should be consistent with PyOD. 
+
+approx_ng_clf_listlist, optional (default=None) 
+    
+The list of outlier detection models NOT to use pseudo-supervised approximation. The detector name should be consistent with PyOD. 
+
+approx_flag_globalbool, optional (default=True) 
+    
+If set to False, pseudo-supervised approximation is turned off. 
+
+approx_clfobject, optional (default: sklearn RandomForestRegressor) 
+    
+The supervised model used to approximate unsupervised models. 
+
+cost_forecast_loc_fitstr, optional 
+    
+The location of the pretrained cost prediction forecast for training. 
+
+cost_forecast_loc_predstr, optional 
+    
+The location of the pretrained cost prediction forecast for prediction. 
+
+verboseint, optional (default=0) 
+    
+Controls the verbosity of the building process.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1004 "Link to this heading") 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1483)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1485)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1487)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1005 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1006 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/suod.html#SUOD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detectors.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1007 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The training input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1008 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y =None_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/suod.html#SUOD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1009 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1010 "Link to this heading") 
+
+selfobject 
+    
+Fitted estimator. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1011 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1012 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1013 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1014 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1015 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1016 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1017 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1018 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1020 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1021 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1023 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1024 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1025 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1026 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1027 "Link to this heading")
+self : object
+## pyod.models.thresholds module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod-models-thresholds-module "Link to this heading") 
+
+pyod.models.thresholds.AUCP(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#AUCP)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.AUCP "Link to this definition") 
+    
+AUCP class for Area Under Curve Precentage thresholder.
+Use the area under the curve to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond where the auc of the kde is less than the (mean + abs(mean-median)) percent of the total kde auc. 
+
+pyod.models.thresholds.BOOT(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#BOOT)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.BOOT "Link to this definition") 
+    
+BOOT class for Bootstrapping thresholder.
+Use a boostrapping based method to find a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the mean of the confidence intervals.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1028 "Link to this heading") 
+
+random_stateint, optional (default=1234) 
+    
+Random seed for bootstrapping a confidence interval. Can also be set to None. 
+
+pyod.models.thresholds.CHAU(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#CHAU)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CHAU "Link to this definition") 
+    
+CHAU class for Chauvenet’s criterion thresholder.
+Use the Chauvenet’s criterion to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value below the Chauvenet’s criterion.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1029 "Link to this heading") 
+
+method{‘mean’, ‘median’, ‘gmean’}, optional (default=’mean’) 
+    
+Calculate the area normal to distance using a scaler
+  * ‘mean’: Construct a scaler with the mean of the scores
+  * ‘median: Construct a scaler with the median of the scores
+  * ‘gmean’: Construct a scaler with the geometric mean of the scores
+
+
+
+pyod.models.thresholds.CLF(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#CLF)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CLF "Link to this definition") 
+    
+CLF class for Trained Classifier thresholder.
+Use the trained linear classifier to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond 0.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1030 "Link to this heading") 
+
+method{‘simple’, ‘complex’}, optional (default=’complex’) 
+    
+Type of linear model
+  * ‘simple’: Uses only the scores
+  * ‘complex’: Uses the scores, log of the scores, and the scores’ PDF
+
+
+
+pyod.models.thresholds.CLUST(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#CLUST)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CLUST "Link to this definition") 
+    
+CLUST class for clustering type thresholders.
+Use the clustering methods to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value not labelled as part of the main cluster.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1031 "Link to this heading") 
+
+method{‘agg’, ‘birch’, ‘bang’, ‘bgm’, ‘bsas’, ‘dbscan’, ‘ema’, ‘kmeans’, ‘mbsas’, ‘mshift’, ‘optics’, ‘somsc’, ‘spec’, ‘xmeans’}, optional (default=’spec’) 
+    
+Clustering method
+  * ‘agg’: Agglomerative
+  * ‘birch’: Balanced Iterative Reducing and Clustering using Hierarchies
+  * ‘bang’: BANG
+  * ‘bgm’: Bayesian Gaussian Mixture
+  * ‘bsas’: Basic Sequential Algorithmic Scheme
+  * ‘dbscan’: Density-based spatial clustering of applications with noise
+  * ‘ema’: Expectation-Maximization clustering algorithm for Gaussian Mixture Model
+  * ‘kmeans’: K-means
+  * ‘mbsas’: Modified Basic Sequential Algorithmic Scheme
+  * ‘mshift’: Mean shift
+  * ‘optics’: Ordering Points To Identify Clustering Structure
+  * ‘somsc’: Self-organized feature map
+  * ‘spec’: Clustering to a projection of the normalized Laplacian
+  * ‘xmeans’: X-means
+
+
+
+random_stateint, optional (default=1234) 
+    
+Random seed for the BayesianGaussianMixture clustering (method=’bgm’). Can also be set to None. 
+
+pyod.models.thresholds.CPD(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#CPD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CPD "Link to this definition") 
+    
+CPD class for Change Point Detection thresholder.
+Use change point detection to find a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the detected change point.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1032 "Link to this heading") 
+
+method{‘Dynp’, ‘KernelCPD’, ‘Binseg’, ‘BottomUp’}, optional (default=’Dynp’) 
+    
+Method for change point detection
+  * ‘Dynp’: Dynamic programming (optimal minimum sum of errors per partition)
+  * ‘KernelCPD’: RBF kernel function (optimal minimum sum of errors per partition)
+  * ‘Binseg’: Binary segmentation
+  * ‘BottomUp’: Bottom-up segmentation
+
+
+
+transform{‘cdf’, ‘kde’}, optional (default=’cdf’) 
+    
+Data transformation method prior to fit
+  * ‘cdf’: Use the cumulative distribution function
+  * ‘kde’: Use the kernel density estimation
+
+
+
+pyod.models.thresholds.DECOMP(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#DECOMP)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.DECOMP "Link to this definition") 
+    
+DECOMP class for Decomposition based thresholders.
+Use decomposition to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the maximum of the decomposed matrix that results from decomposing the cumulative distribution function of the decision scores.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1033 "Link to this heading") 
+
+method{‘NMF’, ‘PCA’, ‘GRP’, ‘SRP’}, optional (default=’PCA’) 
+    
+Method to use for decomposition
+  * ‘NMF’: Non-Negative Matrix Factorization
+  * ‘PCA’: Principal Component Analysis
+  * ‘GRP’: Gaussian Random Projection
+  * ‘SRP’: Sparse Random Projection
+
+
+
+random_stateint, optional (default=1234) 
+    
+Random seed for the decomposition algorithm. Can also be set to None. 
+
+pyod.models.thresholds.DSN(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#DSN)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.DSN "Link to this definition") 
+    
+DSN class for Distance Shift from Normal thresholder.
+Use the distance shift from normal to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the distance calculated by the selected metric.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1034 "Link to this heading") 
+
+metric{‘JS’, ‘WS’, ‘ENG’, ‘BHT’, ‘HLL’, ‘HI’, ‘LK’, ‘LP’, ‘MAH’, ‘TMT’, ‘RES’, ‘KS’, ‘INT’, ‘MMD’}, optional (default=’MAH’) 
+    
+Metric to use for distance computation
+  * ‘JS’: Jensen-Shannon distance
+  * ‘WS’: Wasserstein or Earth Movers distance
+  * ‘ENG’: Energy distance
+  * ‘BHT’: Bhattacharyya distance
+  * ‘HLL’: Hellinger distance
+  * ‘HI’: Histogram intersection distance
+  * ‘LK’: Lukaszyk-Karmowski metric for normal distributions
+  * ‘LP’: Levy-Prokhorov metric
+  * ‘MAH’: Mahalanobis distance
+  * ‘TMT’: Tanimoto distance
+  * ‘RES’: Studentized residual distance
+  * ‘KS’: Kolmogorov-Smirnov distance
+  * ‘INT’: Weighted spline interpolated distance
+  * ‘MMD’: Maximum Mean Discrepancy distance
+
+
+
+random_stateint, optional (default=1234) 
+    
+Random seed for the normal distribution. Can also be set to None. 
+
+pyod.models.thresholds.EB(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#EB)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.EB "Link to this definition") 
+    
+EB class for Elliptical Boundary thresholder.
+Use pseudo-random elliptical boundaries to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond a pseudo-random elliptical boundary set between inliers and outliers. 
+
+pyod.models.thresholds.FGD(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#FGD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.FGD "Link to this definition") 
+    
+FGD class for Fixed Gradient Descent thresholder.
+Use the fixed gradient descent to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond where the first derivative of the kde with respect to the decision scores passes the mean of the first and second inflection points. 
+
+pyod.models.thresholds.FILTER(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#FILTER)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.FILTER "Link to this definition") 
+    
+FILTER class for Filtering based thresholders.
+Use the filtering based methods to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the maximum filter value. See [[BHGPRR19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1169 "Navid Hashemi, Eduardo Verdugo German, Jonatan Pena Ramirez, and Justin Ruths. Filtering approaches for dealing with noise in anomaly detection. In 2019 IEEE 58th Conference on Decision and Control \(CDC\), 5356–5361. IEEE, December 2019. URL: http://dx.doi.org/10.1109/CDC40024.2019.9029258, doi:10.1109/cdc40024.2019.9029258.")] for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1036 "Link to this heading") 
+
+method{‘gaussian’, ‘savgol’, ‘hilbert’, ‘wiener’, ‘medfilt’, ‘decimate’,’detrend’, ‘resample’}, optional (default=’savgol’) 
+    
+Method to filter the scores
+  * ‘gaussian’: use a gaussian based filter
+  * ‘savgol’: use the savgol based filter
+  * ‘hilbert’: use the hilbert based filter
+  * ‘wiener’: use the wiener based filter
+  * ‘medfilt: use a median based filter
+  * ‘decimate’: use a decimate based filter
+  * ‘detrend’: use a detrend based filter
+  * ‘resample’: use a resampling based filter
+
+
+
+sigmaint, optional (default=’auto’)  
+    
+Variable specific to each filter type, default sets sigma to len(scores)*np.std(scores)
+  * ‘gaussian’: standard deviation for Gaussian kernel
+  * ‘savgol’: savgol filter window size
+  * ‘hilbert’: number of Fourier components
+  * ‘medfilt: kernel size
+  * ‘decimate’: downsampling factor
+  * ‘detrend’: number of break points
+  * ‘resample’: resampling window size
+
+
+
+pyod.models.thresholds.FWFM(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#FWFM)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.FWFM "Link to this definition") 
+    
+FWFM class for Full Width at Full Minimum thresholder.
+Use the full width at full minimum (aka base width) to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the base width. 
+
+pyod.models.thresholds.GESD(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#GESD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.GESD "Link to this definition") 
+    
+GESD class for Generalized Extreme Studentized Deviate thresholder.
+Use the generalized extreme studentized deviate to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any less than the smallest detected outlier.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1037 "Link to this heading") 
+
+max_outliersint, optional (default=’auto’) 
+    
+mamiximum number of outliers that the dataset may have. Default sets max_outliers to be half the size of the dataset 
+
+alphafloat, optional (default=0.05) 
+    
+significance level 
+
+pyod.models.thresholds.HIST(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#HIST)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.HIST "Link to this definition") 
+    
+HIST class for Histogram based thresholders.
+Use histograms methods as described in scikit-image.filters to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set by histogram generated thresholds depending on the selected methods.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1038 "Link to this heading") 
+
+nbinsint, optional (default=’auto’) 
+    
+Number of bins to use in the hostogram, default set to int(len(scores)**0.7) 
+
+method{‘otsu’, ‘yen’, ‘isodata’, ‘li’, ‘minimum’, ‘triangle’}, optional (default=’triangle’) 
+    
+Histogram filtering based method
+  * ‘otsu’: OTSU’s method for filtering
+  * ‘yen’: Yen’s method for filtering
+  * ‘isodata’: Ridler-Calvard or inter-means method for filtering
+  * ‘li’: Li’s iterative Minimum Cross Entropy method for filtering
+  * ‘minimum’: Minimum between two maxima via smoothing method for filtering
+  * ‘triangle’: Triangle algorithm method for filtering
+
+
+
+pyod.models.thresholds.IQR(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#IQR)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.IQR "Link to this definition") 
+    
+IQR class for Inter-Qaurtile Region thresholder.
+Use the inter-quartile region to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the third quartile plus 1.5 times the inter-quartile region. 
+
+pyod.models.thresholds.KARCH(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#KARCH)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.KARCH "Link to this definition") 
+    
+KARCH class for Riemannian Center of Mass thresholder.
+Use the Karcher mean (Riemannian Center of Mass) to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the Karcher mean + one standard deviation of the decision_scores.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1039 "Link to this heading") 
+
+ndimint, optional (default=2) 
+    
+Number of dimensions to construct the Euclidean manifold 
+
+method{‘simple’, ‘complex’}, optional (default=’complex’) 
+    
+Method for computing the Karcher mean
+  * ‘simple’: Compute the Karcher mean using the 1D array of scores
+  * ‘complex’: Compute the Karcher mean between a 2D array dot product of the scores and the sorted scores arrays
+
+
+
+pyod.models.thresholds.MAD(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#MAD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MAD "Link to this definition") 
+    
+MAD class for Median Absolute Deviation thresholder.
+Use the median absolute deviation to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the mean plus the median absolute deviation over the standard deviation. 
+
+pyod.models.thresholds.MCST(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#MCST)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MCST "Link to this definition") 
+    
+MCST class for Monte Carlo Shapiro Tests thresholder.
+Use uniform random sampling and statstical testing to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the minimum value left after iterative Shapiro-Wilk tests have occured. Note** accuracy decreases with array size. For good results the should be array<1000. However still this threshold method may fail at any array size.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1040 "Link to this heading") 
+
+random_stateint, optional (default=1234) 
+    
+Random seed for the uniform distribution. Can also be set to None. 
+
+pyod.models.thresholds.META(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#META)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.META "Link to this definition") 
+    
+META class for Meta-modelling thresholder.
+Use a trained meta-model to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set based on the trained meta-model classifier.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1041 "Link to this heading") 
+
+method{‘LIN’, ‘GNB’, ‘GNBC’, ‘GNBM’}, optional (default=’GNBM’) 
+    
+select
+  * ‘LIN’: RidgeCV trained linear classifier meta-model on true labels
+  * ‘GNB’: Gaussian Naive Bayes trained classifier meta-model on true labels
+  * ‘GNBC’: Gaussian Naive Bayes trained classifier meta-model on best contamination
+  * ‘GNBM’: Gaussian Naive Bayes multivariate trained classifier meta-model
+
+
+
+pyod.models.thresholds.MOLL(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#MOLL)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MOLL "Link to this definition") 
+    
+MOLL class for Friedrichs’ mollifier thresholder.
+Use the Friedrichs’ mollifier to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond one minus the maximum of the smoothed dataset via convolution. 
+
+pyod.models.thresholds.MTT(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#MTT)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MTT "Link to this definition") 
+    
+MTT class for Modified Thompson Tau test thresholder.
+Use the modified Thompson Tau test to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the smallest outlier detected by the test.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1042 "Link to this heading") 
+
+strictness[1,2,3,4,5], optional (default=4) 
+    
+Level of strictness corresponding to the t-Student distribution map to sample 
+
+pyod.models.thresholds.OCSVM(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#OCSVM)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.OCSVM "Link to this definition") 
+    
+OCSVM class for One-Class Support Vector Machine thresholder.
+Use a one-class svm to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are determined by the one-class svm using a polynomial kernel with the polynomial degree either set or determined by regression internally.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1043 "Link to this heading") 
+
+model{‘poly’, ‘sgd’}, optional (default=’sgd’) 
+    
+OCSVM model to apply
+  * ‘poly’: Use a polynomial kernel with a regular OCSVM
+  * ‘sgd’: Used the Additive Chi2 kernel approximation with a SGDOneClassSVM
+
+
+
+degreeint, optional (default=’auto’) 
+    
+Polynomial degree to use for the one-class svm. Default ‘auto’ finds the optimal degree with linear regression 
+
+gammafloat, optional (default=’auto’) 
+    
+Kernel coefficient for polynomial fit for the one-class svm. Default ‘auto’ uses 1 / n_features 
+
+criterion{‘aic’, ‘bic’}, optional (default=’bic’) 
+    
+regression performance metric. AIC is the Akaike Information Criterion, and BIC is the Bayesian Information Criterion. This only applies when degree is set to ‘auto’ 
+
+nufloat, optional (default=’auto’) 
+    
+An upper bound on the fraction of training errors and a lower bound of the fraction of support vectors. Default ‘auto’ sets nu as the ratio between the any point that is less than or equal to the median plus the absolute difference between the mean and geometric mean over the the number of points in the entire dataset 
+
+tolfloat, optional (default=1e-3) 
+    
+The stopping criterion for the one-class svm 
+
+random_stateint, optional (default=1234) 
+    
+Random seed for the SVM’s data sampling. Can also be set to None. 
+
+pyod.models.thresholds.QMCD(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#QMCD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.QMCD "Link to this definition") 
+    
+QMCD class for Quasi-Monte Carlo Discreprancy thresholder.
+Use the quasi-Monte Carlo discreprancy to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond and percentile or quantile of one minus the descreperancy (Note** A discrepancy quantifies the distance between the continuous uniform distribution on a hypercube and the discrete uniform distribution on distinct sample points).
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1044 "Link to this heading") 
+
+method{‘CD’, ‘WD’, ‘MD’, ‘L2-star’}, optional (default=’WD’) 
+    
+Type of discrepancy
+  * ‘CD’: Centered Discrepancy
+  * ‘WD’: Wrap-around Discrepancy
+  * ‘MD’: Mix between CD/WD
+  * ‘L2-star’: L2-star discrepancy
+
+
+
+lim{‘Q’, ‘P’}, optional (default=’P’) 
+    
+Filtering method to threshold scores using 1 - discrepancy
+  * ‘Q’: Use quntile limiting
+  * ‘P’: Use percentile limiting
+
+
+
+pyod.models.thresholds.REGR(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#REGR)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.REGR "Link to this definition") 
+    
+REGR class for Regression based thresholder.
+Use the regression to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the y-intercept value of the linear fit.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1045 "Link to this heading") 
+
+method{‘siegel’, ‘theil’}, optional (default=’siegel’) 
+    
+Regression based method to calculate the y-intercept
+  * ‘siegel’: implements a method for robust linear regression using repeated medians
+  * ‘theil’: implements a method for robust linear regression using paired values
+
+
+
+random_stateint, optional (default=1234) 
+    
+random seed for the normal distribution. Can also be set to None 
+
+pyod.models.thresholds.VAE(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#VAE)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.VAE "Link to this definition") 
+    
+VAE class for Variational AutoEncoder thresholder.
+Use a VAE to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the maximum minus the minimum of the reconstructed distribution probabilities after encoding.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1046 "Link to this heading") 
+
+verbosebool, optional (default=False) 
+    
+display training progress 
+
+devicestr, optional (default=’cpu’) 
+    
+device for pytorch 
+
+latent_dimsint, optional (default=’auto’) 
+    
+number of latent dimensions the encoder will map the scores to. Default ‘auto’ applies automatic dimensionality selection using a profile likelihood. 
+
+random_stateint, optional (default=1234) 
+    
+random seed for the normal distribution. Can also be set to None 
+
+epochsint, optional (default=100) 
+    
+number of epochs to train the VAE 
+
+batch_sizeint, optional (default=64) 
+    
+batch size for the dataloader during training 
+
+lossstr, optional (default=’kl’) 
+    
+Loss function during training
+  * ‘kl’ : use the combined negative log likelihood and Kullback-Leibler divergence
+  * ‘mmd’: use the combined negative log likelihood and maximum mean discrepancy
+
+
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1047 "Link to this heading")
+[thresh_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1489) : threshold value that separates inliers from outliers 
+
+pyod.models.thresholds.WIND(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#WIND)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.WIND "Link to this definition") 
+    
+WIND class for topological Winding number thresholder.
+Use the topological winding number (with respect to the origin) to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the mean intersection point calculated from the winding number.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1048 "Link to this heading") 
+
+random_stateint, optional (default=1234) 
+    
+Random seed for the normal distribution. Can also be set to None. 
+
+pyod.models.thresholds.YJ(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#YJ)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.YJ "Link to this definition") 
+    
+YJ class for Yeo-Johnson transformation thresholder.
+Use the Yeo-Johnson transformation to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond the max value in the YJ transformed data. 
+
+pyod.models.thresholds.ZSCORE(_** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/thresholds.html#ZSCORE)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.ZSCORE "Link to this definition") 
+    
+ZSCORE class for ZSCORE thresholder.
+Use the zscore to evaluate a non-parametric means to threshold scores generated by the decision_scores where outliers are set to any value beyond a zscore of one.
+## pyod.models.vae module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.vae "Link to this heading")
+Variational Auto Encoder (VAE) and beta-VAE for Unsupervised Outlier Detection 
+
+Reference:
+    
+[[BKW13](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1144 "Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114, 2013.")] Kingma, Diederik, Welling ‘Auto-Encodeing Variational Bayes’ <https://arxiv.org/abs/1312.6114>
+[[BBHP+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1146 "Christopher P Burgess, Irina Higgins, Arka Pal, Loic Matthey, Nick Watters, Guillaume Desjardins, and Alexander Lerchner. Understanding disentangling in betvae. arXiv preprint arXiv:1804.03599, 2018.")] Burges et al ‘Understanding disentangling in beta-VAE’ <https://arxiv.org/pdf/1804.03599.pdf> 
+
+_class_ pyod.models.vae.VAE(_contamination =0.1_, _preprocessing =True_, _lr =0.001_, _epoch_num =30_, _batch_size =32_, _optimizer_name ='adam'_, _device =None_, _random_state =42_, _use_compile =False_, _compile_mode ='default'_, _verbose =1_, _optimizer_params :[dict](https://docs.python.org/3/library/stdtypes.html#dict "\(in Python v3.13\)")={'weight_decay': 1e-05}_, _beta =1.0_, _capacity =0.0_, _encoder_neuron_list =[128, 64, 32]_, _decoder_neuron_list =[32, 64, 128]_, _latent_dim =2_, _hidden_activation_name ='relu'_, _output_activation_name ='sigmoid'_, _batch_norm =False_, _dropout_rate =0.2_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/vae.html#VAE)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE "Link to this definition") 
+    
+Bases: `BaseDeepLearningDetector`
+Variational auto encoder Encoder maps X onto a latent space Z Decoder samples Z from N(0,1) VAE_loss = Reconstruction_loss + KL_loss
+Reference See [[BKW13](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1144 "Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114, 2013.")] Kingma, Diederik, Welling ‘Auto-Encodeing Variational Bayes’ <https://arxiv.org/abs/1312.6114> for details.
+beta VAE In Loss, the emphasis is on KL_loss and capacity of a bottleneck: VAE_loss = Reconstruction_loss + beta * KL_loss
+Reference See [[BBHP+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1146 "Christopher P Burgess, Irina Higgins, Arka Pal, Loic Matthey, Nick Watters, Guillaume Desjardins, and Alexander Lerchner. Understanding disentangling in betvae. arXiv preprint arXiv:1804.03599, 2018.")] Burges et al ‘Understanding disentangling in beta-VAE’ <https://arxiv.org/pdf/1804.03599.pdf> for details.
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1053 "Link to this heading") 
+
+contaminationfloat in (0., 0.5), optional (default=0.1) 
+    
+The amount of contamination of the data set, i.e. the proportion of outliers in the data set. Used when fitting to define the threshold on the decision function. 
+
+preprocessingbool, optional (default=True) 
+    
+If True, apply the preprocessing procedure before training models. 
+
+lrfloat, optional (default=1e-3) 
+    
+The initial learning rate for the optimizer. 
+
+epoch_numint, optional (default=30) 
+    
+The number of epochs for training. 
+
+batch_sizeint, optional (default=32) 
+    
+The batch size for training. 
+
+optimizer_namestr, optional (default=’adam’) 
+    
+The name of theoptimizer used to train the model. 
+
+devicestr, optional (default=None) 
+    
+The device to use for the model. If None, it will be decided automatically. If you want to use MPS, set it to ‘mps’. 
+
+random_stateint, optional (default=42) 
+    
+The random seed for reproducibility. 
+
+use_compilebool, optional (default=False) 
+    
+Whether to compile the model. If True, the model will be compiled before training. This is only available for PyTorch version >= 2.0.0. and Python < 3.12. 
+
+compile_modestr, optional (default=’default’) 
+    
+The mode to compile the model. Can be either “default”, “reduce-overhead”, “max-autotune” or “max-autotune-no-cudagraphs”. See <https://pytorch.org/docs/stable/generated/torch.compile.html#torch-compile> for details. 
+
+verboseint, optional (default=1) 
+    
+Verbosity mode. - 0 = silent - 1 = progress bar - 2 = one line per epoch. 
+
+optimizer_paramsdict, optional (default={‘weight_decay’: 1e-5}) 
+    
+Additional parameters for the optimizer. For example, optimizer_params={‘weight_decay’: 1e-5}. 
+
+betafloat, optional (default=1.0) 
+    
+Coefficient of beta VAE. The weight of KL divergence. Default is regular VAE. 
+
+capacityfloat, optional (default=0.0) 
+    
+The maximum capacity of a loss bottleneck. 
+
+encoder_neuron_listlist, optional (default=[128, 64, 32]) 
+    
+The number of neurons per hidden layers in encoder. So the encoder has the structure as [feature_size, 128, 64, 32, latent_dim]. 
+
+decoder_neuron_listlist, optional (default=[32, 64, 128]) 
+    
+The number of neurons per hidden layers in decoder. So the decoder has the structure as [latent_dim, 32, 64, 128, feature_size]. 
+
+latent_dimint, optional (default=2) 
+    
+The dimension of latent space. 
+
+hidden_activation_namestr, optional (default=’relu’) 
+    
+The activation function used in hidden layers. 
+
+output_activation_namestr, optional (default=’sigmoid’) 
+    
+The activation function used in output layer. 
+
+batch_normboolean, optional (default=False) 
+    
+Whether to apply Batch Normalization, See <https://pytorch.org/docs/stable/generated/torch.nn.BatchNorm1d.html> 
+
+dropout_ratefloat in (0., 1), optional (default=0.2) 
+    
+The dropout to be used across all layers.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1054 "Link to this heading") 
+
+modeltorch.nn.Module 
+    
+The underlying VAE model. 
+
+optimizertorch.optim 
+    
+The optimizer used to train the model. 
+
+criterionpython function 
+    
+The loss function used to train the model. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1491)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[threshold_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1493)float 
+    
+The threshold is based on `contamination`. It is the `n_samples * contamination` most abnormal samples in `decision_scores_`. The threshold is calculated for generating binary outlier labels. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1495)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+build_model()[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/vae.html#VAE.build_model)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.build_model "Link to this definition") 
+    
+Need to define model in this method. self.feature_size is the number of features in the input data. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1055 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1056 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_ , _batch_size =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.decision_function "Link to this definition") 
+    
+Predict raw anomaly score of X using the fitted detector.
+The anomaly score of an input sample is computed based on different detector algorithms. For consistency, outliers are assigned with larger anomaly scores. Parameters ———- X : numpy array of shape (n_samples, n_features)
+> The training input samples. Sparse matrices are accepted only if they are supported by the base estimator. 
+
+batch_sizeint, optional (default=None) 
+    
+The batch size for processing the input samples. If not specified, the default batch size is used.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1057 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+decision_function_update(_anomaly_scores_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.decision_function_update "Link to this definition") 
+    
+For any additional operations after each decision function call. 
+
+epoch_update()[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.epoch_update "Link to this definition") 
+    
+For any additional operations after each epoch. 
+
+evaluate(_data_loader_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.evaluate "Link to this definition") 
+    
+Evaluate the deep learning model.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1058 "Link to this heading") 
+
+data_loadertorch.utils.data.DataLoader 
+    
+The data loader for evaluating the model.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1059 "Link to this heading") 
+
+outlier_scoresnumpy array of shape (n_samples,) 
+    
+The outlier scores of the input samples. 
+
+evaluating_forward(_batch_data_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/vae.html#VAE.evaluating_forward)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.evaluating_forward "Link to this definition") 
+    
+Forward pass for evaluating the model. Abstract method to be implemented.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1060 "Link to this heading") 
+
+batch_datatuple 
+    
+The batch data for evaluating the model.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1061 "Link to this heading") 
+
+outputnumpy array 
+    
+The output of the model. 
+
+evaluating_prepare()[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.evaluating_prepare "Link to this definition") 
+
+
+fit(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.fit "Link to this definition") 
+    
+Fit detector. y is ignored in unsupervised methods.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1062 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+ynumpy array of shape (n_samples,), optional (default=None) 
+    
+The ground truth of input samples. Not used in unsupervised methods. 
+
+fit_predict(_X_ , _y =None_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1063 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1064 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1065 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1066 "Link to this heading")
+score : float
+Deprecated since version 0.6.9: fit_predict_score will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. Scoring could be done by calling an evaluation method, e.g., AUC ROC. 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1067 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1068 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+_classmethod_ load(_path_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.load "Link to this definition") 
+    
+Load the model from the specified path.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1069 "Link to this heading") 
+
+pathstr 
+    
+The path to load the model.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1070 "Link to this heading") 
+
+modelBaseDeepLearningDetector 
+    
+The loaded model. 
+
+predict(_X_ , _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1071 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1072 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+confidencenumpy array of shape (n_samples,). 
+    
+Only if return_confidence is set to True. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1074 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1075 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_ , _method ='linear'_, _return_confidence =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Two approaches are possible:
+  1. simply use Min-max conversion to linearly transform the outlier scores into the range of [0,1]. The model must be fitted first.
+  2. use unifying scores, see [[BKKSZ11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1114 "Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In Proceedings of the 2011 SIAM International Conference on Data Mining, 13–24. SIAM, 2011.")].
+
+
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1077 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+methodstr, optional (default=’linear’) 
+    
+probability conversion method. It must be one of ‘linear’ or ‘unify’. 
+
+return_confidenceboolean, optional(default=False) 
+    
+If True, also return the confidence of prediction.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1078 "Link to this heading") 
+
+outlier_probabilitynumpy array of shape (n_samples, n_classes) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. Note it depends on the number of classes, which is by default 2 classes ([proba of normal, proba of outliers]). 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1079 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1080 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+save(_path_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.save "Link to this definition") 
+    
+Save the model to the specified path.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1081 "Link to this heading") 
+
+pathstr 
+    
+The path to save the model. 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1082 "Link to this heading")
+self : object 
+
+train(_train_loader_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.train "Link to this definition") 
+    
+Train the deep learning model.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1083 "Link to this heading") 
+
+train_loadertorch.utils.data.DataLoader 
+    
+The data loader for training the model. 
+
+training_forward(_batch_data_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/vae.html#VAE.training_forward)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.training_forward "Link to this definition") 
+    
+Forward pass for training the model. Abstract method to be implemented.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1084 "Link to this heading") 
+
+batch_datatuple 
+    
+The batch data for training the model.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1085 "Link to this heading") 
+
+lossfloat or tuple of float 
+    
+The loss.item of the model, or a tuple of loss.item if there are multiple losses. 
+
+training_prepare()[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.training_prepare "Link to this definition") 
+
+## pyod.models.xgbod module[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.xgbod "Link to this heading")
+XGBOD: Improving Supervised Outlier Detection with Unsupervised Representation Learning. A semi-supervised outlier detection framework. 
+
+_class_ pyod.models.xgbod.XGBOD(_estimator_list =None_, _standardization_flag_list =None_, _max_depth =3_, _learning_rate =0.1_, _n_estimators =100_, _silent =True_, _objective ='binary:logistic'_, _booster ='gbtree'_, _n_jobs =1_, _nthread =None_, _gamma =0_, _min_child_weight =1_, _max_delta_step =0_, _subsample =1_, _colsample_bytree =1_, _colsample_bylevel =1_, _reg_alpha =0_, _reg_lambda =1_, _scale_pos_weight =1_, _base_score =0.5_, _random_state =0_, _** kwargs_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD "Link to this definition") 
+    
+Bases: [`BaseDetector`](https://pyod.readthedocs.io/en/latest/api_cc.html#pyod.models.base.BaseDetector "pyod.models.base.BaseDetector")
+XGBOD class for outlier detection. It first uses the passed in unsupervised outlier detectors to extract richer representation of the data and then concatenates the newly generated features to the original feature for constructing the augmented feature space. An XGBoost classifier is then applied on this augmented feature space. Read more in the [[BZH18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1124 "Yue Zhao and Maciej K Hryniewicki. Xgbod: improving supervised outlier detection with unsupervised representation learning. In International Joint Conference on Neural Networks \(IJCNN\). IEEE, 2018.")].
+### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1087 "Link to this heading") 
+
+estimator_listlist, optional (default=None) 
+    
+The list of pyod detectors passed in for unsupervised learning 
+
+standardization_flag_listlist, optional (default=None) 
+    
+The list of boolean flags for indicating whether to perform standardization for each detector. 
+
+max_depthint 
+    
+Maximum tree depth for base learners. 
+
+learning_ratefloat 
+    
+Boosting learning rate (xgb’s “eta”) 
+
+n_estimatorsint 
+    
+Number of boosted trees to fit. 
+
+silentbool 
+    
+Whether to print messages while running boosting. 
+
+objectivestring or callable 
+    
+Specify the learning task and the corresponding learning objective or a custom objective function to be used (see note below). 
+
+boosterstring 
+    
+Specify which booster to use: gbtree, gblinear or dart. 
+
+n_jobsint 
+    
+Number of parallel threads used to run xgboost. (replaces `nthread`) 
+
+gammafloat 
+    
+Minimum loss reduction required to make a further partition on a leaf node of the tree. 
+
+min_child_weightint 
+    
+Minimum sum of instance weight(hessian) needed in a child. 
+
+max_delta_stepint 
+    
+Maximum delta step we allow each tree’s weight estimation to be. 
+
+subsamplefloat 
+    
+Subsample ratio of the training instance. 
+
+colsample_bytreefloat 
+    
+Subsample ratio of columns when constructing each tree. 
+
+colsample_bylevelfloat 
+    
+Subsample ratio of columns for each split, in each level. 
+
+reg_alphafloat (xgb’s alpha) 
+    
+L1 regularization term on weights. 
+
+reg_lambdafloat (xgb’s lambda) 
+    
+L2 regularization term on weights. 
+
+scale_pos_weightfloat 
+    
+Balancing of positive and negative weights. 
+
+base_score:
+    
+The initial prediction score of all instances, global bias. 
+
+random_stateint 
+    
+Random number seed. (replaces seed)
+# missing : float, optional # Value in the data which needs to be present as a missing value. If # None, defaults to np.nan. 
+
+importance_type: string, default “gain”
+    
+The feature importance type for the `feature_importances_` property: either “gain”, “weight”, “cover”, “total_gain” or “total_cover”. 
+
+**kwargsdict, optional 
+    
+Keyword arguments for XGBoost Booster object. Full documentation of parameters can be found here: <https://github.com/dmlc/xgboost/blob/master/doc/parameter.rst>. Attempting to set a parameter via the constructor args and **kwargs dict simultaneously will result in a TypeError.
+Note: **kwargs is unsupported by scikit-learn. We do not guarantee that parameters passed via this argument will interact properly with scikit-learn.
+### Attributes[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1088 "Link to this heading") 
+
+[n_detector_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1497)int 
+    
+The number of unsupervised of detectors used. 
+
+[clf_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1499)object 
+    
+The XGBoost classifier. 
+
+[decision_scores_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1501)numpy array of shape (n_samples,) 
+    
+The outlier scores of the training data. The higher, the more abnormal. Outliers tend to have higher scores. This value is available once the detector is fitted. 
+
+[labels_](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1503)int, either 0 or 1 
+    
+The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies. It is generated by applying `threshold_` on `decision_scores_`. 
+
+compute_rejection_stats(_T =32_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_, _verbose =False_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.compute_rejection_stats "Link to this definition") 
+     
+
+Add reject option into the unsupervised detector. 
+    
+This comes with guarantees: an estimate of the expected rejection rate (return_rejectrate=True), an upper bound of the rejection rate (return_ub_rejectrate= True), and an upper bound on the cost (return_ub_cost=True).
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1089 "Link to this heading") 
+
+T: int, optional(default=32)
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive),
+    
+optional (default = [1,1, contamination]) costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r). 
+
+verbose: bool, optional (default = False)
+    
+If true, it prints the expected rejection rate, the upper bound rejection rate, and the upper bound of the cost.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1090 "Link to this heading")
+expected_rejection_rate: float, the expected rejection rate; upperbound_rejection_rate: float, the upper bound for the rejection rate
+> satisfied with probability 1-delta;
+upperbound_cost: float, the upper bound for the cost; 
+
+decision_function(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD.decision_function)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.decision_function "Link to this definition") 
+    
+Predict raw anomaly scores of X using the fitted detector.
+The anomaly score of an input sample is computed based on the fitted detector. For consistency, outliers are assigned with higher anomaly scores.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1091 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. Sparse matrices are accepted only if they are supported by the base estimator.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1092 "Link to this heading") 
+
+anomaly_scoresnumpy array of shape (n_samples,) 
+    
+The anomaly score of the input samples. 
+
+fit(_X_ , _y_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD.fit)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.fit "Link to this definition") 
+    
+Fit the model using X and y as training data.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1093 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+Training data. 
+
+ynumpy array of shape (n_samples,) 
+    
+The ground truth (binary label)
+  * 0 : inliers
+  * 1 : outliers
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1094 "Link to this heading")
+self : object 
+
+fit_predict(_X_ , _y_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD.fit_predict)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.fit_predict "Link to this definition") 
+    
+Fit detector first and then predict whether a particular sample is an outlier or not. y is ignored in unsupervised models.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1095 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1096 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers.
+Deprecated since version 0.6.9: fit_predict will be removed in pyod 0.8.0.; it will be replaced by calling fit function first and then accessing labels_ attribute for consistency. 
+
+fit_predict_score(_X_ , _y_ , _scoring ='roc_auc_score'_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD.fit_predict_score)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.fit_predict_score "Link to this definition") 
+    
+Fit the detector, predict on samples, and evaluate the model by predefined metrics, e.g., ROC.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1097 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+yIgnored 
+    
+Not used, present for API consistency by convention. 
+
+scoringstr, optional (default=’roc_auc_score’) 
+    
+Evaluation metric:
+  * ‘roc_auc_score’: ROC score
+  * ‘prc_n_score’: Precision @ rank n score
+
+
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1098 "Link to this heading")
+score : float 
+
+get_params(_deep =True_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.get_params "Link to this definition") 
+    
+Get parameters for this estimator.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1099 "Link to this heading") 
+
+deepbool, optional (default=True) 
+    
+If True, will return the parameters for this estimator and contained subobjects that are estimators.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1100 "Link to this heading") 
+
+paramsmapping of string to any 
+    
+Parameter names mapped to their values. 
+
+predict(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD.predict)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict "Link to this definition") 
+    
+Predict if a particular sample is an outlier or not. Calling xgboost predict function.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1101 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1102 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. 0 stands for inliers and 1 for outliers. 
+
+predict_confidence(_X_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict_confidence "Link to this definition") 
+    
+Predict the model’s confidence in making the same prediction under slightly different training sets. See [[BPVD20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1153 "Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In Joint European Conference on Machine Learning and Knowledge Discovery in Databases, 227–243. Springer, 2020.")].
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1104 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1105 "Link to this heading") 
+
+confidencenumpy array of shape (n_samples,) 
+    
+For each observation, tells how consistently the model would make the same prediction if the training set was perturbed. Return a probability, ranging in [0,1]. 
+
+predict_proba(_X_)[[source]](https://pyod.readthedocs.io/en/latest/_modules/pyod/models/xgbod.html#XGBOD.predict_proba)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict_proba "Link to this definition") 
+    
+Predict the probability of a sample being outlier. Calling xgboost predict_proba function.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1106 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1107 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, tells whether or not it should be considered as an outlier according to the fitted model. Return the outlier probability, ranging in [0,1]. 
+
+predict_with_rejection(_X_ , _T =32_, _return_stats =False_, _delta =0.1_, _c_fp =1_, _c_fn =1_, _c_r =-1_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict_with_rejection "Link to this definition") 
+     
+
+Predict if a particular sample is an outlier or not, 
+    
+allowing the detector to reject (i.e., output = -2) low confidence predictions.
+#### Parameters[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1108 "Link to this heading") 
+
+Xnumpy array of shape (n_samples, n_features) 
+    
+The input samples. 
+
+Tint, optional(default=32) 
+    
+It allows to set the rejection threshold to 1-2exp(-T). The higher the value of T, the more rejections are made. 
+
+return_stats: bool, optional (default = False)
+    
+If true, it returns also three additional float values: the estimated rejection rate, the upper bound rejection rate, and the upper bound of the cost. 
+
+delta: float, optional (default = 0.1)
+    
+The upper bound rejection rate holds with probability 1-delta. 
+
+c_fp, c_fn, c_r: floats (positive), optional (default = [1,1, contamination])
+    
+costs for false positive predictions (c_fp), false negative predictions (c_fn) and rejections (c_r).
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1109 "Link to this heading") 
+
+outlier_labelsnumpy array of shape (n_samples,) 
+    
+For each observation, it tells whether it should be considered as an outlier according to the fitted model. 0 stands for inliers, 1 for outliers and -2 for rejection.
+expected_rejection_rate: float, if return_stats is True; upperbound_rejection_rate: float, if return_stats is True; upperbound_cost: float, if return_stats is True; 
+
+set_params(_** params_)[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.set_params "Link to this definition") 
+    
+Set the parameters of this estimator. The method works on simple estimators as well as on nested objects (such as pipelines). The latter have parameters of the form `<component>__<parameter>` so that it’s possible to update each component of a nested object.
+See <http://scikit-learn.org/stable/modules/generated/sklearn.base.BaseEstimator.html> and sklearn/base.py for more information.
+#### Returns[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1110 "Link to this heading")
+self : object
+## Module contents[¶](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models "Link to this heading")
+References
+[BAgg15] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id89),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id354),[3](https://pyod.readthedocs.io/en/latest/pyod.models.html#id792))
+Charu C Aggarwal. Outlier analysis. In _Data mining_ , 75–79. Springer, 2015.
+[BAS15] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id162),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id173))
+Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. _ACM SIGKDD Explorations Newsletter_ , 17(1):24–47, 2015.
+[[BABC20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id871)]
+Yahya Almardeny, Noureddine Boujnah, and Frances Cleary. A novel outlier detection method for multivariate data. _IEEE Transactions on Knowledge and Data Engineering_ , 2020.
+[[BAP02](https://pyod.readthedocs.io/en/latest/pyod.models.html#id480)]
+Fabrizio Angiulli and Clara Pizzuti. Fast outlier detection in high dimensional spaces. In _European Conference on Principles of Data Mining and Knowledge Discovery_ , 15–27. Springer, 2002.
+[[BAAR96](https://pyod.readthedocs.io/en/latest/pyod.models.html#id532)]
+Andreas Arning, Rakesh Agrawal, and Prabhakar Raghavan. A linear method for deviation detection in large databases. In _KDD_ , volume 1141, 972–981. 1996.
+[[BBTA+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id428)]
+Tharindu R Bandaragoda, Kai Ming Ting, David Albrecht, Fei Tony Liu, Ye Zhu, and Jonathan R Wells. Isolation-based anomaly detection using nearest-neighbor ensembles. _Computational Intelligence_ , 34(4):968–998, 2018.
+[BBirgeR06] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id378),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id559))
+Lucien Birgé and Yves Rozenholc. How many bins should be put in a regular histogram. _ESAIM: Probability and Statistics_ , 10:24–45, 2006.
+[[BBKNS00](https://pyod.readthedocs.io/en/latest/pyod.models.html#id585)]
+Markus M Breunig, Hans-Peter Kriegel, Raymond T Ng, and Jörg Sander. Lof: identifying density-based local outliers. In _ACM sigmod record_ , volume 29, 93–104. ACM, 2000.
+[BBHP+18] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1050),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1052))
+Christopher P Burgess, Irina Higgins, Arka Pal, Loic Matthey, Nick Watters, Guillaume Desjardins, and Alexander Lerchner. Understanding disentangling in betvae. _arXiv preprint arXiv:1804.03599_ , 2018.
+[[BCoo77](https://pyod.readthedocs.io/en/latest/pyod.models.html#id176)]
+R Dennis Cook. Detection of influential observation in linear regression. _Technometrics_ , 19(1):15–18, 1977.
+[[BFM01](https://pyod.readthedocs.io/en/latest/pyod.models.html#id818)]
+Kai-Tai Fang and Chang-Xing Ma. Wrap-around l2-discrepancy of random sampling, latin hypercube and uniform designs. _Journal of complexity_ , 17(4):608–624, 2001.
+[[BGD12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id377)]
+Markus Goldstein and Andreas Dengel. Histogram-based outlier score (hbos): a fast unsupervised anomaly detection algorithm. _KI-2012: Poster and Demo Track_ , pages 59–63, 2012.
+[[BGHNN22](https://pyod.readthedocs.io/en/latest/pyod.models.html#id637)]
+Adam Goodge, Bryan Hooi, See-Kiong Ng, and Wee Siong Ng. Lunar: unifying local outlier detection methods via graph neural networks. In _Proceedings of the AAAI Conference on Artificial Intelligence_ , volume 36, 6737–6745. 2022.
+[[BHR04](https://pyod.readthedocs.io/en/latest/pyod.models.html#id714)]
+Johanna Hardin and David M Rocke. Outlier detection in the multiple cluster setting using the minimum covariance determinant estimator. _Computational Statistics & Data Analysis_, 44(4):625–638, 2004.
+[[BHGPRR19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1035)]
+Navid Hashemi, Eduardo Verdugo German, Jonatan Pena Ramirez, and Justin Ruths. Filtering approaches for dealing with noise in anomaly detection. In _2019 IEEE 58th Conference on Decision and Control (CDC)_ , 5356–5361. IEEE, December 2019. URL: <http://dx.doi.org/10.1109/CDC40024.2019.9029258>, [doi:10.1109/cdc40024.2019.9029258](https://doi.org/10.1109/cdc40024.2019.9029258).
+[[BHXD03](https://pyod.readthedocs.io/en/latest/pyod.models.html#id116)]
+Zengyou He, Xiaofei Xu, and Shengchun Deng. Discovering cluster-based local outliers. _Pattern Recognition Letters_ , 24(9-10):1641–1650, 2003.
+[[BHof07](https://pyod.readthedocs.io/en/latest/pyod.models.html#id506)]
+Heiko Hoffmann. Kernel pca for novelty detection. _Pattern recognition_ , 40(3):863–874, 2007.
+[[BIH93](https://pyod.readthedocs.io/en/latest/pyod.models.html#id688)]
+Boris Iglewicz and David Caster Hoaglin. _How to detect and handle outliers_. Volume 16. Asq Press, 1993.
+[[BJHuszarPvdH12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id975)]
+JHM Janssens, Ferenc Huszár, EO Postma, and HJ van den Herik. Stochastic outlier selection. Technical Report, Technical report TiCC TR 2012-001, Tilburg University, Tilburg Center for Cognition and Communication, Tilburg, The Netherlands, 2012.
+[BKW13] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1049),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1051))
+Diederik P Kingma and Max Welling. Auto-encoding variational bayes. _arXiv preprint arXiv:1312.6114_ , 2013.
+[BKKSZ11] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id16),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id37),[3](https://pyod.readthedocs.io/en/latest/pyod.models.html#id58),[4](https://pyod.readthedocs.io/en/latest/pyod.models.html#id83),[5](https://pyod.readthedocs.io/en/latest/pyod.models.html#id107),[6](https://pyod.readthedocs.io/en/latest/pyod.models.html#id134),[7](https://pyod.readthedocs.io/en/latest/pyod.models.html#id157),[8](https://pyod.readthedocs.io/en/latest/pyod.models.html#id194),[9](https://pyod.readthedocs.io/en/latest/pyod.models.html#id220),[10](https://pyod.readthedocs.io/en/latest/pyod.models.html#id246),[11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id269),[12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id295),[13](https://pyod.readthedocs.io/en/latest/pyod.models.html#id322),[14](https://pyod.readthedocs.io/en/latest/pyod.models.html#id348),[15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id372),[16](https://pyod.readthedocs.io/en/latest/pyod.models.html#id398),[17](https://pyod.readthedocs.io/en/latest/pyod.models.html#id423),[18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id448),[19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id474),[20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id500),[21](https://pyod.readthedocs.io/en/latest/pyod.models.html#id526),[22](https://pyod.readthedocs.io/en/latest/pyod.models.html#id552),[23](https://pyod.readthedocs.io/en/latest/pyod.models.html#id579),[24](https://pyod.readthedocs.io/en/latest/pyod.models.html#id605),[25](https://pyod.readthedocs.io/en/latest/pyod.models.html#id631),[26](https://pyod.readthedocs.io/en/latest/pyod.models.html#id655),[27](https://pyod.readthedocs.io/en/latest/pyod.models.html#id682),[28](https://pyod.readthedocs.io/en/latest/pyod.models.html#id708),[29](https://pyod.readthedocs.io/en/latest/pyod.models.html#id734),[30](https://pyod.readthedocs.io/en/latest/pyod.models.html#id760),[31](https://pyod.readthedocs.io/en/latest/pyod.models.html#id786),[32](https://pyod.readthedocs.io/en/latest/pyod.models.html#id812),[33](https://pyod.readthedocs.io/en/latest/pyod.models.html#id837),[34](https://pyod.readthedocs.io/en/latest/pyod.models.html#id865),[35](https://pyod.readthedocs.io/en/latest/pyod.models.html#id891),[36](https://pyod.readthedocs.io/en/latest/pyod.models.html#id917),[37](https://pyod.readthedocs.io/en/latest/pyod.models.html#id943),[38](https://pyod.readthedocs.io/en/latest/pyod.models.html#id969),[39](https://pyod.readthedocs.io/en/latest/pyod.models.html#id996),[40](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1022),[41](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1076))
+Hans-Peter Kriegel, Peer Kroger, Erich Schubert, and Arthur Zimek. Interpreting and unifying outlier scores. In _Proceedings of the 2011 SIAM International Conference on Data Mining_ , 13–24. SIAM, 2011.
+[[BKKrogerSZ09](https://pyod.readthedocs.io/en/latest/pyod.models.html#id923)]
+Hans-Peter Kriegel, Peer Kröger, Erich Schubert, and Arthur Zimek. Outlier detection in axis-parallel subspaces of high dimensional data. In _Pacific-Asia Conference on Knowledge Discovery and Data Mining_ , 831–838. Springer, 2009.
+[[BKZ+08](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1)]
+Hans-Peter Kriegel, Arthur Zimek, and others. Angle-based outlier detection in high-dimensional data. In _Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining_ , 444–452. ACM, 2008.
+[[BLLP07](https://pyod.readthedocs.io/en/latest/pyod.models.html#id454)]
+Longin Jan Latecki, Aleksandar Lazarevic, and Dragoljub Pokrajac. Outlier detection with kernel density functions. In _International Workshop on Machine Learning and Data Mining in Pattern Recognition_ , 61–75. Springer, 2007.
+[[BLK05](https://pyod.readthedocs.io/en/latest/pyod.models.html#id328)]
+Aleksandar Lazarevic and Vipin Kumar. Feature bagging for outlier detection. In _Proceedings of the eleventh ACM SIGKDD international conference on Knowledge discovery in data mining_ , 157–166. ACM, 2005.
+[[BLZB+20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id199)]
+Zheng Li, Yue Zhao, Nicola Botta, Cezar Ionescu, and Xiyang Hu. COPOD: copula-based outlier detection. In _IEEE International Conference on Data Mining (ICDM)_. IEEE, 2020.
+[[BLZH+22](https://pyod.readthedocs.io/en/latest/pyod.models.html#id301)]
+Zheng Li, Yue Zhao, Xiyang Hu, Nicola Botta, Cezar Ionescu, and H. George Chen. Ecod: unsupervised outlier detection using empirical cumulative distribution functions. _IEEE Transactions on Knowledge and Data Engineering_ , 2022.
+[[BLTZ08](https://pyod.readthedocs.io/en/latest/pyod.models.html#id404)]
+Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Isolation forest. In _Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on_ , 413–422. IEEE, 2008.
+[[BLTZ12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id404)]
+Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Isolation-based anomaly detection. _ACM Transactions on Knowledge Discovery from Data (TKDD)_ , 6(1):3, 2012.
+[BLLZ+19] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id740),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id949))
+Yezheng Liu, Zhe Li, Chong Zhou, Yuanchun Jiang, Jianshan Sun, Meng Wang, and Xiangnan He. Generative adversarial active learning for unsupervised outlier detection. _IEEE Transactions on Knowledge and Data Engineering_ , 2019.
+[[BPKGF03](https://pyod.readthedocs.io/en/latest/pyod.models.html#id611)]
+Spiros Papadimitriou, Hiroyuki Kitagawa, Phillip B Gibbons, and Christos Faloutsos. Loci: fast outlier detection using the local correlation integral. In _Data Engineering, 2003. Proceedings. 19th International Conference on_ , 315–326. IEEE, 2003.
+[BPVD20] ([1](https://pyod.readthedocs.io/en/latest/pyod.models.html#id13),[2](https://pyod.readthedocs.io/en/latest/pyod.models.html#id34),[3](https://pyod.readthedocs.io/en/latest/pyod.models.html#id55),[4](https://pyod.readthedocs.io/en/latest/pyod.models.html#id80),[5](https://pyod.readthedocs.io/en/latest/pyod.models.html#id104),[6](https://pyod.readthedocs.io/en/latest/pyod.models.html#id131),[7](https://pyod.readthedocs.io/en/latest/pyod.models.html#id154),[8](https://pyod.readthedocs.io/en/latest/pyod.models.html#id191),[9](https://pyod.readthedocs.io/en/latest/pyod.models.html#id217),[10](https://pyod.readthedocs.io/en/latest/pyod.models.html#id243),[11](https://pyod.readthedocs.io/en/latest/pyod.models.html#id266),[12](https://pyod.readthedocs.io/en/latest/pyod.models.html#id292),[13](https://pyod.readthedocs.io/en/latest/pyod.models.html#id319),[14](https://pyod.readthedocs.io/en/latest/pyod.models.html#id345),[15](https://pyod.readthedocs.io/en/latest/pyod.models.html#id369),[16](https://pyod.readthedocs.io/en/latest/pyod.models.html#id395),[17](https://pyod.readthedocs.io/en/latest/pyod.models.html#id420),[18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id445),[19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id471),[20](https://pyod.readthedocs.io/en/latest/pyod.models.html#id497),[21](https://pyod.readthedocs.io/en/latest/pyod.models.html#id523),[22](https://pyod.readthedocs.io/en/latest/pyod.models.html#id549),[23](https://pyod.readthedocs.io/en/latest/pyod.models.html#id576),[24](https://pyod.readthedocs.io/en/latest/pyod.models.html#id602),[25](https://pyod.readthedocs.io/en/latest/pyod.models.html#id628),[26](https://pyod.readthedocs.io/en/latest/pyod.models.html#id652),[27](https://pyod.readthedocs.io/en/latest/pyod.models.html#id679),[28](https://pyod.readthedocs.io/en/latest/pyod.models.html#id705),[29](https://pyod.readthedocs.io/en/latest/pyod.models.html#id731),[30](https://pyod.readthedocs.io/en/latest/pyod.models.html#id757),[31](https://pyod.readthedocs.io/en/latest/pyod.models.html#id783),[32](https://pyod.readthedocs.io/en/latest/pyod.models.html#id809),[33](https://pyod.readthedocs.io/en/latest/pyod.models.html#id834),[34](https://pyod.readthedocs.io/en/latest/pyod.models.html#id862),[35](https://pyod.readthedocs.io/en/latest/pyod.models.html#id888),[36](https://pyod.readthedocs.io/en/latest/pyod.models.html#id914),[37](https://pyod.readthedocs.io/en/latest/pyod.models.html#id940),[38](https://pyod.readthedocs.io/en/latest/pyod.models.html#id966),[39](https://pyod.readthedocs.io/en/latest/pyod.models.html#id993),[40](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1019),[41](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1073),[42](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1103))
+Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In _Joint European Conference on Machine Learning and Knowledge Discovery in Databases_ , 227–243. Springer, 2020.
+[[BPevny16](https://pyod.readthedocs.io/en/latest/pyod.models.html#id558)]
+Tomáš Pevn\\`y. Loda: lightweight on-line detector of anomalies. _Machine Learning_ , 102(2):275–304, 2016.
+[[BRRS00](https://pyod.readthedocs.io/en/latest/pyod.models.html#id480)]
+Sridhar Ramaswamy, Rajeev Rastogi, and Kyuseok Shim. Efficient algorithms for mining outliers from large data sets. In _ACM Sigmod Record_ , volume 29, 427–438. ACM, 2000.
+[[BRD99](https://pyod.readthedocs.io/en/latest/pyod.models.html#id714)]
+Peter J Rousseeuw and Katrien Van Driessen. A fast algorithm for the minimum covariance determinant estimator. _Technometrics_ , 41(3):212–223, 1999.
+[[BRVG+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id226)]
+Lukas Ruff, Robert Vandermeulen, Nico Görnitz, Lucas Deecke, Shoaib Siddiqui, Alexander Binder, Emmanuel Müller, and Marius Kloft. Deep one-class classification. _International conference on machine learning_ , 2018.
+[[BSSeebockW+17](https://pyod.readthedocs.io/en/latest/pyod.models.html#id63)]
+Thomas Schlegl, Philipp Seeböck, Sebastian M Waldstein, Ursula Schmidt-Erfurth, and Georg Langs. Unsupervised anomaly detection with generative adversarial networks to guide marker discovery. In _International conference on information processing in medical imaging_ , 146–157. Springer, 2017.
+[[BScholkopfPST+01](https://pyod.readthedocs.io/en/latest/pyod.models.html#id766)]
+Bernhard Schölkopf, John C Platt, John Shawe-Taylor, Alex J Smola, and Robert C Williamson. Estimating the support of a high-dimensional distribution. _Neural computation_ , 13(7):1443–1471, 2001.
+[[BSCSC03](https://pyod.readthedocs.io/en/latest/pyod.models.html#id792)]
+Mei-Ling Shyu, Shu-Ching Chen, Kanoksri Sarinnapakorn, and LiWu Chang. A novel anomaly detection scheme based on principal component classifier. Technical Report, MIAMI UNIV CORAL GABLES FL DEPT OF ELECTRICAL AND COMPUTER ENGINEERING, 2003.
+[[BSB13](https://pyod.readthedocs.io/en/latest/pyod.models.html#id897)]
+Mahito Sugiyama and Karsten Borgwardt. Rapid distance-based outlier detection via sampling. _Advances in neural information processing systems_ , 2013.
+[[BTCFC02](https://pyod.readthedocs.io/en/latest/pyod.models.html#id139)]
+Jian Tang, Zhixiang Chen, Ada Wai-Chee Fu, and David W Cheung. Enhancing effectiveness of outlier detections for low density patterns. In _Pacific-Asia Conference on Knowledge Discovery and Data Mining_ , 535–548. Springer, 2002.
+[[BXPWW23](https://pyod.readthedocs.io/en/latest/pyod.models.html#id275)]
+Hongzuo Xu, Guansong Pang, Yijie Wang, and Yongjun Wang. Deep isolation forest for anomaly detection. _IEEE Transactions on Knowledge and Data Engineering_ , ():1–14, 2023. [doi:10.1109/TKDE.2023.3270293](https://doi.org/10.1109/TKDE.2023.3270293).
+[[BYRV17](https://pyod.readthedocs.io/en/latest/pyod.models.html#id843)]
+Chong You, Daniel P Robinson, and René Vidal. Provable self-representation based outlier detection in a union of subspaces. In _Proceedings of the IEEE conference on computer vision and pattern recognition_ , 3395–3404. 2017.
+[[BZRF+18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id42)]
+Houssam Zenati, Manon Romain, Chuan-Sheng Foo, Bruno Lecouat, and Vijay Chandrasekhar. Adversarially learned anomaly detection. In _2018 IEEE International conference on data mining (ICDM)_ , 727–736. IEEE, 2018.
+[[BZH18](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1086)]
+Yue Zhao and Maciej K Hryniewicki. Xgbod: improving supervised outlier detection with unsupervised representation learning. In _International Joint Conference on Neural Networks (IJCNN)_. IEEE, 2018.
+[[BZHC+21](https://pyod.readthedocs.io/en/latest/pyod.models.html#id1002)]
+Yue Zhao, Xiyang Hu, Cheng Cheng, Cong Wang, Changlin Wan, Wen Wang, Jianing Yang, Haoping Bai, Zheng Li, Cao Xiao, Yunlong Wang, Zhi Qiao, Jimeng Sun, and Leman Akoglu. Suod: accelerating large-scale unsupervised heterogeneous outlier detection. _Proceedings of Machine Learning and Systems_ , 2021.
+[[BZNHL19](https://pyod.readthedocs.io/en/latest/pyod.models.html#id661)]
+Yue Zhao, Zain Nasrullah, Maciej K Hryniewicki, and Zheng Li. LSCP: locally selective combination in parallel outlier ensembles. In _Proceedings of the 2019 SIAM International Conference on Data Mining, SDM 2019_ , 585–593. Calgary, Canada, May 2019. SIAM. URL: <https://doi.org/10.1137/1.9781611975673.66>, [doi:10.1137/1.9781611975673.66](https://doi.org/10.1137/1.9781611975673.66).
+[ Next Utility Functions ](https://pyod.readthedocs.io/en/latest/pyod.utils.html) [ Previous API Reference ](https://pyod.readthedocs.io/en/latest/pyod.html)
+Copyright © 2022, Yue Zhao 
+Made with [Sphinx](https://www.sphinx-doc.org/) and [@pradyunsg](https://pradyunsg.me)'s [Furo](https://github.com/pradyunsg/furo)
+On this page 
+  * [All Models](https://pyod.readthedocs.io/en/latest/pyod.models.html)
+    * [pyod.models.abod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.abod)
+      * [`ABOD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD)
+        * [`ABOD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.compute_rejection_stats)
+        * [`ABOD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.decision_function)
+        * [`ABOD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.fit)
+        * [`ABOD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.fit_predict)
+        * [`ABOD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.fit_predict_score)
+        * [`ABOD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict)
+        * [`ABOD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict_confidence)
+        * [`ABOD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict_proba)
+        * [`ABOD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.abod.ABOD.predict_with_rejection)
+    * [pyod.models.ae1svm module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.ae1svm)
+      * [`AE1SVM`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM)
+        * [`AE1SVM.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.compute_rejection_stats)
+        * [`AE1SVM.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.decision_function)
+        * [`AE1SVM.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.fit)
+        * [`AE1SVM.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.fit_predict)
+        * [`AE1SVM.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.fit_predict_score)
+        * [`AE1SVM.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict)
+        * [`AE1SVM.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict_confidence)
+        * [`AE1SVM.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict_proba)
+        * [`AE1SVM.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ae1svm.AE1SVM.predict_with_rejection)
+    * [pyod.models.alad module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.alad)
+      * [`ALAD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD)
+        * [`ALAD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.compute_rejection_stats)
+        * [`ALAD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.decision_function)
+        * [`ALAD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.fit)
+        * [`ALAD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.fit_predict)
+        * [`ALAD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.fit_predict_score)
+        * [`ALAD.plot_learning_curves()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.plot_learning_curves)
+        * [`ALAD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict)
+        * [`ALAD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict_confidence)
+        * [`ALAD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict_proba)
+        * [`ALAD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.alad.ALAD.predict_with_rejection)
+    * [pyod.models.anogan module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.anogan)
+      * [`AnoGAN`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN)
+        * [`AnoGAN.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.compute_rejection_stats)
+        * [`AnoGAN.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.decision_function)
+        * [`AnoGAN.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.fit)
+        * [`AnoGAN.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.fit_predict)
+        * [`AnoGAN.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.fit_predict_score)
+        * [`AnoGAN.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.get_params)
+        * [`AnoGAN.plot_learning_curves()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.plot_learning_curves)
+        * [`AnoGAN.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict)
+        * [`AnoGAN.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict_confidence)
+        * [`AnoGAN.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict_proba)
+        * [`AnoGAN.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.predict_with_rejection)
+        * [`AnoGAN.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.anogan.AnoGAN.set_params)
+    * [pyod.models.auto_encoder module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.auto_encoder)
+      * [`AutoEncoder`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder)
+        * [`AutoEncoder.build_model()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.build_model)
+        * [`AutoEncoder.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.compute_rejection_stats)
+        * [`AutoEncoder.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.decision_function)
+        * [`AutoEncoder.evaluate()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.evaluate)
+        * [`AutoEncoder.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.fit)
+        * [`AutoEncoder.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.fit_predict)
+        * [`AutoEncoder.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.fit_predict_score)
+        * [`AutoEncoder.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict)
+        * [`AutoEncoder.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict_confidence)
+        * [`AutoEncoder.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict_proba)
+        * [`AutoEncoder.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.predict_with_rejection)
+        * [`AutoEncoder.save()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.save)
+        * [`AutoEncoder.train()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.train)
+        * [`AutoEncoder.training_forward()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.training_forward)
+        * [`AutoEncoder.training_prepare()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.auto_encoder.AutoEncoder.training_prepare)
+    * [pyod.models.auto_encoder_torch module](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod-models-auto-encoder-torch-module)
+    * [pyod.models.cblof module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.cblof)
+      * [`CBLOF`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF)
+        * [`CBLOF.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.compute_rejection_stats)
+        * [`CBLOF.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.decision_function)
+        * [`CBLOF.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.fit)
+        * [`CBLOF.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.fit_predict)
+        * [`CBLOF.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.fit_predict_score)
+        * [`CBLOF.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict)
+        * [`CBLOF.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict_confidence)
+        * [`CBLOF.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict_proba)
+        * [`CBLOF.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cblof.CBLOF.predict_with_rejection)
+    * [pyod.models.cof module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.cof)
+      * [`COF`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF)
+        * [`COF.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.compute_rejection_stats)
+        * [`COF.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.decision_function)
+        * [`COF.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.fit)
+        * [`COF.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.fit_predict)
+        * [`COF.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.fit_predict_score)
+        * [`COF.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict)
+        * [`COF.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict_confidence)
+        * [`COF.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict_proba)
+        * [`COF.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cof.COF.predict_with_rejection)
+    * [pyod.models.combination module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.combination)
+      * [`aom()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.aom)
+      * [`average()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.average)
+      * [`majority_vote()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.majority_vote)
+      * [`maximization()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.maximization)
+      * [`median()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.median)
+      * [`moa()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.combination.moa)
+    * [pyod.models.cd module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.cd)
+      * [`CD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD)
+        * [`CD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.compute_rejection_stats)
+        * [`CD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.decision_function)
+        * [`CD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.fit)
+        * [`CD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.fit_predict)
+        * [`CD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.fit_predict_score)
+        * [`CD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict)
+        * [`CD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict_confidence)
+        * [`CD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict_proba)
+        * [`CD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.cd.CD.predict_with_rejection)
+    * [pyod.models.copod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.copod)
+      * [`COPOD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD)
+        * [`COPOD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.compute_rejection_stats)
+        * [`COPOD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.decision_function)
+        * [`COPOD.explain_outlier()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.explain_outlier)
+        * [`COPOD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.fit)
+        * [`COPOD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.fit_predict)
+        * [`COPOD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.fit_predict_score)
+        * [`COPOD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.get_params)
+        * [`COPOD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict)
+        * [`COPOD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict_confidence)
+        * [`COPOD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict_proba)
+        * [`COPOD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.predict_with_rejection)
+        * [`COPOD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.COPOD.set_params)
+      * [`skew()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.copod.skew)
+    * [pyod.models.deep_svdd module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.deep_svdd)
+      * [`DeepSVDD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD)
+        * [`DeepSVDD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.compute_rejection_stats)
+        * [`DeepSVDD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.decision_function)
+        * [`DeepSVDD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.fit)
+        * [`DeepSVDD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.fit_predict)
+        * [`DeepSVDD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.fit_predict_score)
+        * [`DeepSVDD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.get_params)
+        * [`DeepSVDD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict)
+        * [`DeepSVDD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict_confidence)
+        * [`DeepSVDD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict_proba)
+        * [`DeepSVDD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.predict_with_rejection)
+        * [`DeepSVDD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.deep_svdd.DeepSVDD.set_params)
+    * [pyod.models.devnet module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.devnet)
+      * [`DevNet`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet)
+        * [`DevNet.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.compute_rejection_stats)
+        * [`DevNet.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.decision_function)
+        * [`DevNet.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.fit)
+        * [`DevNet.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.fit_predict)
+        * [`DevNet.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.fit_predict_score)
+        * [`DevNet.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.get_params)
+        * [`DevNet.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict)
+        * [`DevNet.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict_confidence)
+        * [`DevNet.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict_proba)
+        * [`DevNet.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.predict_with_rejection)
+        * [`DevNet.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.devnet.DevNet.set_params)
+    * [pyod.models.dif module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.dif)
+      * [`DIF`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF)
+        * [`DIF.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.compute_rejection_stats)
+        * [`DIF.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.decision_function)
+        * [`DIF.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.fit)
+        * [`DIF.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.fit_predict)
+        * [`DIF.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.fit_predict_score)
+        * [`DIF.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.get_params)
+        * [`DIF.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict)
+        * [`DIF.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict_confidence)
+        * [`DIF.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict_proba)
+        * [`DIF.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.predict_with_rejection)
+        * [`DIF.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.dif.DIF.set_params)
+    * [pyod.models.ecod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.ecod)
+      * [`ECOD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD)
+        * [`ECOD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.compute_rejection_stats)
+        * [`ECOD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.decision_function)
+        * [`ECOD.explain_outlier()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.explain_outlier)
+        * [`ECOD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.fit)
+        * [`ECOD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.fit_predict)
+        * [`ECOD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.fit_predict_score)
+        * [`ECOD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.get_params)
+        * [`ECOD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict)
+        * [`ECOD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict_confidence)
+        * [`ECOD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict_proba)
+        * [`ECOD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.predict_with_rejection)
+        * [`ECOD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.ECOD.set_params)
+      * [`skew()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ecod.skew)
+    * [pyod.models.feature_bagging module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.feature_bagging)
+      * [`FeatureBagging`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging)
+        * [`FeatureBagging.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.compute_rejection_stats)
+        * [`FeatureBagging.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.decision_function)
+        * [`FeatureBagging.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.fit)
+        * [`FeatureBagging.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.fit_predict)
+        * [`FeatureBagging.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.fit_predict_score)
+        * [`FeatureBagging.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.get_params)
+        * [`FeatureBagging.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict)
+        * [`FeatureBagging.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict_confidence)
+        * [`FeatureBagging.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict_proba)
+        * [`FeatureBagging.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.predict_with_rejection)
+        * [`FeatureBagging.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.feature_bagging.FeatureBagging.set_params)
+    * [pyod.models.gmm module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.gmm)
+      * [`GMM`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM)
+        * [`GMM.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.compute_rejection_stats)
+        * [`GMM.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.decision_function)
+        * [`GMM.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.fit)
+        * [`GMM.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.fit_predict)
+        * [`GMM.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.fit_predict_score)
+        * [`GMM.precisions_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.precisions_)
+        * [`GMM.precisions_cholesky_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.precisions_cholesky_)
+        * [`GMM.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict)
+        * [`GMM.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict_confidence)
+        * [`GMM.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict_proba)
+        * [`GMM.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.gmm.GMM.predict_with_rejection)
+    * [pyod.models.hbos module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.hbos)
+      * [`HBOS`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS)
+        * [`HBOS.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.compute_rejection_stats)
+        * [`HBOS.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.decision_function)
+        * [`HBOS.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.fit)
+        * [`HBOS.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.fit_predict)
+        * [`HBOS.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.fit_predict_score)
+        * [`HBOS.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.get_params)
+        * [`HBOS.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict)
+        * [`HBOS.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict_confidence)
+        * [`HBOS.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict_proba)
+        * [`HBOS.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.predict_with_rejection)
+        * [`HBOS.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.hbos.HBOS.set_params)
+    * [pyod.models.iforest module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.iforest)
+      * [`IForest`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest)
+        * [`IForest.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.compute_rejection_stats)
+        * [`IForest.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.decision_function)
+        * [`IForest.feature_importances_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.feature_importances_)
+        * [`IForest.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.fit)
+        * [`IForest.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.fit_predict)
+        * [`IForest.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.fit_predict_score)
+        * [`IForest.max_samples_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.max_samples_)
+        * [`IForest.n_features_in_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.n_features_in_)
+        * [`IForest.offset_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.offset_)
+        * [`IForest.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict)
+        * [`IForest.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict_confidence)
+        * [`IForest.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict_proba)
+        * [`IForest.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.iforest.IForest.predict_with_rejection)
+    * [pyod.models.inne module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.inne)
+      * [`INNE`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE)
+        * [`INNE.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.compute_rejection_stats)
+        * [`INNE.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.decision_function)
+        * [`INNE.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.fit)
+        * [`INNE.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.fit_predict)
+        * [`INNE.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.fit_predict_score)
+        * [`INNE.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.get_params)
+        * [`INNE.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict)
+        * [`INNE.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict_confidence)
+        * [`INNE.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict_proba)
+        * [`INNE.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.predict_with_rejection)
+        * [`INNE.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.inne.INNE.set_params)
+    * [pyod.models.kde module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.kde)
+      * [`KDE`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE)
+        * [`KDE.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.compute_rejection_stats)
+        * [`KDE.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.decision_function)
+        * [`KDE.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit)
+        * [`KDE.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit_predict)
+        * [`KDE.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.fit_predict_score)
+        * [`KDE.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.get_params)
+        * [`KDE.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict)
+        * [`KDE.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict_confidence)
+        * [`KDE.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict_proba)
+        * [`KDE.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.predict_with_rejection)
+        * [`KDE.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kde.KDE.set_params)
+    * [pyod.models.knn module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.knn)
+      * [`KNN`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN)
+        * [`KNN.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.compute_rejection_stats)
+        * [`KNN.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.decision_function)
+        * [`KNN.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit)
+        * [`KNN.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit_predict)
+        * [`KNN.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.fit_predict_score)
+        * [`KNN.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.get_params)
+        * [`KNN.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict)
+        * [`KNN.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict_confidence)
+        * [`KNN.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict_proba)
+        * [`KNN.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.predict_with_rejection)
+        * [`KNN.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.knn.KNN.set_params)
+    * [pyod.models.kpca module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.kpca)
+      * [`KPCA`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA)
+        * [`KPCA.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.compute_rejection_stats)
+        * [`KPCA.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.decision_function)
+        * [`KPCA.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.fit)
+        * [`KPCA.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.fit_predict)
+        * [`KPCA.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.fit_predict_score)
+        * [`KPCA.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.get_params)
+        * [`KPCA.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict)
+        * [`KPCA.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict_confidence)
+        * [`KPCA.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict_proba)
+        * [`KPCA.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.predict_with_rejection)
+        * [`KPCA.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.kpca.KPCA.set_params)
+    * [pyod.models.lmdd module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lmdd)
+      * [`LMDD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD)
+        * [`LMDD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.compute_rejection_stats)
+        * [`LMDD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.decision_function)
+        * [`LMDD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.fit)
+        * [`LMDD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.fit_predict)
+        * [`LMDD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.fit_predict_score)
+        * [`LMDD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.get_params)
+        * [`LMDD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict)
+        * [`LMDD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict_confidence)
+        * [`LMDD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict_proba)
+        * [`LMDD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.predict_with_rejection)
+        * [`LMDD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lmdd.LMDD.set_params)
+    * [pyod.models.loda module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.loda)
+      * [`LODA`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA)
+        * [`LODA.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.compute_rejection_stats)
+        * [`LODA.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.decision_function)
+        * [`LODA.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.fit)
+        * [`LODA.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.fit_predict)
+        * [`LODA.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.fit_predict_score)
+        * [`LODA.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.get_params)
+        * [`LODA.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict)
+        * [`LODA.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict_confidence)
+        * [`LODA.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict_proba)
+        * [`LODA.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.predict_with_rejection)
+        * [`LODA.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loda.LODA.set_params)
+    * [pyod.models.lof module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lof)
+      * [`LOF`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF)
+        * [`LOF.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.compute_rejection_stats)
+        * [`LOF.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.decision_function)
+        * [`LOF.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit)
+        * [`LOF.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit_predict)
+        * [`LOF.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.fit_predict_score)
+        * [`LOF.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.get_params)
+        * [`LOF.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict)
+        * [`LOF.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict_confidence)
+        * [`LOF.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict_proba)
+        * [`LOF.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.predict_with_rejection)
+        * [`LOF.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lof.LOF.set_params)
+    * [pyod.models.loci module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.loci)
+      * [`LOCI`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI)
+        * [`LOCI.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.compute_rejection_stats)
+        * [`LOCI.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.decision_function)
+        * [`LOCI.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.fit)
+        * [`LOCI.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.fit_predict)
+        * [`LOCI.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.fit_predict_score)
+        * [`LOCI.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.get_params)
+        * [`LOCI.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict)
+        * [`LOCI.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict_confidence)
+        * [`LOCI.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict_proba)
+        * [`LOCI.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.predict_with_rejection)
+        * [`LOCI.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.loci.LOCI.set_params)
+    * [pyod.models.lunar module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lunar)
+      * [`LUNAR`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR)
+        * [`LUNAR.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.compute_rejection_stats)
+        * [`LUNAR.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.decision_function)
+        * [`LUNAR.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.fit)
+        * [`LUNAR.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.fit_predict)
+        * [`LUNAR.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.fit_predict_score)
+        * [`LUNAR.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.get_params)
+        * [`LUNAR.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict)
+        * [`LUNAR.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict_confidence)
+        * [`LUNAR.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict_proba)
+        * [`LUNAR.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.predict_with_rejection)
+        * [`LUNAR.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lunar.LUNAR.set_params)
+    * [pyod.models.lscp module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.lscp)
+      * [`LSCP`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP)
+        * [`LSCP.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.compute_rejection_stats)
+        * [`LSCP.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.decision_function)
+        * [`LSCP.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.fit)
+        * [`LSCP.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.fit_predict)
+        * [`LSCP.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.fit_predict_score)
+        * [`LSCP.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.get_params)
+        * [`LSCP.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict)
+        * [`LSCP.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict_confidence)
+        * [`LSCP.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict_proba)
+        * [`LSCP.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.predict_with_rejection)
+        * [`LSCP.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.lscp.LSCP.set_params)
+    * [pyod.models.mad module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.mad)
+      * [`MAD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD)
+        * [`MAD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.compute_rejection_stats)
+        * [`MAD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.decision_function)
+        * [`MAD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.fit)
+        * [`MAD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.fit_predict)
+        * [`MAD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.fit_predict_score)
+        * [`MAD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.get_params)
+        * [`MAD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict)
+        * [`MAD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict_confidence)
+        * [`MAD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict_proba)
+        * [`MAD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.predict_with_rejection)
+        * [`MAD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mad.MAD.set_params)
+    * [pyod.models.mcd module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.mcd)
+      * [`MCD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD)
+        * [`MCD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.compute_rejection_stats)
+        * [`MCD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.decision_function)
+        * [`MCD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.fit)
+        * [`MCD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.fit_predict)
+        * [`MCD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.fit_predict_score)
+        * [`MCD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.get_params)
+        * [`MCD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict)
+        * [`MCD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict_confidence)
+        * [`MCD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict_proba)
+        * [`MCD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.predict_with_rejection)
+        * [`MCD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mcd.MCD.set_params)
+    * [pyod.models.mo_gaal module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.mo_gaal)
+      * [`MO_GAAL`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL)
+        * [`MO_GAAL.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.compute_rejection_stats)
+        * [`MO_GAAL.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.decision_function)
+        * [`MO_GAAL.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.fit)
+        * [`MO_GAAL.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.fit_predict)
+        * [`MO_GAAL.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.fit_predict_score)
+        * [`MO_GAAL.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.get_params)
+        * [`MO_GAAL.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict)
+        * [`MO_GAAL.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict_confidence)
+        * [`MO_GAAL.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict_proba)
+        * [`MO_GAAL.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.predict_with_rejection)
+        * [`MO_GAAL.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.mo_gaal.MO_GAAL.set_params)
+    * [pyod.models.ocsvm module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.ocsvm)
+      * [`OCSVM`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM)
+        * [`OCSVM.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.compute_rejection_stats)
+        * [`OCSVM.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.decision_function)
+        * [`OCSVM.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.fit)
+        * [`OCSVM.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.fit_predict)
+        * [`OCSVM.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.fit_predict_score)
+        * [`OCSVM.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.get_params)
+        * [`OCSVM.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict)
+        * [`OCSVM.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict_confidence)
+        * [`OCSVM.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict_proba)
+        * [`OCSVM.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.predict_with_rejection)
+        * [`OCSVM.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.ocsvm.OCSVM.set_params)
+    * [pyod.models.pca module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.pca)
+      * [`PCA`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA)
+        * [`PCA.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.compute_rejection_stats)
+        * [`PCA.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.decision_function)
+        * [`PCA.explained_variance_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.explained_variance_)
+        * [`PCA.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.fit)
+        * [`PCA.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.fit_predict)
+        * [`PCA.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.fit_predict_score)
+        * [`PCA.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.get_params)
+        * [`PCA.noise_variance_`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.noise_variance_)
+        * [`PCA.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict)
+        * [`PCA.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict_confidence)
+        * [`PCA.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict_proba)
+        * [`PCA.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.predict_with_rejection)
+        * [`PCA.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.pca.PCA.set_params)
+    * [pyod.models.qmcd module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.qmcd)
+      * [`QMCD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD)
+        * [`QMCD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.compute_rejection_stats)
+        * [`QMCD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.decision_function)
+        * [`QMCD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.fit)
+        * [`QMCD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.fit_predict)
+        * [`QMCD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.fit_predict_score)
+        * [`QMCD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.get_params)
+        * [`QMCD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict)
+        * [`QMCD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict_confidence)
+        * [`QMCD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict_proba)
+        * [`QMCD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.predict_with_rejection)
+        * [`QMCD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.qmcd.QMCD.set_params)
+    * [pyod.models.rgraph module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.rgraph)
+      * [`RGraph`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph)
+        * [`RGraph.active_support_elastic_net()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.active_support_elastic_net)
+        * [`RGraph.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.compute_rejection_stats)
+        * [`RGraph.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.decision_function)
+        * [`RGraph.elastic_net_subspace_clustering()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.elastic_net_subspace_clustering)
+        * [`RGraph.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.fit)
+        * [`RGraph.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.fit_predict)
+        * [`RGraph.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.fit_predict_score)
+        * [`RGraph.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.get_params)
+        * [`RGraph.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict)
+        * [`RGraph.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict_confidence)
+        * [`RGraph.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict_proba)
+        * [`RGraph.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.predict_with_rejection)
+        * [`RGraph.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rgraph.RGraph.set_params)
+    * [pyod.models.rod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.rod)
+      * [`ROD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD)
+        * [`ROD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.compute_rejection_stats)
+        * [`ROD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.decision_function)
+        * [`ROD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.fit)
+        * [`ROD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.fit_predict)
+        * [`ROD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.fit_predict_score)
+        * [`ROD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.get_params)
+        * [`ROD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict)
+        * [`ROD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict_confidence)
+        * [`ROD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict_proba)
+        * [`ROD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.predict_with_rejection)
+        * [`ROD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.rod.ROD.set_params)
+    * [pyod.models.sampling module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.sampling)
+      * [`Sampling`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling)
+        * [`Sampling.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.compute_rejection_stats)
+        * [`Sampling.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.decision_function)
+        * [`Sampling.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.fit)
+        * [`Sampling.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.fit_predict)
+        * [`Sampling.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.fit_predict_score)
+        * [`Sampling.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.get_params)
+        * [`Sampling.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict)
+        * [`Sampling.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict_confidence)
+        * [`Sampling.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict_proba)
+        * [`Sampling.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.predict_with_rejection)
+        * [`Sampling.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sampling.Sampling.set_params)
+    * [pyod.models.sod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.sod)
+      * [`SOD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD)
+        * [`SOD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.compute_rejection_stats)
+        * [`SOD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.decision_function)
+        * [`SOD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.fit)
+        * [`SOD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.fit_predict)
+        * [`SOD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.fit_predict_score)
+        * [`SOD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.get_params)
+        * [`SOD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict)
+        * [`SOD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict_confidence)
+        * [`SOD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict_proba)
+        * [`SOD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.predict_with_rejection)
+        * [`SOD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sod.SOD.set_params)
+    * [pyod.models.so_gaal module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.so_gaal)
+      * [`SO_GAAL`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL)
+        * [`SO_GAAL.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.compute_rejection_stats)
+        * [`SO_GAAL.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.decision_function)
+        * [`SO_GAAL.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.fit)
+        * [`SO_GAAL.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.fit_predict)
+        * [`SO_GAAL.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.fit_predict_score)
+        * [`SO_GAAL.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.get_params)
+        * [`SO_GAAL.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict)
+        * [`SO_GAAL.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict_confidence)
+        * [`SO_GAAL.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict_proba)
+        * [`SO_GAAL.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.predict_with_rejection)
+        * [`SO_GAAL.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.so_gaal.SO_GAAL.set_params)
+    * [pyod.models.sos module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.sos)
+      * [`SOS`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS)
+        * [`SOS.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.compute_rejection_stats)
+        * [`SOS.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.decision_function)
+        * [`SOS.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.fit)
+        * [`SOS.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.fit_predict)
+        * [`SOS.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.fit_predict_score)
+        * [`SOS.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.get_params)
+        * [`SOS.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict)
+        * [`SOS.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict_confidence)
+        * [`SOS.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict_proba)
+        * [`SOS.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.predict_with_rejection)
+        * [`SOS.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.sos.SOS.set_params)
+    * [pyod.models.suod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.suod)
+      * [`SUOD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD)
+        * [`SUOD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.compute_rejection_stats)
+        * [`SUOD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.decision_function)
+        * [`SUOD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.fit)
+        * [`SUOD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.fit_predict)
+        * [`SUOD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.fit_predict_score)
+        * [`SUOD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.get_params)
+        * [`SUOD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict)
+        * [`SUOD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict_confidence)
+        * [`SUOD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict_proba)
+        * [`SUOD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.predict_with_rejection)
+        * [`SUOD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.suod.SUOD.set_params)
+    * [pyod.models.thresholds module](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod-models-thresholds-module)
+      * [`AUCP()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.AUCP)
+      * [`BOOT()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.BOOT)
+      * [`CHAU()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CHAU)
+      * [`CLF()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CLF)
+      * [`CLUST()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CLUST)
+      * [`CPD()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.CPD)
+      * [`DECOMP()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.DECOMP)
+      * [`DSN()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.DSN)
+      * [`EB()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.EB)
+      * [`FGD()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.FGD)
+      * [`FILTER()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.FILTER)
+      * [`FWFM()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.FWFM)
+      * [`GESD()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.GESD)
+      * [`HIST()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.HIST)
+      * [`IQR()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.IQR)
+      * [`KARCH()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.KARCH)
+      * [`MAD()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MAD)
+      * [`MCST()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MCST)
+      * [`META()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.META)
+      * [`MOLL()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MOLL)
+      * [`MTT()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.MTT)
+      * [`OCSVM()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.OCSVM)
+      * [`QMCD()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.QMCD)
+      * [`REGR()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.REGR)
+      * [`VAE()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.VAE)
+      * [`WIND()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.WIND)
+      * [`YJ()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.YJ)
+      * [`ZSCORE()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.thresholds.ZSCORE)
+    * [pyod.models.vae module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.vae)
+      * [`VAE`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE)
+        * [`VAE.build_model()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.build_model)
+        * [`VAE.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.compute_rejection_stats)
+        * [`VAE.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.decision_function)
+        * [`VAE.decision_function_update()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.decision_function_update)
+        * [`VAE.epoch_update()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.epoch_update)
+        * [`VAE.evaluate()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.evaluate)
+        * [`VAE.evaluating_forward()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.evaluating_forward)
+        * [`VAE.evaluating_prepare()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.evaluating_prepare)
+        * [`VAE.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.fit)
+        * [`VAE.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.fit_predict)
+        * [`VAE.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.fit_predict_score)
+        * [`VAE.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.get_params)
+        * [`VAE.load()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.load)
+        * [`VAE.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict)
+        * [`VAE.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict_confidence)
+        * [`VAE.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict_proba)
+        * [`VAE.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.predict_with_rejection)
+        * [`VAE.save()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.save)
+        * [`VAE.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.set_params)
+        * [`VAE.train()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.train)
+        * [`VAE.training_forward()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.training_forward)
+        * [`VAE.training_prepare()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.vae.VAE.training_prepare)
+    * [pyod.models.xgbod module](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models.xgbod)
+      * [`XGBOD`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD)
+        * [`XGBOD.compute_rejection_stats()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.compute_rejection_stats)
+        * [`XGBOD.decision_function()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.decision_function)
+        * [`XGBOD.fit()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.fit)
+        * [`XGBOD.fit_predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.fit_predict)
+        * [`XGBOD.fit_predict_score()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.fit_predict_score)
+        * [`XGBOD.get_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.get_params)
+        * [`XGBOD.predict()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict)
+        * [`XGBOD.predict_confidence()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict_confidence)
+        * [`XGBOD.predict_proba()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict_proba)
+        * [`XGBOD.predict_with_rejection()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.predict_with_rejection)
+        * [`XGBOD.set_params()`](https://pyod.readthedocs.io/en/latest/pyod.models.html#pyod.models.xgbod.XGBOD.set_params)
+    * [Module contents](https://pyod.readthedocs.io/en/latest/pyod.models.html#module-pyod.models)
+
+

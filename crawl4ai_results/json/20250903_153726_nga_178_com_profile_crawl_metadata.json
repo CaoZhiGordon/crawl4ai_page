@@ -1,0 +1,23 @@
+{
+  "timestamp": "2025-09-03T15:37:26.379229",
+  "url": "https://nga.178.com/read.php?tid=36252622",
+  "crawl_type": "profile_crawl",
+  "success": true,
+  "status_code": 200,
+  "title": "[讨论] 除了nga，大家还有哪些喜欢的游戏社区？(更新总结) 178",
+  "html_length": 178060,
+  "markdown_length": 17928,
+  "links_count": {
+    "internal": 31,
+    "external": 9
+  },
+  "media_count": {
+    "images": 15,
+    "videos": 0
+  },
+  "saved_files": [
+    "crawl4ai_results/html/20250903_153726_nga_178_com_profile_crawl.html",
+    "crawl4ai_results/markdown/20250903_153726_nga_178_com_profile_crawl.md"
+  ],
+  "profile_used": "nga"
+}

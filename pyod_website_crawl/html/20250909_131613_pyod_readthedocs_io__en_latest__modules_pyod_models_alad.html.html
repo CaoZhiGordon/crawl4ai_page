@@ -1,0 +1,1335 @@
+<!DOCTYPE html><html class="" lang="en" data-content_root="../../../" data-readthedocs-tool="sphinx" data-readthedocs-tool-theme="furo"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><style type="text/css">:root, :host {
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 7 Free";
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 7 Free";
+  --fa-font-light: normal 300 1em/1 "Font Awesome 7 Pro";
+  --fa-font-thin: normal 100 1em/1 "Font Awesome 7 Pro";
+  --fa-font-duotone: normal 900 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-regular: normal 400 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-light: normal 300 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-thin: normal 100 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 7 Brands";
+  --fa-font-sharp-solid: normal 900 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-regular: normal 400 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-light: normal 300 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-thin: normal 100 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-duotone-solid: normal 900 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-regular: normal 400 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-light: normal 300 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-thin: normal 100 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-slab-regular: normal 400 1em/1 "Font Awesome 7 Slab";
+  --fa-font-slab-press-regular: normal 400 1em/1 "Font Awesome 7 Slab Press";
+  --fa-font-whiteboard-semibold: normal 600 1em/1 "Font Awesome 7 Whiteboard";
+  --fa-font-thumbprint-light: normal 300 1em/1 "Font Awesome 7 Thumbprint";
+  --fa-font-notdog-solid: normal 900 1em/1 "Font Awesome 7 Notdog";
+  --fa-font-notdog-duo-solid: normal 900 1em/1 "Font Awesome 7 Notdog Duo";
+  --fa-font-etch-solid: normal 900 1em/1 "Font Awesome 7 Etch";
+  --fa-font-jelly-regular: normal 400 1em/1 "Font Awesome 7 Jelly";
+  --fa-font-jelly-fill-regular: normal 400 1em/1 "Font Awesome 7 Jelly Fill";
+  --fa-font-jelly-duo-regular: normal 400 1em/1 "Font Awesome 7 Jelly Duo";
+  --fa-font-chisel-regular: normal 400 1em/1 "Font Awesome 7 Chisel";
+}
+
+.svg-inline--fa {
+  box-sizing: content-box;
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.svg-inline--fa.fa-2xs {
+  vertical-align: 0.1em;
+}
+.svg-inline--fa.fa-xs {
+  vertical-align: 0em;
+}
+.svg-inline--fa.fa-sm {
+  vertical-align: -0.0714285714em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.2em;
+}
+.svg-inline--fa.fa-xl {
+  vertical-align: -0.25em;
+}
+.svg-inline--fa.fa-2xl {
+  vertical-align: -0.3125em;
+}
+.svg-inline--fa.fa-pull-left,
+.svg-inline--fa .fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-pull-right,
+.svg-inline--fa .fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-li {
+  width: var(--fa-li-width, 2em);
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  inset-block-start: 0.25em; /* syncing vertical alignment with Web Font rendering */
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.fa-layers .svg-inline--fa {
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  transform-origin: center center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: var(--fa-counter-background-color, #ff253a);
+  border-radius: var(--fa-counter-border-radius, 1em);
+  box-sizing: border-box;
+  color: var(--fa-inverse, #fff);
+  line-height: var(--fa-counter-line-height, 1);
+  max-width: var(--fa-counter-max-width, 5em);
+  min-width: var(--fa-counter-min-width, 1.5em);
+  overflow: hidden;
+  padding: var(--fa-counter-padding, 0.25em 0.5em);
+  right: var(--fa-right, 0);
+  text-overflow: ellipsis;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-counter-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: var(--fa-bottom, 0);
+  right: var(--fa-right, 0);
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: var(--fa-bottom, 0);
+  left: var(--fa-left, 0);
+  right: auto;
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  top: var(--fa-top, 0);
+  right: var(--fa-right, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: var(--fa-left, 0);
+  right: auto;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top left;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-2xs {
+  font-size: calc(10 / 16 * 1em); /* converts a 10px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 10 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 10 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xs {
+  font-size: calc(12 / 16 * 1em); /* converts a 12px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 12 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 12 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-sm {
+  font-size: calc(14 / 16 * 1em); /* converts a 14px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 14 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 14 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-lg {
+  font-size: calc(20 / 16 * 1em); /* converts a 20px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 20 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 20 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xl {
+  font-size: calc(24 / 16 * 1em); /* converts a 24px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 24 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 24 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-2xl {
+  font-size: calc(32 / 16 * 1em); /* converts a 32px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 32 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 32 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-width-auto {
+  --fa-width: auto;
+}
+
+.fa-fw,
+.fa-width-fixed {
+  --fa-width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-inline-start: var(--fa-li-margin, 2.5em);
+  padding-inline-start: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  position: absolute;
+  text-align: center;
+  width: var(--fa-li-width, 2em);
+  line-height: inherit;
+}
+
+/* Heads Up: Bordered Icons will not be supported in the future!
+  - This feature will be deprecated in the next major release of Font Awesome (v8)!
+  - You may continue to use it in this version *v7), but it will not be supported in Font Awesome v8.
+*/
+/* Notes:
+* --@{v.$css-prefix}-border-width = 1/16 by default (to render as ~1px based on a 16px default font-size)
+* --@{v.$css-prefix}-border-padding =
+  ** 3/16 for vertical padding (to give ~2px of vertical whitespace around an icon considering it's vertical alignment)
+  ** 4/16 for horizontal padding (to give ~4px of horizontal whitespace around an icon)
+*/
+.fa-border {
+  border-color: var(--fa-border-color, #eee);
+  border-radius: var(--fa-border-radius, 0.1em);
+  border-style: var(--fa-border-style, solid);
+  border-width: var(--fa-border-width, 0.0625em);
+  box-sizing: var(--fa-border-box-sizing, content-box);
+  padding: var(--fa-border-padding, 0.1875em 0.25em);
+}
+
+.fa-pull-left,
+.fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-pull-right,
+.fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-beat {
+  animation-name: fa-beat;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-bounce {
+  animation-name: fa-bounce;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
+}
+
+.fa-fade {
+  animation-name: fa-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-beat-fade {
+  animation-name: fa-beat-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-flip {
+  animation-name: fa-flip;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-shake {
+  animation-name: fa-shake;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin {
+  animation-name: fa-spin;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 2s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin-reverse {
+  --fa-animation-direction: reverse;
+}
+
+.fa-pulse,
+.fa-spin-pulse {
+  animation-name: fa-spin;
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, steps(8));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-beat,
+  .fa-bounce,
+  .fa-fade,
+  .fa-beat-fade,
+  .fa-flip,
+  .fa-pulse,
+  .fa-shake,
+  .fa-spin,
+  .fa-spin-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@keyframes fa-beat {
+  0%, 90% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(var(--fa-beat-scale, 1.25));
+  }
+}
+@keyframes fa-bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+  }
+  30% {
+    transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+  }
+  50% {
+    transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+@keyframes fa-fade {
+  50% {
+    opacity: var(--fa-fade-opacity, 0.4);
+  }
+}
+@keyframes fa-beat-fade {
+  0%, 100% {
+    opacity: var(--fa-beat-fade-opacity, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(var(--fa-beat-fade-scale, 1.125));
+  }
+}
+@keyframes fa-flip {
+  50% {
+    transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+  }
+}
+@keyframes fa-shake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  4% {
+    transform: rotate(15deg);
+  }
+  8%, 24% {
+    transform: rotate(-18deg);
+  }
+  12%, 28% {
+    transform: rotate(18deg);
+  }
+  16% {
+    transform: rotate(-22deg);
+  }
+  20% {
+    transform: rotate(22deg);
+  }
+  32% {
+    transform: rotate(-12deg);
+  }
+  36% {
+    transform: rotate(12deg);
+  }
+  40%, 100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  transform: scale(1, -1);
+}
+
+.fa-flip-both,
+.fa-flip-horizontal.fa-flip-vertical {
+  transform: scale(-1, -1);
+}
+
+.fa-rotate-by {
+  transform: rotate(var(--fa-rotate-angle, 0));
+}
+
+.svg-inline--fa .fa-primary {
+  fill: var(--fa-primary-color, currentColor);
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa .fa-secondary {
+  fill: var(--fa-secondary-color, currentColor);
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-primary {
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-secondary {
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa mask .fa-primary,
+.svg-inline--fa mask .fa-secondary {
+  fill: black;
+}
+
+.svg-inline--fa.fa-inverse {
+  fill: var(--fa-inverse, #fff);
+}
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2em;
+  position: relative;
+  vertical-align: middle;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: var(--fa-inverse, #fff);
+}
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em;
+}
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em;
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: var(--fa-stack-z-index, auto);
+}</style><link rel="author" title="About these documents" href="../../../about.html"><link rel="index" title="Index" href="../../../genindex.html"><link rel="search" title="Search" href="../../../search.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
+        <title>pyod.models.alad - pyod 2.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079">
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo.css?v=25af2a20">
+    <link rel="stylesheet" type="text/css" href="../../../_static/styles/furo-extensions.css?v=8dab3a3b">
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style><script async="" type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="pyod"><meta name="readthedocs-version-slug" content="latest"><meta name="readthedocs-resolver-filename" content="/_modules/pyod/models/alad.html"><meta name="readthedocs-http-status" content="200"><script id="ethicaladsjs" type="text/javascript" async="true" src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script></head>
+  <body data-theme="auto">
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"></path>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"></line>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"></line>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"></line>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"></line>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"></line>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"></line>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"></line>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"></line>
+      <circle cx="14.5" cy="9.55" r="3.6"></circle>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"></line>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"></line>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"></line>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"></line>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"></line>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"></line>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"></line>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"></line>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"></circle>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+      <path d="M13.5 6.5l4 4"></path>
+      <path d="M20 21l2 -2l-2 -2"></path>
+      <path d="M17 17l-2 2l2 2"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+      <path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+      <path d="M20 21l2 -2l-2 -2"></path>
+      <path d="M17 17l-2 2l2 2"></path>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="../../../index.html"><div class="brand">pyod 2.0.5 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon no-toc" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="../../../index.html">
+  
+  <span class="sidebar-brand-text">pyod 2.0.5 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="../../../search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../model_persistence.html">Model Save &amp; Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../fast_train.html">Fast Train with SUOD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../benchmark.html">Benchmarks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../api_cc.html">API CheatSheet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../../../pyod.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../../../pyod.models.html">All Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../../pyod.utils.html">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../issues.html">Known Issues &amp; Warnings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../relevant_knowledge.html">Outlier Detection 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pubs.html">Citations &amp; Achievements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../about.html">About us</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon no-toc" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <h1>Source code for pyod.models.alad</h1><div class="highlight"><pre><span></span><span class="c1"># -*- coding: utf-8 -*-</span>
+<span class="sd">"""Using Adversarially Learned Anomaly Detection</span>
+<span class="sd">"""</span>
+<span class="c1"># Author: Michiel Bongaerts (but not author of the ALAD method)</span>
+<span class="c1"># Pytorch version Author: Jiaqi Li &lt;jli77629@usc.edu&gt;</span>
+
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">'please install torch first'</span><span class="p">)</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">torch.optim</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">optim</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">matplotlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">StandardScaler</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_array</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.utils.validation</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_is_fitted</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.base</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseDetector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">..utils.utility</span><span class="w"> </span><span class="kn">import</span> <span class="n">check_parameter</span>
+
+
+<div class="viewcode-block" id="ALAD">
+<a class="viewcode-back" href="../../../pyod.models.html#pyod.models.alad.ALAD">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ALAD</span><span class="p">(</span><span class="n">BaseDetector</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Adversarially Learned Anomaly Detection (ALAD). </span>
+<span class="sd">    Paper: https://arxiv.org/pdf/1812.02288.pdf</span>
+
+<span class="sd">    See :cite:`zenati2018adversarially` for details.</span>
+<span class="sd">    </span>
+<span class="sd">    Parameters</span>
+<span class="sd">    ----------</span>
+<span class="sd">    output_activation : str, optional (default=None)</span>
+<span class="sd">        Activation function to use for output layers for encoder and dector.</span>
+
+<span class="sd">    activation_hidden_disc : str, optional (default='tanh')</span>
+<span class="sd">        Activation function to use for hidden layers in discrimators.</span>
+
+<span class="sd">    activation_hidden_gen : str, optional (default='tanh')</span>
+<span class="sd">        Activation function to use for hidden layers in encoder and decoder</span>
+<span class="sd">        (i.e. generator).</span>
+
+<span class="sd">    epochs : int, optional (default=500)</span>
+<span class="sd">        Number of epochs to train the model.</span>
+
+<span class="sd">    batch_size : int, optional (default=32)</span>
+<span class="sd">        Number of samples per gradient update.</span>
+
+<span class="sd">    dropout_rate : float in (0., 1), optional (default=0.2)</span>
+<span class="sd">        The dropout to be used across all layers.</span>
+
+<span class="sd">    dec_layers : list, optional (default=[5,10,25])</span>
+<span class="sd">        List that indicates the number of nodes per hidden layer for the d</span>
+<span class="sd">        ecoder network.</span>
+<span class="sd">        Thus, [10,10] indicates 2 hidden layers having each 10 nodes.</span>
+
+<span class="sd">    enc_layers : list, optional (default=[25,10,5])</span>
+<span class="sd">        List that indicates the number of nodes per hidden layer for the</span>
+<span class="sd">        encoder network.</span>
+<span class="sd">        Thus, [10,10] indicates 2 hidden layers having each 10 nodes.</span>
+
+<span class="sd">    disc_xx_layers : list, optional (default=[25,10,5])</span>
+<span class="sd">        List that indicates the number of nodes per hidden layer for</span>
+<span class="sd">        discriminator_xx.</span>
+<span class="sd">        Thus, [10,10] indicates 2 hidden layers having each 10 nodes.</span>
+
+<span class="sd">    disc_zz_layers : list, optional (default=[25,10,5])</span>
+<span class="sd">        List that indicates the number of nodes per hidden layer for</span>
+<span class="sd">        discriminator_zz.</span>
+<span class="sd">        Thus, [10,10] indicates 2 hidden layers having each 10 nodes.</span>
+
+<span class="sd">    disc_xz_layers : list, optional (default=[25,10,5])</span>
+<span class="sd">        List that indicates the number of nodes per hidden layer for</span>
+<span class="sd">        discriminator_xz.</span>
+<span class="sd">        Thus, [10,10] indicates 2 hidden layers having each 10 nodes.</span>
+
+<span class="sd">    learning_rate_gen: float in (0., 1), optional (default=0.001)</span>
+<span class="sd">        learning rate of training the encoder and decoder</span>
+
+<span class="sd">    learning_rate_disc: float in (0., 1), optional (default=0.001)</span>
+<span class="sd">        learning rate of training the discriminators</span>
+
+<span class="sd">    add_recon_loss: bool optional (default=False)</span>
+<span class="sd">        add an extra loss for encoder and decoder based on the reconstruction</span>
+<span class="sd">        error</span>
+
+<span class="sd">    lambda_recon_loss: float in (0., 1), optional (default=0.1)</span>
+<span class="sd">        if ``add_recon_loss= True``, the reconstruction loss gets multiplied</span>
+<span class="sd">        by ``lambda_recon_loss`` and added to the total loss for the generator</span>
+<span class="sd">         (i.e. encoder and decoder).</span>
+
+<span class="sd">    preprocessing : bool, optional (default=True)</span>
+<span class="sd">        If True, apply standardization on the data.</span>
+
+<span class="sd">    verbose : int, optional (default=1)</span>
+<span class="sd">        Verbosity mode.</span>
+<span class="sd">        - 0 = silent</span>
+<span class="sd">        - 1 = progress bar</span>
+
+<span class="sd">    contamination : float in (0., 0.5), optional (default=0.1)</span>
+<span class="sd">        The amount of contamination of the data set, i.e.</span>
+<span class="sd">        the proportion of outliers in the data set. When fitting this is used</span>
+<span class="sd">        to define the threshold on the decision function.</span>
+
+<span class="sd">    device : str or None, optional (default=None)</span>
+<span class="sd">        The device to use for computation. If None, the default device will be used.</span>
+<span class="sd">        Possible values include 'cpu' or 'gpu'. This parameter allows the user</span>
+<span class="sd">        to specify the preferred device for running the model.</span>
+<span class="sd">        </span>
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    decision_scores_ : numpy array of shape (n_samples,)</span>
+<span class="sd">        The outlier scores of the training data [0,1].</span>
+<span class="sd">        The higher, the more abnormal. Outliers tend to have higher</span>
+<span class="sd">        scores. This value is available once the detector is</span>
+<span class="sd">        fitted.</span>
+
+<span class="sd">    threshold_ : float</span>
+<span class="sd">        The threshold is based on ``contamination``. It is the</span>
+<span class="sd">        ``n_samples * contamination`` most abnormal samples in</span>
+<span class="sd">        ``decision_scores_``. The threshold is calculated for generating</span>
+<span class="sd">        binary outlier labels.</span>
+
+<span class="sd">    labels_ : int, either 0 or 1</span>
+<span class="sd">        The binary labels of the training data. 0 stands for inliers</span>
+<span class="sd">        and 1 for outliers/anomalies. It is generated by applying</span>
+<span class="sd">        ``threshold_`` on ``decision_scores_``.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">activation_hidden_gen</span><span class="o">=</span><span class="s1">'tanh'</span><span class="p">,</span>
+                 <span class="n">activation_hidden_disc</span><span class="o">=</span><span class="s1">'tanh'</span><span class="p">,</span>
+                 <span class="n">output_activation</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span>
+                 <span class="n">dropout_rate</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span>
+                 <span class="n">latent_dim</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span>
+                 <span class="n">dec_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">25</span><span class="p">],</span>
+                 <span class="n">enc_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                 <span class="n">disc_xx_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                 <span class="n">disc_zz_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                 <span class="n">disc_xz_layers</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span>
+                 <span class="n">learning_rate_gen</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span> <span class="n">learning_rate_disc</span><span class="o">=</span><span class="mf">0.0001</span><span class="p">,</span>
+                 <span class="n">add_recon_loss</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">lambda_recon_loss</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span>
+                 <span class="n">epochs</span><span class="o">=</span><span class="mi">200</span><span class="p">,</span>
+                 <span class="n">verbose</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
+                 <span class="n">preprocessing</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">add_disc_zz_loss</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">spectral_normalization</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+                 <span class="n">batch_size</span><span class="o">=</span><span class="mi">32</span><span class="p">,</span> <span class="n">contamination</span><span class="o">=</span><span class="mf">0.1</span><span class="p">,</span> <span class="n">device</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">ALAD</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">contamination</span><span class="o">=</span><span class="n">contamination</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">device</span> <span class="o">=</span> <span class="n">device</span> <span class="k">if</span> <span class="n">device</span> <span class="k">else</span> <span class="n">torch</span><span class="o">.</span><span class="n">device</span><span class="p">(</span>
+            <span class="s2">"cuda"</span> <span class="k">if</span> <span class="n">torch</span><span class="o">.</span><span class="n">cuda</span><span class="o">.</span><span class="n">is_available</span><span class="p">()</span> <span class="k">else</span> <span class="s2">"cpu"</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation_hidden_disc</span> <span class="o">=</span> <span class="n">activation_hidden_disc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">activation_hidden_gen</span> <span class="o">=</span> <span class="n">activation_hidden_gen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_activation</span> <span class="o">=</span> <span class="n">output_activation</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dropout_rate</span> <span class="o">=</span> <span class="n">dropout_rate</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span> <span class="o">=</span> <span class="n">latent_dim</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec_layers</span> <span class="o">=</span> <span class="n">dec_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enc_layers</span> <span class="o">=</span> <span class="n">enc_layers</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx_layers</span> <span class="o">=</span> <span class="n">disc_xx_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_zz_layers</span> <span class="o">=</span> <span class="n">disc_zz_layers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz_layers</span> <span class="o">=</span> <span class="n">disc_xz_layers</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_recon_loss</span> <span class="o">=</span> <span class="n">add_recon_loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">lambda_recon_loss</span> <span class="o">=</span> <span class="n">lambda_recon_loss</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">add_disc_zz_loss</span> <span class="o">=</span> <span class="n">add_disc_zz_loss</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">contamination</span> <span class="o">=</span> <span class="n">contamination</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">epochs</span> <span class="o">=</span> <span class="n">epochs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate_gen</span> <span class="o">=</span> <span class="n">learning_rate_gen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">learning_rate_disc</span> <span class="o">=</span> <span class="n">learning_rate_disc</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span> <span class="o">=</span> <span class="n">preprocessing</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">=</span> <span class="n">verbose</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">spectral_normalization</span> <span class="o">=</span> <span class="n">spectral_normalization</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectral_normalization</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="kn">import</span><span class="w"> </span><span class="nn">torch.nn.utils.spectral_norm</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">spectral_norm</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">spectral_norm</span> <span class="o">=</span> <span class="n">spectral_norm</span>
+            <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">'Spectral normalization not available. '</span>
+                      <span class="s1">'Install torch&gt;=1.0.0.'</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">spectral_normalization</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="n">check_parameter</span><span class="p">(</span><span class="n">dropout_rate</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">param_name</span><span class="o">=</span><span class="s1">'dropout_rate'</span><span class="p">,</span>
+                        <span class="n">include_left</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_build_model</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">get_activation</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">'tanh'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Tanh</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">'sigmoid'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">()</span>
+            <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s1">'relu'</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">ReLU</span><span class="p">()</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+                    <span class="s2">"Unsupported activation function: </span><span class="si">{}</span><span class="s2">"</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+        <span class="c1"># Create the decoder</span>
+        <span class="n">dec_layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">input_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span>
+        <span class="k">for</span> <span class="n">l_dim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec_layers</span><span class="p">:</span>
+            <span class="n">dec_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">l_dim</span><span class="p">))</span>
+            <span class="n">dec_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout_rate</span><span class="p">))</span>
+            <span class="n">dec_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activation_hidden_gen</span><span class="p">))</span>
+            <span class="n">input_dim</span> <span class="o">=</span> <span class="n">l_dim</span>
+        <span class="n">dec_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_activation</span><span class="p">:</span>
+            <span class="n">dec_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_activation</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">dec</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">dec_layers</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># Create the encoder</span>
+        <span class="n">enc_layers</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">input_dim</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_</span>
+        <span class="k">for</span> <span class="n">l_dim</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">enc_layers</span><span class="p">:</span>
+            <span class="n">enc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">l_dim</span><span class="p">))</span>
+            <span class="n">enc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout_rate</span><span class="p">))</span>
+            <span class="n">enc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activation_hidden_gen</span><span class="p">))</span>
+            <span class="n">input_dim</span> <span class="o">=</span> <span class="n">l_dim</span>
+        <span class="n">enc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span><span class="p">))</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_activation</span><span class="p">:</span>
+            <span class="n">enc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_activation</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enc</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">enc_layers</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="c1"># Create the discriminators</span>
+        <span class="k">def</span><span class="w"> </span><span class="nf">create_discriminator</span><span class="p">(</span><span class="n">layers</span><span class="p">,</span> <span class="n">input_dim</span><span class="p">):</span>
+            <span class="n">disc_layers</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">l_dim</span> <span class="ow">in</span> <span class="n">layers</span><span class="p">:</span>
+                <span class="n">disc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="n">l_dim</span><span class="p">))</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">spectral_normalization</span><span class="p">:</span>
+                    <span class="n">disc_layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">spectral_norm</span><span class="p">(</span><span class="n">disc_layers</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
+                <span class="n">disc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Dropout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dropout_rate</span><span class="p">))</span>
+                <span class="n">disc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">get_activation</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">activation_hidden_disc</span><span class="p">))</span>
+                <span class="n">input_dim</span> <span class="o">=</span> <span class="n">l_dim</span>
+            <span class="n">disc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Linear</span><span class="p">(</span><span class="n">input_dim</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+            <span class="n">disc_layers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Sigmoid</span><span class="p">())</span>
+            <span class="k">return</span> <span class="n">nn</span><span class="o">.</span><span class="n">Sequential</span><span class="p">(</span><span class="o">*</span><span class="n">disc_layers</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span> <span class="o">=</span> <span class="n">create_discriminator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disc_xx_layers</span><span class="p">,</span>
+                                            <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_zz</span> <span class="o">=</span> <span class="n">create_discriminator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disc_zz_layers</span><span class="p">,</span>
+                                            <span class="mi">2</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz</span> <span class="o">=</span> <span class="n">create_discriminator</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disc_xz_layers</span><span class="p">,</span>
+                                            <span class="bp">self</span><span class="o">.</span><span class="n">n_features_</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span><span class="p">)</span>
+
+        <span class="c1"># Optimizers</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt_gen</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span>
+            <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span>
+            <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate_gen</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt_disc</span> <span class="o">=</span> <span class="n">optim</span><span class="o">.</span><span class="n">Adam</span><span class="p">(</span><span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz</span><span class="o">.</span><span class="n">parameters</span><span class="p">())</span> <span class="o">+</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">disc_zz</span><span class="o">.</span><span class="n">parameters</span><span class="p">()),</span>
+                                   <span class="n">lr</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">learning_rate_disc</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hist_loss_disc</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hist_loss_gen</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+        <span class="n">x_real</span><span class="p">,</span> <span class="n">z_real</span> <span class="o">=</span> <span class="n">data</span>
+
+        <span class="n">x_real</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">x_real</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">z_real</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">z_real</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt_disc</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">x_gen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">(</span><span class="n">z_real</span><span class="p">)</span>
+        <span class="n">z_gen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="p">(</span><span class="n">x_real</span><span class="p">)</span>
+
+        <span class="n">out_true_xz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_real</span><span class="p">,</span> <span class="n">z_gen</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">out_fake_xz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_gen</span><span class="p">,</span> <span class="n">z_real</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">out_true_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_real</span><span class="p">,</span> <span class="n">x_real</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">out_fake_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_real</span><span class="p">,</span> <span class="n">x_gen</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">loss_dxz</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_true_xz</span><span class="p">,</span>
+                                <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out_true_xz</span><span class="p">))</span> <span class="o">+</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span>
+            <span class="n">out_fake_xz</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">out_fake_xz</span><span class="p">))</span>
+        <span class="n">loss_dxx</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_true_xx</span><span class="p">,</span>
+                                <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out_true_xx</span><span class="p">))</span> <span class="o">+</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span>
+            <span class="n">out_fake_xx</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">out_fake_xx</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_disc_zz_loss</span><span class="p">:</span>
+            <span class="n">out_true_zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_zz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">z_real</span><span class="p">,</span> <span class="n">z_real</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">out_fake_zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_zz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">z_real</span><span class="p">,</span> <span class="n">z_gen</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">loss_dzz</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_true_zz</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span>
+                <span class="n">out_true_zz</span><span class="p">))</span> <span class="o">+</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_fake_zz</span><span class="p">,</span>
+                                             <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">out_fake_zz</span><span class="p">))</span>
+            <span class="n">loss_disc</span> <span class="o">=</span> <span class="n">loss_dxz</span> <span class="o">+</span> <span class="n">loss_dzz</span> <span class="o">+</span> <span class="n">loss_dxx</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">loss_disc</span> <span class="o">=</span> <span class="n">loss_dxz</span> <span class="o">+</span> <span class="n">loss_dxx</span>
+
+        <span class="n">loss_disc</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt_disc</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt_gen</span><span class="o">.</span><span class="n">zero_grad</span><span class="p">()</span>
+        <span class="n">x_gen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">(</span><span class="n">z_real</span><span class="p">)</span>
+        <span class="n">z_gen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="p">(</span><span class="n">x_real</span><span class="p">)</span>
+
+        <span class="n">out_true_xz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_real</span><span class="p">,</span> <span class="n">z_gen</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">out_fake_xz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_gen</span><span class="p">,</span> <span class="n">z_real</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">out_true_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_real</span><span class="p">,</span> <span class="n">x_real</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+        <span class="n">out_fake_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">x_real</span><span class="p">,</span> <span class="n">x_gen</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+        <span class="n">loss_gexz</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_fake_xz</span><span class="p">,</span>
+                                 <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out_fake_xz</span><span class="p">))</span> <span class="o">+</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span>
+            <span class="n">out_true_xz</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">out_true_xz</span><span class="p">))</span>
+        <span class="n">loss_gexx</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_fake_xx</span><span class="p">,</span>
+                                 <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span><span class="n">out_fake_xx</span><span class="p">))</span> <span class="o">+</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span>
+            <span class="n">out_true_xx</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">out_true_xx</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_disc_zz_loss</span><span class="p">:</span>
+            <span class="n">out_true_zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_zz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">z_real</span><span class="p">,</span> <span class="n">z_real</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">out_fake_zz</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_zz</span><span class="p">(</span><span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">z_real</span><span class="p">,</span> <span class="n">z_gen</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+            <span class="n">loss_gezz</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_fake_zz</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">ones_like</span><span class="p">(</span>
+                <span class="n">out_fake_zz</span><span class="p">))</span> <span class="o">+</span> <span class="n">nn</span><span class="o">.</span><span class="n">BCELoss</span><span class="p">()(</span><span class="n">out_true_zz</span><span class="p">,</span>
+                                             <span class="n">torch</span><span class="o">.</span><span class="n">zeros_like</span><span class="p">(</span><span class="n">out_true_zz</span><span class="p">))</span>
+            <span class="n">cycle_consistency</span> <span class="o">=</span> <span class="n">loss_gezz</span> <span class="o">+</span> <span class="n">loss_gexx</span>
+            <span class="n">loss_gen</span> <span class="o">=</span> <span class="n">loss_gexz</span> <span class="o">+</span> <span class="n">cycle_consistency</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">cycle_consistency</span> <span class="o">=</span> <span class="n">loss_gexx</span>
+            <span class="n">loss_gen</span> <span class="o">=</span> <span class="n">loss_gexz</span> <span class="o">+</span> <span class="n">cycle_consistency</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">add_recon_loss</span><span class="p">:</span>
+            <span class="n">x_recon</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="p">(</span><span class="n">x_real</span><span class="p">))</span>
+            <span class="n">loss_recon</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">mean</span><span class="p">((</span><span class="n">x_real</span> <span class="o">-</span> <span class="n">x_recon</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">)</span>
+            <span class="n">loss_gen</span> <span class="o">+=</span> <span class="n">loss_recon</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">lambda_recon_loss</span>
+
+        <span class="n">loss_gen</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">opt_gen</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">hist_loss_disc</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_disc</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">hist_loss_gen</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss_gen</span><span class="o">.</span><span class="n">item</span><span class="p">())</span>
+
+<div class="viewcode-block" id="ALAD.fit">
+<a class="viewcode-back" href="../../../pyod.models.html#pyod.models.alad.ALAD.fit">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Fit detector. y is ignored in unsupervised methods.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : numpy array of shape (n_samples, n_features)</span>
+<span class="sd">            The input samples.</span>
+<span class="sd">        y : Ignored</span>
+<span class="sd">            Not used, present for API consistency by convention.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        self : object</span>
+<span class="sd">            Fitted estimator.</span>
+<span class="sd">        """</span>
+        <span class="c1"># validate inputs X and y (optional)</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_set_n_classes</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+
+        <span class="c1"># Get number of sampels and features from train set</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">n_samples_</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_features_</span> <span class="o">=</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_build_model</span><span class="p">()</span>
+
+        <span class="c1"># Apply data scaling or not</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span> <span class="o">=</span> <span class="n">StandardScaler</span><span class="p">()</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Train iter: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+            <span class="c1"># Shuffle train </span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span>
+
+            <span class="n">X_train_sel</span> <span class="o">=</span> <span class="n">X_norm</span><span class="p">[</span>
+                          <span class="p">:</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_samples_</span><span class="p">)]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="n">latent_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span>
+                <span class="n">X_train_sel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span><span class="p">))</span>
+            <span class="n">X_train_sel</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise_std</span><span class="p">,</span>
+                                            <span class="n">size</span><span class="o">=</span><span class="n">X_train_sel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_step</span><span class="p">((</span><span class="n">X_train_sel</span><span class="p">,</span> <span class="n">latent_noise</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="n">pred_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_outlier_scores</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decision_scores_</span> <span class="o">=</span> <span class="n">pred_scores</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_decision_scores</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_more</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">epochs</span><span class="o">=</span><span class="mi">100</span><span class="p">,</span> <span class="n">noise_std</span><span class="o">=</span><span class="mf">0.1</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""This function allows the researcher to perform extra training</span>
+<span class="sd">        instead of the fixed number determined</span>
+<span class="sd">        by the fit() function.</span>
+<span class="sd">        """</span>
+        <span class="c1"># fit() should have been called first</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[</span><span class="s1">'decision_scores_'</span><span class="p">])</span>
+
+        <span class="c1"># Apply data scaling or not</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">epochs</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">n</span> <span class="o">%</span> <span class="mi">50</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">n</span> <span class="o">!=</span> <span class="mi">0</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">verbose</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'Train iter: </span><span class="si">{</span><span class="n">n</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+
+            <span class="c1"># Shuffle train </span>
+            <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">shuffle</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span>
+
+            <span class="n">X_train_sel</span> <span class="o">=</span> <span class="n">X_norm</span><span class="p">[</span>
+                          <span class="p">:</span><span class="nb">min</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_samples_</span><span class="p">)]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span>
+                <span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+            <span class="n">latent_noise</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="p">(</span>
+                <span class="n">X_train_sel</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">latent_dim</span><span class="p">))</span>
+            <span class="n">X_train_sel</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">noise_std</span><span class="p">,</span>
+                                            <span class="n">size</span><span class="o">=</span><span class="n">X_train_sel</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">train_step</span><span class="p">((</span><span class="n">X_train_sel</span><span class="p">,</span> <span class="n">latent_noise</span><span class="p">))</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="n">pred_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_outlier_scores</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">decision_scores_</span> <span class="o">=</span> <span class="n">pred_scores</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_process_decision_scores</span><span class="p">()</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_outlier_scores</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X_norm</span><span class="p">):</span>
+        <span class="n">X_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">X_enc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">enc</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">X_enc_gen</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">dec</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">X_enc</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="n">out_true_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">X_norm</span><span class="p">),</span> <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+        <span class="n">out_fake_xx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">disc_xx</span><span class="p">(</span>
+            <span class="n">torch</span><span class="o">.</span><span class="n">cat</span><span class="p">((</span><span class="n">X_norm</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">X_enc_gen</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)),</span>
+                      <span class="n">dim</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">detach</span><span class="p">()</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">()</span>
+
+        <span class="n">outlier_scores</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">abs</span><span class="p">((</span><span class="n">out_true_xx</span> <span class="o">-</span> <span class="n">out_fake_xx</span><span class="p">)</span> <span class="o">**</span> <span class="mi">2</span><span class="p">),</span>
+                                 <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">outlier_scores</span>
+
+<div class="viewcode-block" id="ALAD.decision_function">
+<a class="viewcode-back" href="../../../pyod.models.html#pyod.models.alad.ALAD.decision_function">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">decision_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Predict raw anomaly score of X using the fitted detector.</span>
+<span class="sd">        The anomaly score of an input sample is computed based on different</span>
+<span class="sd">        detector algorithms. For consistency, outliers are assigned with</span>
+<span class="sd">        larger anomaly scores.</span>
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        X : numpy array of shape (n_samples, n_features)</span>
+<span class="sd">            The training input samples. Sparse matrices are accepted only</span>
+<span class="sd">            if they are supported by the base estimator.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        anomaly_scores : numpy array of shape (n_samples,)</span>
+<span class="sd">            The anomaly score of the input samples.</span>
+<span class="sd">        """</span>
+        <span class="n">check_is_fitted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">[</span><span class="s1">'decision_scores_'</span><span class="p">])</span>
+        <span class="n">X</span> <span class="o">=</span> <span class="n">check_array</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">preprocessing</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">scaler_</span><span class="o">.</span><span class="n">transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">X_norm</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
+
+        <span class="n">X_norm</span> <span class="o">=</span> <span class="n">torch</span><span class="o">.</span><span class="n">FloatTensor</span><span class="p">(</span><span class="n">X_norm</span><span class="p">)</span><span class="o">.</span><span class="n">to</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">device</span><span class="p">)</span>
+        <span class="n">pred_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_outlier_scores</span><span class="p">(</span><span class="n">X_norm</span><span class="o">.</span><span class="n">cpu</span><span class="p">()</span><span class="o">.</span><span class="n">numpy</span><span class="p">())</span>
+        <span class="k">return</span> <span class="n">pred_scores</span></div>
+
+
+<div class="viewcode-block" id="ALAD.plot_learning_curves">
+<a class="viewcode-back" href="../../../pyod.models.html#pyod.models.alad.ALAD.plot_learning_curves">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">plot_learning_curves</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">start_ind</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">window_smoothening</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
+        <span class="n">fig</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+
+        <span class="n">l_gen</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hist_loss_gen</span><span class="p">[</span><span class="n">start_ind</span><span class="p">:])</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span>
+            <span class="n">window</span><span class="o">=</span><span class="n">window_smoothening</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+        <span class="n">l_disc</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">hist_loss_disc</span><span class="p">[</span><span class="n">start_ind</span><span class="p">:])</span><span class="o">.</span><span class="n">rolling</span><span class="p">(</span>
+            <span class="n">window</span><span class="o">=</span><span class="n">window_smoothening</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l_gen</span><span class="p">)),</span> <span class="n">l_gen</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Generator'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Iter'</span><span class="p">)</span>
+
+        <span class="n">ax</span> <span class="o">=</span> <span class="n">fig</span><span class="o">.</span><span class="n">add_subplot</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">l_disc</span><span class="p">)),</span> <span class="n">l_disc</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s1">'Discriminator(s)'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_ylabel</span><span class="p">(</span><span class="s1">'Loss'</span><span class="p">)</span>
+        <span class="n">ax</span><span class="o">.</span><span class="n">set_xlabel</span><span class="p">(</span><span class="s1">'Iter'</span><span class="p">)</span>
+
+        <span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span></div>
+</div>
+
+</pre></div>
+        <div class="raised" data-ea-type="text" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-keywords="anomaly-detection|outlier-detection|outlier-ensembles|python|readthedocs-project-219652|readthedocs-project-pyod" data-ea-campaign-types="community|house|paid" id="readthedocs-ea-text-nostyle-sphinx"></div></article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright © 2022, Yue Zhao
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer no-toc">
+      
+      
+      
+    </aside>
+  </div>
+</div><script src="../../../_static/documentation_options.js?v=09beee0d"></script>
+    <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+    <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../../_static/scripts/furo.js?v=46bd48cc"></script>
+    
+<readthedocs-flyout></readthedocs-flyout><readthedocs-notification class="raised toast"></readthedocs-notification><readthedocs-search class="raised floating"></readthedocs-search><readthedocs-hotkeys></readthedocs-hotkeys></body></html>

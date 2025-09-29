@@ -1,0 +1,22 @@
+{
+  "url": "https://pyod.readthedocs.io/en/latest/?badge=latest",
+  "title": "pyod 2.0.5 documentation",
+  "depth": 1,
+  "timestamp": "2025-09-09T13:16:01.077019",
+  "success": true,
+  "error": null,
+  "links_count": 0,
+  "markdown_length": 62136,
+  "html_length": 128092,
+  "metadata": {
+    "title": "pyod 2.0.5 documentation",
+    "description": null,
+    "keywords": null,
+    "author": null
+  },
+  "files": {
+    "html": "pyod_website_crawl/html/20250909_131601_pyod_readthedocs_io__en_latest_.html",
+    "markdown": "pyod_website_crawl/markdown/20250909_131601_pyod_readthedocs_io__en_latest_.md",
+    "metadata": "pyod_website_crawl/metadata/20250909_131601_pyod_readthedocs_io__en_latest__metadata.json"
+  }
+}

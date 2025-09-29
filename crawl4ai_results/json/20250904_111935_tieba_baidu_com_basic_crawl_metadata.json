@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-09-04T11:19:35.633208",
+  "url": "https://tieba.baidu.com/f/search/res?ie=utf-8&kw=%E6%98%8E%E6%97%A5%E6%96%B9%E8%88%9F&qw=%E5%A4%A7%E5%A7%A8",
+  "crawl_type": "basic_crawl",
+  "success": true,
+  "status_code": 403,
+  "title": "百度安全验证",
+  "html_length": 5759,
+  "markdown_length": 1,
+  "links_count": {
+    "internal": 0,
+    "external": 0
+  },
+  "media_count": {
+    "images": 0,
+    "videos": 0
+  },
+  "saved_files": [
+    "crawl4ai_results/html/20250904_111935_tieba_baidu_com_basic_crawl.html",
+    "crawl4ai_results/markdown/20250904_111935_tieba_baidu_com_basic_crawl.md"
+  ]
+}

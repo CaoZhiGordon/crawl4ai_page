@@ -1,0 +1,22 @@
+{
+  "url": "https://pyod.readthedocs.io/en/latest/example.html",
+  "title": "Examples - pyod 2.0.5 documentation",
+  "depth": 1,
+  "timestamp": "2025-09-09T13:15:59.033422",
+  "success": true,
+  "error": null,
+  "links_count": 0,
+  "markdown_length": 10960,
+  "html_length": 56797,
+  "metadata": {
+    "title": "Examples - pyod 2.0.5 documentation",
+    "description": null,
+    "keywords": null,
+    "author": null
+  },
+  "files": {
+    "html": "pyod_website_crawl/html/20250909_131559_pyod_readthedocs_io__en_latest_example.html.html",
+    "markdown": "pyod_website_crawl/markdown/20250909_131559_pyod_readthedocs_io__en_latest_example.html.md",
+    "metadata": "pyod_website_crawl/metadata/20250909_131559_pyod_readthedocs_io__en_latest_example.html_metadata.json"
+  }
+}

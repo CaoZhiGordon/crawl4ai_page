@@ -1,0 +1,22 @@
+{
+  "url": "https://pyod.readthedocs.io/en/latest/_modules/pyod/models/ae1svm.html",
+  "title": "pyod.models.ae1svm - pyod 2.0.5 documentation",
+  "depth": 2,
+  "timestamp": "2025-09-09T13:16:49.734378",
+  "success": true,
+  "error": null,
+  "links_count": 0,
+  "markdown_length": 15697,
+  "html_length": 82256,
+  "metadata": {
+    "title": "pyod.models.ae1svm - pyod 2.0.5 documentation",
+    "description": null,
+    "keywords": null,
+    "author": null
+  },
+  "files": {
+    "html": "pyod_website_crawl/html/20250909_131649_pyod_readthedocs_io__en_latest__modules_pyod_models_ae1svm.html.html",
+    "markdown": "pyod_website_crawl/markdown/20250909_131649_pyod_readthedocs_io__en_latest__modules_pyod_models_ae1svm.html.md",
+    "metadata": "pyod_website_crawl/metadata/20250909_131649_pyod_readthedocs_io__en_latest__modules_pyod_models_ae1svm.html_metadata.json"
+  }
+}

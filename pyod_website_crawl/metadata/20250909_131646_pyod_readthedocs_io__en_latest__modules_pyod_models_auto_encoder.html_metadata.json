@@ -1,0 +1,22 @@
+{
+  "url": "https://pyod.readthedocs.io/en/latest/_modules/pyod/models/auto_encoder.html",
+  "title": "pyod.models.auto_encoder - pyod 2.0.5 documentation",
+  "depth": 2,
+  "timestamp": "2025-09-09T13:16:46.311175",
+  "success": true,
+  "error": null,
+  "links_count": 0,
+  "markdown_length": 10893,
+  "html_length": 56323,
+  "metadata": {
+    "title": "pyod.models.auto_encoder - pyod 2.0.5 documentation",
+    "description": null,
+    "keywords": null,
+    "author": null
+  },
+  "files": {
+    "html": "pyod_website_crawl/html/20250909_131646_pyod_readthedocs_io__en_latest__modules_pyod_models_auto_encoder.html.html",
+    "markdown": "pyod_website_crawl/markdown/20250909_131646_pyod_readthedocs_io__en_latest__modules_pyod_models_auto_encoder.html.md",
+    "metadata": "pyod_website_crawl/metadata/20250909_131646_pyod_readthedocs_io__en_latest__modules_pyod_models_auto_encoder.html_metadata.json"
+  }
+}

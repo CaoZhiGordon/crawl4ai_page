@@ -1,0 +1,22 @@
+{
+  "url": "https://pyod.readthedocs.io/en/latest/_modules/pyod/models/gmm.html",
+  "title": "pyod.models.gmm - pyod 2.0.5 documentation",
+  "depth": 2,
+  "timestamp": "2025-09-09T13:17:03.551437",
+  "success": true,
+  "error": null,
+  "links_count": 0,
+  "markdown_length": 11698,
+  "html_length": 67776,
+  "metadata": {
+    "title": "pyod.models.gmm - pyod 2.0.5 documentation",
+    "description": null,
+    "keywords": null,
+    "author": null
+  },
+  "files": {
+    "html": "pyod_website_crawl/html/20250909_131703_pyod_readthedocs_io__en_latest__modules_pyod_models_gmm.html.html",
+    "markdown": "pyod_website_crawl/markdown/20250909_131703_pyod_readthedocs_io__en_latest__modules_pyod_models_gmm.html.md",
+    "metadata": "pyod_website_crawl/metadata/20250909_131703_pyod_readthedocs_io__en_latest__modules_pyod_models_gmm.html_metadata.json"
+  }
+}

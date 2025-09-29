@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-09-03T15:30:08.680141",
+  "url": "https://nga.178.com/read.php?tid=36252622",
+  "crawl_type": "basic_crawl",
+  "success": true,
+  "status_code": 403,
+  "title": "访客不能直接访问",
+  "html_length": 4352,
+  "markdown_length": 420,
+  "links_count": {
+    "internal": 3,
+    "external": 2
+  },
+  "media_count": {
+    "images": 0,
+    "videos": 0
+  },
+  "saved_files": [
+    "crawl4ai_results/html/20250903_153008_nga_178_com_basic_crawl.html",
+    "crawl4ai_results/markdown/20250903_153008_nga_178_com_basic_crawl.md"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-09-02T17:51:53.443772",
+  "url": "https://zhuanlan.zhihu.com/p/1891189680051050343",
+  "crawl_type": "basic_crawl",
+  "success": true,
+  "status_code": 403,
+  "title": "告别手动：N8N + Crawl4ai + MCP 自动化网页数据抓取与 RAG 知识库构建实战（本地部署教程） - 知乎",
+  "html_length": 180139,
+  "markdown_length": 11317,
+  "links_count": {
+    "internal": 15,
+    "external": 0
+  },
+  "media_count": {
+    "images": 14,
+    "videos": 0
+  },
+  "saved_files": [
+    "crawl4ai_results/html/20250902_175153_zhuanlan_zhihu_com_basic_crawl.html",
+    "crawl4ai_results/markdown/20250902_175153_zhuanlan_zhihu_com_basic_crawl.md"
+  ]
+}

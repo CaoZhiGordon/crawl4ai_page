@@ -1,0 +1,1728 @@
+<!DOCTYPE html><html class="" lang="en" data-content_root="./" data-readthedocs-tool="sphinx" data-readthedocs-tool-theme="furo"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">:root, :host {
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 7 Free";
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 7 Free";
+  --fa-font-light: normal 300 1em/1 "Font Awesome 7 Pro";
+  --fa-font-thin: normal 100 1em/1 "Font Awesome 7 Pro";
+  --fa-font-duotone: normal 900 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-regular: normal 400 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-light: normal 300 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-thin: normal 100 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 7 Brands";
+  --fa-font-sharp-solid: normal 900 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-regular: normal 400 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-light: normal 300 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-thin: normal 100 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-duotone-solid: normal 900 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-regular: normal 400 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-light: normal 300 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-thin: normal 100 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-slab-regular: normal 400 1em/1 "Font Awesome 7 Slab";
+  --fa-font-slab-press-regular: normal 400 1em/1 "Font Awesome 7 Slab Press";
+  --fa-font-whiteboard-semibold: normal 600 1em/1 "Font Awesome 7 Whiteboard";
+  --fa-font-thumbprint-light: normal 300 1em/1 "Font Awesome 7 Thumbprint";
+  --fa-font-notdog-solid: normal 900 1em/1 "Font Awesome 7 Notdog";
+  --fa-font-notdog-duo-solid: normal 900 1em/1 "Font Awesome 7 Notdog Duo";
+  --fa-font-etch-solid: normal 900 1em/1 "Font Awesome 7 Etch";
+  --fa-font-jelly-regular: normal 400 1em/1 "Font Awesome 7 Jelly";
+  --fa-font-jelly-fill-regular: normal 400 1em/1 "Font Awesome 7 Jelly Fill";
+  --fa-font-jelly-duo-regular: normal 400 1em/1 "Font Awesome 7 Jelly Duo";
+  --fa-font-chisel-regular: normal 400 1em/1 "Font Awesome 7 Chisel";
+}
+
+.svg-inline--fa {
+  box-sizing: content-box;
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.svg-inline--fa.fa-2xs {
+  vertical-align: 0.1em;
+}
+.svg-inline--fa.fa-xs {
+  vertical-align: 0em;
+}
+.svg-inline--fa.fa-sm {
+  vertical-align: -0.0714285714em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.2em;
+}
+.svg-inline--fa.fa-xl {
+  vertical-align: -0.25em;
+}
+.svg-inline--fa.fa-2xl {
+  vertical-align: -0.3125em;
+}
+.svg-inline--fa.fa-pull-left,
+.svg-inline--fa .fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-pull-right,
+.svg-inline--fa .fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-li {
+  width: var(--fa-li-width, 2em);
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  inset-block-start: 0.25em; /* syncing vertical alignment with Web Font rendering */
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.fa-layers .svg-inline--fa {
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  transform-origin: center center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: var(--fa-counter-background-color, #ff253a);
+  border-radius: var(--fa-counter-border-radius, 1em);
+  box-sizing: border-box;
+  color: var(--fa-inverse, #fff);
+  line-height: var(--fa-counter-line-height, 1);
+  max-width: var(--fa-counter-max-width, 5em);
+  min-width: var(--fa-counter-min-width, 1.5em);
+  overflow: hidden;
+  padding: var(--fa-counter-padding, 0.25em 0.5em);
+  right: var(--fa-right, 0);
+  text-overflow: ellipsis;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-counter-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: var(--fa-bottom, 0);
+  right: var(--fa-right, 0);
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: var(--fa-bottom, 0);
+  left: var(--fa-left, 0);
+  right: auto;
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  top: var(--fa-top, 0);
+  right: var(--fa-right, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: var(--fa-left, 0);
+  right: auto;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top left;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-2xs {
+  font-size: calc(10 / 16 * 1em); /* converts a 10px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 10 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 10 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xs {
+  font-size: calc(12 / 16 * 1em); /* converts a 12px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 12 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 12 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-sm {
+  font-size: calc(14 / 16 * 1em); /* converts a 14px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 14 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 14 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-lg {
+  font-size: calc(20 / 16 * 1em); /* converts a 20px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 20 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 20 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xl {
+  font-size: calc(24 / 16 * 1em); /* converts a 24px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 24 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 24 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-2xl {
+  font-size: calc(32 / 16 * 1em); /* converts a 32px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 32 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 32 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-width-auto {
+  --fa-width: auto;
+}
+
+.fa-fw,
+.fa-width-fixed {
+  --fa-width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-inline-start: var(--fa-li-margin, 2.5em);
+  padding-inline-start: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  position: absolute;
+  text-align: center;
+  width: var(--fa-li-width, 2em);
+  line-height: inherit;
+}
+
+/* Heads Up: Bordered Icons will not be supported in the future!
+  - This feature will be deprecated in the next major release of Font Awesome (v8)!
+  - You may continue to use it in this version *v7), but it will not be supported in Font Awesome v8.
+*/
+/* Notes:
+* --@{v.$css-prefix}-border-width = 1/16 by default (to render as ~1px based on a 16px default font-size)
+* --@{v.$css-prefix}-border-padding =
+  ** 3/16 for vertical padding (to give ~2px of vertical whitespace around an icon considering it's vertical alignment)
+  ** 4/16 for horizontal padding (to give ~4px of horizontal whitespace around an icon)
+*/
+.fa-border {
+  border-color: var(--fa-border-color, #eee);
+  border-radius: var(--fa-border-radius, 0.1em);
+  border-style: var(--fa-border-style, solid);
+  border-width: var(--fa-border-width, 0.0625em);
+  box-sizing: var(--fa-border-box-sizing, content-box);
+  padding: var(--fa-border-padding, 0.1875em 0.25em);
+}
+
+.fa-pull-left,
+.fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-pull-right,
+.fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-beat {
+  animation-name: fa-beat;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-bounce {
+  animation-name: fa-bounce;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
+}
+
+.fa-fade {
+  animation-name: fa-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-beat-fade {
+  animation-name: fa-beat-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-flip {
+  animation-name: fa-flip;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-shake {
+  animation-name: fa-shake;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin {
+  animation-name: fa-spin;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 2s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin-reverse {
+  --fa-animation-direction: reverse;
+}
+
+.fa-pulse,
+.fa-spin-pulse {
+  animation-name: fa-spin;
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, steps(8));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-beat,
+  .fa-bounce,
+  .fa-fade,
+  .fa-beat-fade,
+  .fa-flip,
+  .fa-pulse,
+  .fa-shake,
+  .fa-spin,
+  .fa-spin-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@keyframes fa-beat {
+  0%, 90% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(var(--fa-beat-scale, 1.25));
+  }
+}
+@keyframes fa-bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+  }
+  30% {
+    transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+  }
+  50% {
+    transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+@keyframes fa-fade {
+  50% {
+    opacity: var(--fa-fade-opacity, 0.4);
+  }
+}
+@keyframes fa-beat-fade {
+  0%, 100% {
+    opacity: var(--fa-beat-fade-opacity, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(var(--fa-beat-fade-scale, 1.125));
+  }
+}
+@keyframes fa-flip {
+  50% {
+    transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+  }
+}
+@keyframes fa-shake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  4% {
+    transform: rotate(15deg);
+  }
+  8%, 24% {
+    transform: rotate(-18deg);
+  }
+  12%, 28% {
+    transform: rotate(18deg);
+  }
+  16% {
+    transform: rotate(-22deg);
+  }
+  20% {
+    transform: rotate(22deg);
+  }
+  32% {
+    transform: rotate(-12deg);
+  }
+  36% {
+    transform: rotate(12deg);
+  }
+  40%, 100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  transform: scale(1, -1);
+}
+
+.fa-flip-both,
+.fa-flip-horizontal.fa-flip-vertical {
+  transform: scale(-1, -1);
+}
+
+.fa-rotate-by {
+  transform: rotate(var(--fa-rotate-angle, 0));
+}
+
+.svg-inline--fa .fa-primary {
+  fill: var(--fa-primary-color, currentColor);
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa .fa-secondary {
+  fill: var(--fa-secondary-color, currentColor);
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-primary {
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-secondary {
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa mask .fa-primary,
+.svg-inline--fa mask .fa-secondary {
+  fill: black;
+}
+
+.svg-inline--fa.fa-inverse {
+  fill: var(--fa-inverse, #fff);
+}
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2em;
+  position: relative;
+  vertical-align: middle;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: var(--fa-inverse, #fff);
+}
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em;
+}
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em;
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: var(--fa-stack-z-index, auto);
+}</style><link rel="author" title="About these documents" href="about.html"><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="Installation" href="install.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
+        <title>pyod 2.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079">
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=25af2a20">
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b">
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style><script async="" type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="pyod"><meta name="readthedocs-version-slug" content="latest"><meta name="readthedocs-resolver-filename" content="/"><meta name="readthedocs-http-status" content="200"><script id="ethicaladsjs" type="text/javascript" async="true" src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script></head>
+  <body data-theme="auto">
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"></path>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"></line>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"></line>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"></line>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"></line>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"></line>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"></line>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"></line>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"></line>
+      <circle cx="14.5" cy="9.55" r="3.6"></circle>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"></line>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"></line>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"></line>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"></line>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"></line>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"></line>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"></line>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"></line>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"></circle>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+      <path d="M13.5 6.5l4 4"></path>
+      <path d="M20 21l2 -2l-2 -2"></path>
+      <path d="M17 17l-2 2l2 2"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+      <path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+      <path d="M20 21l2 -2l-2 -2"></path>
+      <path d="M17 17l-2 2l2 2"></path>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="#"><div class="brand">pyod 2.0.5 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="#">
+  
+  <span class="sidebar-brand-text">pyod 2.0.5 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_persistence.html">Model Save &amp; Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fast_train.html">Fast Train with SUOD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="benchmark.html">Benchmarks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_cc.html">API CheatSheet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pyod.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyod.models.html">All Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyod.utils.html">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Known Issues &amp; Warnings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relevant_knowledge.html">Outlier Detection 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pubs.html">Citations &amp; Achievements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About us</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/index.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="welcome-to-pyod-v2-documentation">
+<h1>Welcome to PyOD V2 documentation!<a class="headerlink" href="#welcome-to-pyod-v2-documentation" title="Link to this heading">¶</a></h1>
+<p><strong>Deployment &amp; Documentation &amp; Stats &amp; License</strong></p>
+<a class="reference external image-reference" href="https://pypi.org/project/pyod/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/pyod.svg?color=brightgreen">
+</a>
+<a class="reference external image-reference" href="https://anaconda.org/conda-forge/pyod"><img alt="Anaconda version" src="https://anaconda.org/conda-forge/pyod/badges/version.svg">
+</a>
+<a class="reference external image-reference" href="https://pyod.readthedocs.io/en/latest/?badge=latest"><img alt="Documentation status" src="https://readthedocs.org/projects/pyod/badge/?version=latest">
+</a>
+<a class="reference external image-reference" href="https://github.com/yzhao062/pyod/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/yzhao062/pyod.svg">
+</a>
+<a class="reference external image-reference" href="https://github.com/yzhao062/pyod/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/yzhao062/pyod.svg?color=blue">
+</a>
+<a class="reference external image-reference" href="https://pepy.tech/project/pyod"><img alt="Downloads" src="https://pepy.tech/badge/pyod" width="106" height="20">
+</a>
+<a class="reference external image-reference" href="https://github.com/yzhao062/pyod/actions/workflows/testing.yml"><img alt="Testing" src="https://github.com/yzhao062/pyod/actions/workflows/testing.yml/badge.svg" width="118" height="20">
+</a>
+<a class="reference external image-reference" href="https://coveralls.io/github/yzhao062/pyod"><img alt="Coverage Status" src="https://coveralls.io/repos/github/yzhao062/pyod/badge.svg">
+</a>
+<a class="reference external image-reference" href="https://codeclimate.com/github/yzhao062/Pyod/maintainability"><img alt="Maintainability" src="https://api.codeclimate.com/v1/badges/bdc3d8d0454274c753c4/maintainability">
+</a>
+<a class="reference external image-reference" href="https://github.com/yzhao062/pyod/blob/master/LICENSE"><img alt="License" src="https://img.shields.io/github/license/yzhao062/pyod.svg" width="134" height="20">
+</a>
+<a class="reference external image-reference" href="https://github.com/Minqi824/ADBench"><img alt="Benchmark" src="https://img.shields.io/badge/ADBench-benchmark_results-pink" width="172" height="20">
+</a>
+<hr class="docutils">
+<section id="read-me-first">
+<h2>Read Me First<a class="headerlink" href="#read-me-first" title="Link to this heading">¶</a></h2>
+<p>Welcome to PyOD, a comprehensive but easy-to-use Python library for detecting anomalies in multivariate data. Whether you are working with a small-scale project or large datasets, PyOD provides a range of algorithms to suit your needs.</p>
+<p><strong>PyOD Version 2 is now available</strong> (<a class="reference external" href="https://www.arxiv.org/abs/2412.12154">Paper</a>) <span id="id1">[<a class="reference internal" href="#id126" title="Sihan Chen, Zhuangzhuang Qian, Wingchun Siu, Xingcan Hu, Jiaqi Li, Shawn Li, Yuehan Qin, Tiankai Yang, Zhuo Xiao, Wanghao Ye, and others. Pyod 2: a python library for outlier detection with llm-powered model selection. arXiv preprint arXiv:2412.12154, 2024.">ACQS+24</a>]</span>, featuring:</p>
+<ul class="simple">
+<li><p><strong>Expanded Deep Learning Support</strong>: Integrates 12 modern neural models into a single PyTorch-based framework, bringing the total number of outlier detection methods to 45.</p></li>
+<li><p><strong>Enhanced Performance and Ease of Use</strong>: Models are optimized for efficiency and consistent performance across different datasets.</p></li>
+<li><p><strong>LLM-based Model Selection</strong>: Automated model selection guided by a large language model reduces manual tuning and assists users who may have limited experience with outlier detection.</p></li>
+</ul>
+<p><strong>Additional Resources</strong>:</p>
+<ul class="simple">
+<li><p><strong>NLP Anomaly Detection</strong>: <a class="reference external" href="https://github.com/USC-FORTIS/NLP-ADBench">NLP-ADBench</a> provides both NLP anomaly detection datasets and algorithms <span id="id2">[<a class="reference internal" href="#id127" title="Yuangang Li, Jiaqi Li, Zhuo Xiao, Tiankai Yang, Yi Nian, Xiyang Hu, and Yue Zhao. Nlp-adbench: nlp anomaly detection benchmark. arXiv preprint arXiv:2412.04784, 2024.">ALLX+24</a>]</span></p></li>
+<li><p><strong>Time-series Outlier Detection</strong>: <a class="reference external" href="https://github.com/datamllab/tods">TODS</a></p></li>
+<li><p><strong>Graph Outlier Detection</strong>: <a class="reference external" href="https://pygod.org/">PyGOD</a></p></li>
+<li><p><strong>Performance Comparison &amp; Datasets</strong>: We have a 45-page, comprehensive <a class="reference external" href="https://openreview.net/forum?id=foA_SFQ9zo0">anomaly detection benchmark paper</a>. The fully <a class="reference external" href="https://github.com/Minqi824/ADBench">open-sourced ADBench</a> compares 30 anomaly detection algorithms on 57 benchmark datasets.</p></li>
+<li><p><strong>PyOD on Distributed Systems</strong>: You can also run <a class="reference external" href="https://www.databricks.com/blog/2023/03/13/unsupervised-outlier-detection-databricks.html">PyOD on Databricks</a></p></li>
+<li><p><strong>Learn More</strong>: <a class="reference external" href="https://github.com/yzhao062/anomaly-detection-resources">Anomaly Detection Resources</a></p></li>
+</ul>
+<p><strong>Check out our latest research on LLM-based anomaly detection</strong> <span id="id3">[<a class="reference internal" href="#id125" title="Tiankai Yang, Yi Nian, Shawn Li, Ruiyao Xu, Yuangang Li, Jiaqi Li, Zhuo Xiao, Xiyang Hu, Ryan Rossi, Kaize Ding, and others. Ad-llm: benchmarking large language models for anomaly detection. arXiv preprint arXiv:2412.11142, 2024.">AYNL+24</a>]</span>: <a class="reference external" href="https://arxiv.org/abs/2412.11142">AD-LLM: Benchmarking Large Language Models for Anomaly Detection</a>.</p>
+</section>
+<hr class="docutils">
+<section id="about-pyod">
+<h2>About PyOD<a class="headerlink" href="#about-pyod" title="Link to this heading">¶</a></h2>
+<p>PyOD, established in 2017, has become a go-to <strong>Python library</strong> for <strong>detecting anomalous/outlying objects</strong> in multivariate data. This exciting yet challenging field is commonly referred to as <a class="reference external" href="https://en.wikipedia.org/wiki/Anomaly_detection">Outlier Detection</a> or <a class="reference external" href="https://en.wikipedia.org/wiki/Anomaly_detection">Anomaly Detection</a>.</p>
+<p>PyOD includes more than 50 detection algorithms, from classical LOF (SIGMOD 2000) to the cutting-edge ECOD and DIF (TKDE 2022 and 2023). Since 2017, PyOD has been successfully used in numerous academic research projects and commercial products with more than <a class="reference external" href="https://pepy.tech/project/pyod">26 million downloads</a>. It is also well acknowledged by the machine learning community with various dedicated posts/tutorials, including <a class="reference external" href="https://www.analyticsvidhya.com/blog/2019/02/outlier-detection-python-pyod/">Analytics Vidhya</a>, <a class="reference external" href="https://www.kdnuggets.com/2019/02/outlier-detection-methods-cheat-sheet.html">KDnuggets</a>, and <a class="reference external" href="https://towardsdatascience.com/anomaly-detection-for-dummies-15f148e559c1">Towards Data Science</a>.</p>
+<p><strong>PyOD is featured for</strong>:</p>
+<ul class="simple">
+<li><p><strong>Unified, User-Friendly Interface</strong> across various algorithms.</p></li>
+<li><p><strong>Wide Range of Models</strong>, from classic techniques to the latest deep learning methods in <strong>PyTorch</strong>.</p></li>
+<li><p><strong>High Performance &amp; Efficiency</strong>, leveraging <a class="reference external" href="https://github.com/numba/numba">numba</a> and <a class="reference external" href="https://github.com/joblib/joblib">joblib</a> for JIT compilation and parallel processing.</p></li>
+<li><p><strong>Fast Training &amp; Prediction</strong>, achieved through the SUOD framework <span id="id4">[<a class="reference internal" href="#id105" title="Yue Zhao, Xiyang Hu, Cheng Cheng, Cong Wang, Changlin Wan, Wen Wang, Jianing Yang, Haoping Bai, Zheng Li, Cao Xiao, Yunlong Wang, Zhi Qiao, Jimeng Sun, and Leman Akoglu. Suod: accelerating large-scale unsupervised heterogeneous outlier detection. Proceedings of Machine Learning and Systems, 2021.">AZHC+21</a>]</span>.</p></li>
+</ul>
+<p><strong>Outlier Detection with 5 Lines of Code</strong>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example: Training an ECOD detector</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyod.models.ecod</span><span class="w"> </span><span class="kn">import</span> <span class="n">ECOD</span>
+<span class="n">clf</span> <span class="o">=</span> <span class="n">ECOD</span><span class="p">()</span>
+<span class="n">clf</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">)</span>
+<span class="n">y_train_scores</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">decision_scores_</span>  <span class="c1"># Outlier scores for training data</span>
+<span class="n">y_test_scores</span> <span class="o">=</span> <span class="n">clf</span><span class="o">.</span><span class="n">decision_function</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>  <span class="c1"># Outlier scores for test data</span>
+</pre></div>
+</div>
+<p><strong>Selecting the Right Algorithm:</strong> Unsure where to start? Consider these robust and interpretable options:</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/yzhao062/pyod/blob/master/examples/ecod_example.py">ECOD</a>: Example of using ECOD for outlier detection</p></li>
+<li><p><a class="reference external" href="https://github.com/yzhao062/pyod/blob/master/examples/iforest_example.py">Isolation Forest</a>: Example of using Isolation Forest for outlier detection</p></li>
+</ul>
+<p>Alternatively, explore <a class="reference external" href="https://github.com/yzhao062/MetaOD">MetaOD</a> for a data-driven approach.</p>
+<p><strong>Citing PyOD</strong>:</p>
+<p>If you use PyOD in a scientific publication, we would appreciate citations to the following paper(s):</p>
+<p><a class="reference external" href="https://arxiv.org/abs/2412.12154">PyOD 2: A Python Library for Outlier Detection with LLM-powered Model Selection</a> is available as a preprint. If you use PyOD in a scientific publication, we would appreciate citations to the following paper:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">zhao2024pyod2</span><span class="p">,</span>
+    <span class="n">author</span>  <span class="o">=</span> <span class="p">{</span><span class="n">Chen</span><span class="p">,</span> <span class="n">Sihan</span> <span class="ow">and</span> <span class="n">Qian</span><span class="p">,</span> <span class="n">Zhuangzhuang</span> <span class="ow">and</span> <span class="n">Siu</span><span class="p">,</span> <span class="n">Wingchun</span> <span class="ow">and</span> <span class="n">Hu</span><span class="p">,</span> <span class="n">Xingcan</span> <span class="ow">and</span> <span class="n">Li</span><span class="p">,</span> <span class="n">Jiaqi</span> <span class="ow">and</span> <span class="n">Li</span><span class="p">,</span> <span class="n">Shawn</span> <span class="ow">and</span> <span class="n">Qin</span><span class="p">,</span> <span class="n">Yuehan</span> <span class="ow">and</span> <span class="n">Yang</span><span class="p">,</span> <span class="n">Tiankai</span> <span class="ow">and</span> <span class="n">Xiao</span><span class="p">,</span> <span class="n">Zhuo</span> <span class="ow">and</span> <span class="n">Ye</span><span class="p">,</span> <span class="n">Wanghao</span> <span class="ow">and</span> <span class="n">Zhang</span><span class="p">,</span> <span class="n">Yichi</span> <span class="ow">and</span> <span class="n">Dong</span><span class="p">,</span> <span class="n">Yushun</span> <span class="ow">and</span> <span class="n">Zhao</span><span class="p">,</span> <span class="n">Yue</span><span class="p">},</span>
+    <span class="n">title</span>   <span class="o">=</span> <span class="p">{</span><span class="n">PyOD</span> <span class="mi">2</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">Library</span> <span class="k">for</span> <span class="n">Outlier</span> <span class="n">Detection</span> <span class="k">with</span> <span class="n">LLM</span><span class="o">-</span><span class="n">powered</span> <span class="n">Model</span> <span class="n">Selection</span><span class="p">},</span>
+    <span class="n">journal</span> <span class="o">=</span> <span class="p">{</span><span class="n">arXiv</span> <span class="n">preprint</span> <span class="n">arXiv</span><span class="p">:</span><span class="mf">2412.12154</span><span class="p">},</span>
+    <span class="n">year</span>    <span class="o">=</span> <span class="p">{</span><span class="mi">2024</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://www.jmlr.org/papers/volume20/19-011/19-011.pdf">PyOD paper</a> is published in <a class="reference external" href="http://www.jmlr.org/">Journal of Machine Learning Research (JMLR)</a> (MLOSS track).:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">zhao2019pyod</span><span class="p">,</span>
+    <span class="n">author</span>  <span class="o">=</span> <span class="p">{</span><span class="n">Zhao</span><span class="p">,</span> <span class="n">Yue</span> <span class="ow">and</span> <span class="n">Nasrullah</span><span class="p">,</span> <span class="n">Zain</span> <span class="ow">and</span> <span class="n">Li</span><span class="p">,</span> <span class="n">Zheng</span><span class="p">},</span>
+    <span class="n">title</span>   <span class="o">=</span> <span class="p">{</span><span class="n">PyOD</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">Toolbox</span> <span class="k">for</span> <span class="n">Scalable</span> <span class="n">Outlier</span> <span class="n">Detection</span><span class="p">},</span>
+    <span class="n">journal</span> <span class="o">=</span> <span class="p">{</span><span class="n">Journal</span> <span class="n">of</span> <span class="n">Machine</span> <span class="n">Learning</span> <span class="n">Research</span><span class="p">},</span>
+    <span class="n">year</span>    <span class="o">=</span> <span class="p">{</span><span class="mi">2019</span><span class="p">},</span>
+    <span class="n">volume</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">20</span><span class="p">},</span>
+    <span class="n">number</span>  <span class="o">=</span> <span class="p">{</span><span class="mi">96</span><span class="p">},</span>
+    <span class="n">pages</span>   <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="o">-</span><span class="mi">7</span><span class="p">},</span>
+    <span class="n">url</span>     <span class="o">=</span> <span class="p">{</span><span class="n">http</span><span class="p">:</span><span class="o">//</span><span class="n">jmlr</span><span class="o">.</span><span class="n">org</span><span class="o">/</span><span class="n">papers</span><span class="o">/</span><span class="n">v20</span><span class="o">/</span><span class="mi">19</span><span class="o">-</span><span class="mf">011.</span><span class="n">html</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>or:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Zhao</span><span class="p">,</span> <span class="n">Y</span><span class="o">.</span><span class="p">,</span> <span class="n">Nasrullah</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span> <span class="ow">and</span> <span class="n">Li</span><span class="p">,</span> <span class="n">Z</span><span class="o">.</span><span class="p">,</span> <span class="mf">2019.</span> <span class="n">PyOD</span><span class="p">:</span> <span class="n">A</span> <span class="n">Python</span> <span class="n">Toolbox</span> <span class="k">for</span> <span class="n">Scalable</span> <span class="n">Outlier</span> <span class="n">Detection</span><span class="o">.</span> <span class="n">Journal</span> <span class="n">of</span> <span class="n">machine</span> <span class="n">learning</span> <span class="n">research</span> <span class="p">(</span><span class="n">JMLR</span><span class="p">),</span> <span class="mi">20</span><span class="p">(</span><span class="mi">96</span><span class="p">),</span> <span class="n">pp</span><span class="mf">.1</span><span class="o">-</span><span class="mf">7.</span>
+</pre></div>
+</div>
+<p>For a broader perspective on anomaly detection, see our NeurIPS papers <a class="reference external" href="https://arxiv.org/abs/2206.09426">ADBench: Anomaly Detection Benchmark Paper</a> and <a class="reference external" href="https://arxiv.org/abs/2309.15376">ADGym: Design Choices for Deep Anomaly Detection</a>:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@article</span><span class="p">{</span><span class="n">han2022adbench</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">Adbench</span><span class="p">:</span> <span class="n">Anomaly</span> <span class="n">detection</span> <span class="n">benchmark</span><span class="p">},</span>
+    <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Han</span><span class="p">,</span> <span class="n">Songqiao</span> <span class="ow">and</span> <span class="n">Hu</span><span class="p">,</span> <span class="n">Xiyang</span> <span class="ow">and</span> <span class="n">Huang</span><span class="p">,</span> <span class="n">Hailiang</span> <span class="ow">and</span> <span class="n">Jiang</span><span class="p">,</span> <span class="n">Minqi</span> <span class="ow">and</span> <span class="n">Zhao</span><span class="p">,</span> <span class="n">Yue</span><span class="p">},</span>
+    <span class="n">journal</span><span class="o">=</span><span class="p">{</span><span class="n">Advances</span> <span class="ow">in</span> <span class="n">Neural</span> <span class="n">Information</span> <span class="n">Processing</span> <span class="n">Systems</span><span class="p">},</span>
+    <span class="n">volume</span><span class="o">=</span><span class="p">{</span><span class="mi">35</span><span class="p">},</span>
+    <span class="n">pages</span><span class="o">=</span><span class="p">{</span><span class="mi">32142</span><span class="o">--</span><span class="mi">32159</span><span class="p">},</span>
+    <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2022</span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="nd">@article</span><span class="p">{</span><span class="n">jiang2023adgym</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="p">{</span><span class="n">ADGym</span><span class="p">:</span> <span class="n">Design</span> <span class="n">Choices</span> <span class="k">for</span> <span class="n">Deep</span> <span class="n">Anomaly</span> <span class="n">Detection</span><span class="p">},</span>
+    <span class="n">author</span><span class="o">=</span><span class="p">{</span><span class="n">Jiang</span><span class="p">,</span> <span class="n">Minqi</span> <span class="ow">and</span> <span class="n">Hou</span><span class="p">,</span> <span class="n">Chaochuan</span> <span class="ow">and</span> <span class="n">Zheng</span><span class="p">,</span> <span class="n">Ao</span> <span class="ow">and</span> <span class="n">Han</span><span class="p">,</span> <span class="n">Songqiao</span> <span class="ow">and</span> <span class="n">Huang</span><span class="p">,</span> <span class="n">Hailiang</span> <span class="ow">and</span> <span class="n">Wen</span><span class="p">,</span> <span class="n">Qingsong</span> <span class="ow">and</span> <span class="n">Hu</span><span class="p">,</span> <span class="n">Xiyang</span> <span class="ow">and</span> <span class="n">Zhao</span><span class="p">,</span> <span class="n">Yue</span><span class="p">},</span>
+    <span class="n">journal</span><span class="o">=</span><span class="p">{</span><span class="n">Advances</span> <span class="ow">in</span> <span class="n">Neural</span> <span class="n">Information</span> <span class="n">Processing</span> <span class="n">Systems</span><span class="p">},</span>
+    <span class="n">volume</span><span class="o">=</span><span class="p">{</span><span class="mi">36</span><span class="p">},</span>
+    <span class="n">year</span><span class="o">=</span><span class="p">{</span><span class="mi">2023</span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils">
+<section id="adbench-benchmark-and-datasets">
+<h2>ADBench Benchmark and Datasets<a class="headerlink" href="#adbench-benchmark-and-datasets" title="Link to this heading">¶</a></h2>
+<p>We just released a 45-page, the most comprehensive <a class="reference external" href="https://arxiv.org/abs/2206.09426">ADBench: Anomaly Detection Benchmark</a> <span id="id5">[<a class="reference internal" href="#id116" title="Songqiao Han, Xiyang Hu, Hailiang Huang, Mingqi Jiang, and Yue Zhao. Adbench: anomaly detection benchmark. arXiv preprint arXiv:2206.09426, 2022.">AHHH+22</a>]</span>.
+The fully <a class="reference external" href="https://github.com/Minqi824/ADBench">open-sourced ADBench</a> compares 30 anomaly detection algorithms on 57 benchmark datasets.</p>
+<p>The organization of <strong>ADBench</strong> is provided below:</p>
+<a class="reference external image-reference" href="https://github.com/Minqi824/ADBench/blob/main/figs/ADBench.png?raw=true"><img alt="benchmark-fig" src="https://github.com/Minqi824/ADBench/blob/main/figs/ADBench.png?raw=true">
+</a>
+<p>For a simpler visualization, we make <strong>the comparison of selected models</strong> via
+<a class="reference external" href="https://github.com/yzhao062/pyod/blob/master/examples/compare_all_models.py">compare_all_models.py</a>.</p>
+<a class="reference external image-reference" href="https://github.com/yzhao062/pyod/blob/development/examples/ALL.png?raw=true"><img alt="Comparison_of_All" src="https://github.com/yzhao062/pyod/blob/development/examples/ALL.png?raw=true">
+</a>
+</section>
+</section>
+<section id="implemented-algorithms">
+<h1>Implemented Algorithms<a class="headerlink" href="#implemented-algorithms" title="Link to this heading">¶</a></h1>
+<p>PyOD toolkit consists of three major functional groups:</p>
+<p><strong>(i) Individual Detection Algorithms</strong> :</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Abbr</p></th>
+<th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Year</p></th>
+<th class="head"><p>Class</p></th>
+<th class="head"><p>Ref</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Probabilistic</p></td>
+<td><p>ECOD</p></td>
+<td><p>Unsupervised Outlier Detection Using Empirical Cumulative Distribution Functions</p></td>
+<td><p>2022</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.ecod.ECOD" title="pyod.models.ecod.ECOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.ecod.ECOD</span></code></a></p></td>
+<td><p><span id="id7">[<a class="reference internal" href="#id109" title="Zheng Li, Yue Zhao, Xiyang Hu, Nicola Botta, Cezar Ionescu, and H. George Chen. Ecod: unsupervised outlier detection using empirical cumulative distribution functions. IEEE Transactions on Knowledge and Data Engineering, 2022.">ALZH+22</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Probabilistic</p></td>
+<td><p>COPOD</p></td>
+<td><p>COPOD: Copula-Based Outlier Detection</p></td>
+<td><p>2020</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.copod.COPOD" title="pyod.models.copod.COPOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.copod.COPOD</span></code></a></p></td>
+<td><p><span id="id8">[<a class="reference internal" href="#id103" title="Zheng Li, Yue Zhao, Nicola Botta, Cezar Ionescu, and Xiyang Hu. COPOD: copula-based outlier detection. In IEEE International Conference on Data Mining (ICDM). IEEE, 2020.">ALZB+20</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Probabilistic</p></td>
+<td><p>ABOD</p></td>
+<td><p>Angle-Based Outlier Detection</p></td>
+<td><p>2008</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.abod.ABOD" title="pyod.models.abod.ABOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.abod.ABOD</span></code></a></p></td>
+<td><p><span id="id9">[<a class="reference internal" href="#id73" title="Hans-Peter Kriegel, Arthur Zimek, and others. Angle-based outlier detection in high-dimensional data. In Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining, 444–452. ACM, 2008.">AKZ+08</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Probabilistic</p></td>
+<td><p>FastABOD</p></td>
+<td><p>Fast Angle-Based Outlier Detection using approximation</p></td>
+<td><p>2008</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.abod.ABOD" title="pyod.models.abod.ABOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.abod.ABOD</span></code></a></p></td>
+<td><p><span id="id10">[<a class="reference internal" href="#id73" title="Hans-Peter Kriegel, Arthur Zimek, and others. Angle-based outlier detection in high-dimensional data. In Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining, 444–452. ACM, 2008.">AKZ+08</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Probabilistic</p></td>
+<td><p>MAD</p></td>
+<td><p>Median Absolute Deviation (MAD)</p></td>
+<td><p>1993</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.mad.MAD" title="pyod.models.mad.MAD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.mad.MAD</span></code></a></p></td>
+<td><p><span id="id11">[<a class="reference internal" href="#id102" title="Boris Iglewicz and David Caster Hoaglin. How to detect and handle outliers. Volume 16. Asq Press, 1993.">AIH93</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Probabilistic</p></td>
+<td><p>SOS</p></td>
+<td><p>Stochastic Outlier Selection</p></td>
+<td><p>2012</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.sos.SOS" title="pyod.models.sos.SOS"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.sos.SOS</span></code></a></p></td>
+<td><p><span id="id12">[<a class="reference internal" href="#id84" title="JHM Janssens, Ferenc Huszár, EO Postma, and HJ van den Herik. Stochastic outlier selection. Technical Report, Technical report TiCC TR 2012-001, Tilburg University, Tilburg Center for Cognition and Communication, Tilburg, The Netherlands, 2012.">AJHuszarPvdH12</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Probabilistic</p></td>
+<td><p>QMCD</p></td>
+<td><p>Quasi-Monte Carlo Discrepancy outlier detection</p></td>
+<td><p>2001</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.qmcd.QMCD" title="pyod.models.qmcd.QMCD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.qmcd.QMCD</span></code></a></p></td>
+<td><p><span id="id13">[<a class="reference internal" href="#id120" title="Kai-Tai Fang and Chang-Xing Ma. Wrap-around l2-discrepancy of random sampling, latin hypercube and uniform designs. Journal of complexity, 17(4):608–624, 2001.">AFM01</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Probabilistic</p></td>
+<td><p>KDE</p></td>
+<td><p>Outlier Detection with Kernel Density Functions</p></td>
+<td><p>2007</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.kde.KDE" title="pyod.models.kde.KDE"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.kde.KDE</span></code></a></p></td>
+<td><p><span id="id14">[<a class="reference internal" href="#id111" title="Longin Jan Latecki, Aleksandar Lazarevic, and Dragoljub Pokrajac. Outlier detection with kernel density functions. In International Workshop on Machine Learning and Data Mining in Pattern Recognition, 61–75. Springer, 2007.">ALLP07</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Probabilistic</p></td>
+<td><p>Sampling</p></td>
+<td><p>Rapid distance-based outlier detection via sampling</p></td>
+<td><p>2013</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.sampling.Sampling" title="pyod.models.sampling.Sampling"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.sampling.Sampling</span></code></a></p></td>
+<td><p><span id="id15">[<a class="reference internal" href="#id112" title="Mahito Sugiyama and Karsten Borgwardt. Rapid distance-based outlier detection via sampling. Advances in neural information processing systems, 2013.">ASB13</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Probabilistic</p></td>
+<td><p>GMM</p></td>
+<td><p>Probabilistic Mixture Modeling for Outlier Analysis</p></td>
+<td></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.gmm.GMM" title="pyod.models.gmm.GMM"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.gmm.GMM</span></code></a></p></td>
+<td><p><span id="id16">[<a class="reference internal" href="#id77" title="Charu C Aggarwal. Outlier analysis. In Data mining, 75–79. Springer, 2015.">AAgg15</a>]</span> [Ch.2]</p></td>
+</tr>
+<tr class="row-even"><td><p>Linear Model</p></td>
+<td><p>PCA</p></td>
+<td><p>Principal Component Analysis (the sum of weighted projected distances to the eigenvector hyperplanes)</p></td>
+<td><p>2003</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.pca.PCA" title="pyod.models.pca.PCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.pca.PCA</span></code></a></p></td>
+<td><p><span id="id17">[<a class="reference internal" href="#id76" title="Mei-Ling Shyu, Shu-Ching Chen, Kanoksri Sarinnapakorn, and LiWu Chang. A novel anomaly detection scheme based on principal component classifier. Technical Report, MIAMI UNIV CORAL GABLES FL DEPT OF ELECTRICAL AND COMPUTER ENGINEERING, 2003.">ASCSC03</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Linear Model</p></td>
+<td><p>KPCA</p></td>
+<td><p>Kernel Principal Component Analysis</p></td>
+<td><p>2007</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.kpca.KPCA" title="pyod.models.kpca.KPCA"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.kpca.KPCA</span></code></a></p></td>
+<td><p><span id="id18">[<a class="reference internal" href="#id119" title="Heiko Hoffmann. Kernel pca for novelty detection. Pattern recognition, 40(3):863–874, 2007.">AHof07</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Linear Model</p></td>
+<td><p>MCD</p></td>
+<td><p>Minimum Covariance Determinant (use the mahalanobis distances as the outlier scores)</p></td>
+<td><p>1999</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.mcd.MCD" title="pyod.models.mcd.MCD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.mcd.MCD</span></code></a></p></td>
+<td><p><span id="id19">[<a class="reference internal" href="#id81" title="Johanna Hardin and David M Rocke. Outlier detection in the multiple cluster setting using the minimum covariance determinant estimator. Computational Statistics &amp; Data Analysis, 44(4):625–638, 2004.">AHR04</a>, <a class="reference internal" href="#id80" title="Peter J Rousseeuw and Katrien Van Driessen. A fast algorithm for the minimum covariance determinant estimator. Technometrics, 41(3):212–223, 1999.">ARD99</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Linear Model</p></td>
+<td><p>CD</p></td>
+<td><p>Use Cook’s distance for outlier detection</p></td>
+<td><p>1977</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.cd.CD" title="pyod.models.cd.CD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.cd.CD</span></code></a></p></td>
+<td><p><span id="id20">[<a class="reference internal" href="#id110" title="R Dennis Cook. Detection of influential observation in linear regression. Technometrics, 19(1):15–18, 1977.">ACoo77</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Linear Model</p></td>
+<td><p>OCSVM</p></td>
+<td><p>One-Class Support Vector Machines</p></td>
+<td><p>2001</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.ocsvm.OCSVM" title="pyod.models.ocsvm.OCSVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.ocsvm.OCSVM</span></code></a></p></td>
+<td><p><span id="id21">[<a class="reference internal" href="#id91" title="Bernhard Schölkopf, John C Platt, John Shawe-Taylor, Alex J Smola, and Robert C Williamson. Estimating the support of a high-dimensional distribution. Neural computation, 13(7):1443–1471, 2001.">AScholkopfPST+01</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Linear Model</p></td>
+<td><p>LMDD</p></td>
+<td><p>Deviation-based Outlier Detection (LMDD)</p></td>
+<td><p>1996</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.lmdd.LMDD" title="pyod.models.lmdd.LMDD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.lmdd.LMDD</span></code></a></p></td>
+<td><p><span id="id22">[<a class="reference internal" href="#id98" title="Andreas Arning, Rakesh Agrawal, and Prabhakar Raghavan. A linear method for deviation detection in large databases. In KDD, volume 1141, 972–981. 1996.">AAAR96</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Proximity-Based</p></td>
+<td><p>LOF</p></td>
+<td><p>Local Outlier Factor</p></td>
+<td><p>2000</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.lof.LOF" title="pyod.models.lof.LOF"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.lof.LOF</span></code></a></p></td>
+<td><p><span id="id23">[<a class="reference internal" href="#id78" title="Markus M Breunig, Hans-Peter Kriegel, Raymond T Ng, and Jörg Sander. Lof: identifying density-based local outliers. In ACM sigmod record, volume 29, 93–104. ACM, 2000.">ABKNS00</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Proximity-Based</p></td>
+<td><p>COF</p></td>
+<td><p>Connectivity-Based Outlier Factor</p></td>
+<td><p>2002</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.cof.COF" title="pyod.models.cof.COF"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.cof.COF</span></code></a></p></td>
+<td><p><span id="id24">[<a class="reference internal" href="#id92" title="Jian Tang, Zhixiang Chen, Ada Wai-Chee Fu, and David W Cheung. Enhancing effectiveness of outlier detections for low density patterns. In Pacific-Asia Conference on Knowledge Discovery and Data Mining, 535–548. Springer, 2002.">ATCFC02</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Proximity-Based</p></td>
+<td><p>Incr. COF</p></td>
+<td><p>Memory Efficient Connectivity-Based Outlier Factor (slower but reduce storage complexity)</p></td>
+<td><p>2002</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.cof.COF" title="pyod.models.cof.COF"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.cof.COF</span></code></a></p></td>
+<td><p><span id="id25">[<a class="reference internal" href="#id92" title="Jian Tang, Zhixiang Chen, Ada Wai-Chee Fu, and David W Cheung. Enhancing effectiveness of outlier detections for low density patterns. In Pacific-Asia Conference on Knowledge Discovery and Data Mining, 535–548. Springer, 2002.">ATCFC02</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Proximity-Based</p></td>
+<td><p>CBLOF</p></td>
+<td><p>Clustering-Based Local Outlier Factor</p></td>
+<td><p>2003</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.cblof.CBLOF" title="pyod.models.cblof.CBLOF"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.cblof.CBLOF</span></code></a></p></td>
+<td><p><span id="id26">[<a class="reference internal" href="#id82" title="Zengyou He, Xiaofei Xu, and Shengchun Deng. Discovering cluster-based local outliers. Pattern Recognition Letters, 24(9-10):1641–1650, 2003.">AHXD03</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Proximity-Based</p></td>
+<td><p>LOCI</p></td>
+<td><p>LOCI: Fast outlier detection using the local correlation integral</p></td>
+<td><p>2003</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.loci.LOCI" title="pyod.models.loci.LOCI"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.loci.LOCI</span></code></a></p></td>
+<td><p><span id="id27">[<a class="reference internal" href="#id85" title="Spiros Papadimitriou, Hiroyuki Kitagawa, Phillip B Gibbons, and Christos Faloutsos. Loci: fast outlier detection using the local correlation integral. In Data Engineering, 2003. Proceedings. 19th International Conference on, 315–326. IEEE, 2003.">APKGF03</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Proximity-Based</p></td>
+<td><p>HBOS</p></td>
+<td><p>Histogram-based Outlier Score</p></td>
+<td><p>2012</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.hbos.HBOS" title="pyod.models.hbos.HBOS"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.hbos.HBOS</span></code></a></p></td>
+<td><p><span id="id28">[<a class="reference internal" href="#id75" title="Markus Goldstein and Andreas Dengel. Histogram-based outlier score (hbos): a fast unsupervised anomaly detection algorithm. KI-2012: Poster and Demo Track, pages 59–63, 2012.">AGD12</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Proximity-Based</p></td>
+<td><p>kNN</p></td>
+<td><p>k Nearest Neighbors (use the distance to the kth nearest neighbor as the outlier score</p></td>
+<td><p>2000</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.knn.KNN" title="pyod.models.knn.KNN"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.knn.KNN</span></code></a></p></td>
+<td><p><span id="id29">[<a class="reference internal" href="#id72" title="Fabrizio Angiulli and Clara Pizzuti. Fast outlier detection in high dimensional spaces. In European Conference on Principles of Data Mining and Knowledge Discovery, 15–27. Springer, 2002.">AAP02</a>, <a class="reference internal" href="#id71" title="Sridhar Ramaswamy, Rajeev Rastogi, and Kyuseok Shim. Efficient algorithms for mining outliers from large data sets. In ACM Sigmod Record, volume 29, 427–438. ACM, 2000.">ARRS00</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Proximity-Based</p></td>
+<td><p>AvgKNN</p></td>
+<td><p>Average kNN (use the average distance to k nearest neighbors as the outlier score)</p></td>
+<td><p>2002</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.knn.KNN" title="pyod.models.knn.KNN"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.knn.KNN</span></code></a></p></td>
+<td><p><span id="id30">[<a class="reference internal" href="#id72" title="Fabrizio Angiulli and Clara Pizzuti. Fast outlier detection in high dimensional spaces. In European Conference on Principles of Data Mining and Knowledge Discovery, 15–27. Springer, 2002.">AAP02</a>, <a class="reference internal" href="#id71" title="Sridhar Ramaswamy, Rajeev Rastogi, and Kyuseok Shim. Efficient algorithms for mining outliers from large data sets. In ACM Sigmod Record, volume 29, 427–438. ACM, 2000.">ARRS00</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Proximity-Based</p></td>
+<td><p>MedKNN</p></td>
+<td><p>Median kNN (use the median distance to k nearest neighbors as the outlier score)</p></td>
+<td><p>2002</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.knn.KNN" title="pyod.models.knn.KNN"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.knn.KNN</span></code></a></p></td>
+<td><p><span id="id31">[<a class="reference internal" href="#id72" title="Fabrizio Angiulli and Clara Pizzuti. Fast outlier detection in high dimensional spaces. In European Conference on Principles of Data Mining and Knowledge Discovery, 15–27. Springer, 2002.">AAP02</a>, <a class="reference internal" href="#id71" title="Sridhar Ramaswamy, Rajeev Rastogi, and Kyuseok Shim. Efficient algorithms for mining outliers from large data sets. In ACM Sigmod Record, volume 29, 427–438. ACM, 2000.">ARRS00</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Proximity-Based</p></td>
+<td><p>SOD</p></td>
+<td><p>Subspace Outlier Detection</p></td>
+<td><p>2009</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.sod.SOD" title="pyod.models.sod.SOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.sod.SOD</span></code></a></p></td>
+<td><p><span id="id32">[<a class="reference internal" href="#id94" title="Hans-Peter Kriegel, Peer Kröger, Erich Schubert, and Arthur Zimek. Outlier detection in axis-parallel subspaces of high dimensional data. In Pacific-Asia Conference on Knowledge Discovery and Data Mining, 831–838. Springer, 2009.">AKKrogerSZ09</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Proximity-Based</p></td>
+<td><p>ROD</p></td>
+<td><p>Rotation-based Outlier Detection</p></td>
+<td><p>2020</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.rod.ROD" title="pyod.models.rod.ROD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.rod.ROD</span></code></a></p></td>
+<td><p><span id="id33">[<a class="reference internal" href="#id104" title="Yahya Almardeny, Noureddine Boujnah, and Frances Cleary. A novel outlier detection method for multivariate data. IEEE Transactions on Knowledge and Data Engineering, 2020.">AABC20</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Outlier Ensembles</p></td>
+<td><p>IForest</p></td>
+<td><p>Isolation Forest</p></td>
+<td><p>2008</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.iforest.IForest" title="pyod.models.iforest.IForest"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.iforest.IForest</span></code></a></p></td>
+<td><p><span id="id34">[<a class="reference internal" href="#id67" title="Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Isolation forest. In Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on, 413–422. IEEE, 2008.">ALTZ08</a>, <a class="reference internal" href="#id68" title="Fei Tony Liu, Kai Ming Ting, and Zhi-Hua Zhou. Isolation-based anomaly detection. ACM Transactions on Knowledge Discovery from Data (TKDD), 6(1):3, 2012.">ALTZ12</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td><p>INNE</p></td>
+<td><p>Isolation-based Anomaly Detection Using Nearest-Neighbor Ensembles</p></td>
+<td><p>2018</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.inne.INNE" title="pyod.models.inne.INNE"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.inne.INNE</span></code></a></p></td>
+<td><p><span id="id35">[<a class="reference internal" href="#id113" title="Tharindu R Bandaragoda, Kai Ming Ting, David Albrecht, Fei Tony Liu, Ye Zhu, and Jonathan R Wells. Isolation-based anomaly detection using nearest-neighbor ensembles. Computational Intelligence, 34(4):968–998, 2018.">ABTA+18</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Outlier Ensembles</p></td>
+<td><p>DIF</p></td>
+<td><p>Deep Isolation Forest for Anomaly Detection</p></td>
+<td><p>2023</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.dif.DIF" title="pyod.models.dif.DIF"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.dif.DIF</span></code></a></p></td>
+<td><p><span id="id36">[<a class="reference internal" href="#id121" title="Hongzuo Xu, Guansong Pang, Yijie Wang, and Yongjun Wang. Deep isolation forest for anomaly detection. IEEE Transactions on Knowledge and Data Engineering, ():1-14, 2023. doi:10.1109/TKDE.2023.3270293.">AXPWW23</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td><p>FB</p></td>
+<td><p>Feature Bagging</p></td>
+<td><p>2005</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.feature_bagging.FeatureBagging" title="pyod.models.feature_bagging.FeatureBagging"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.feature_bagging.FeatureBagging</span></code></a></p></td>
+<td><p><span id="id37">[<a class="reference internal" href="#id74" title="Aleksandar Lazarevic and Vipin Kumar. Feature bagging for outlier detection. In Proceedings of the eleventh ACM SIGKDD international conference on Knowledge discovery in data mining, 157–166. ACM, 2005.">ALK05</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Outlier Ensembles</p></td>
+<td><p>LSCP</p></td>
+<td><p>LSCP: Locally Selective Combination of Parallel Outlier Ensembles</p></td>
+<td><p>2019</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.lscp.LSCP" title="pyod.models.lscp.LSCP"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.lscp.LSCP</span></code></a></p></td>
+<td><p><span id="id38">[<a class="reference internal" href="#id86" title="Yue Zhao, Zain Nasrullah, Maciej K Hryniewicki, and Zheng Li. LSCP: locally selective combination in parallel outlier ensembles. In Proceedings of the 2019 SIAM International Conference on Data Mining, SDM 2019, 585–593. Calgary, Canada, May 2019. SIAM. URL: https://doi.org/10.1137/1.9781611975673.66, doi:10.1137/1.9781611975673.66.">AZNHL19</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td><p>XGBOD</p></td>
+<td><p>Extreme Boosting Based Outlier Detection <strong>(Supervised)</strong></p></td>
+<td><p>2018</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.xgbod.XGBOD" title="pyod.models.xgbod.XGBOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.xgbod.XGBOD</span></code></a></p></td>
+<td><p><span id="id39">[<a class="reference internal" href="#id79" title="Yue Zhao and Maciej K Hryniewicki. Xgbod: improving supervised outlier detection with unsupervised representation learning. In International Joint Conference on Neural Networks (IJCNN). IEEE, 2018.">AZH18</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Outlier Ensembles</p></td>
+<td><p>LODA</p></td>
+<td><p>Lightweight On-line Detector of Anomalies</p></td>
+<td><p>2016</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.loda.LODA" title="pyod.models.loda.LODA"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.loda.LODA</span></code></a></p></td>
+<td><p><span id="id40">[<a class="reference internal" href="#id100" title="Tomáš Pevn\`y. Loda: lightweight on-line detector of anomalies. Machine Learning, 102(2):275–304, 2016.">APevny16</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td><p>SUOD</p></td>
+<td><p>SUOD: Accelerating Large-scale Unsupervised Heterogeneous Outlier Detection <strong>(Acceleration)</strong></p></td>
+<td><p>2021</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.suod.SUOD" title="pyod.models.suod.SUOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.suod.SUOD</span></code></a></p></td>
+<td><p><span id="id41">[<a class="reference internal" href="#id105" title="Yue Zhao, Xiyang Hu, Cheng Cheng, Cong Wang, Changlin Wan, Wen Wang, Jianing Yang, Haoping Bai, Zheng Li, Cao Xiao, Yunlong Wang, Zhi Qiao, Jimeng Sun, and Leman Akoglu. Suod: accelerating large-scale unsupervised heterogeneous outlier detection. Proceedings of Machine Learning and Systems, 2021.">AZHC+21</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Neural Networks</p></td>
+<td><p>AutoEncoder</p></td>
+<td><p>Fully connected AutoEncoder (use reconstruction error as the outlier score)</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.auto_encoder.AutoEncoder" title="pyod.models.auto_encoder.AutoEncoder"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.auto_encoder.AutoEncoder</span></code></a></p></td>
+<td><p><span id="id42">[<a class="reference internal" href="#id77" title="Charu C Aggarwal. Outlier analysis. In Data mining, 75–79. Springer, 2015.">AAgg15</a>]</span> [Ch.3]</p></td>
+</tr>
+<tr class="row-even"><td><p>Neural Networks</p></td>
+<td><p>VAE</p></td>
+<td><p>Variational AutoEncoder (use reconstruction error as the outlier score)</p></td>
+<td><p>2013</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.vae.VAE" title="pyod.models.vae.VAE"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.vae.VAE</span></code></a></p></td>
+<td><p><span id="id43">[<a class="reference internal" href="#id99" title="Diederik P Kingma and Max Welling. Auto-encoding variational bayes. arXiv preprint arXiv:1312.6114, 2013.">AKW13</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Neural Networks</p></td>
+<td><p>Beta-VAE</p></td>
+<td><p>Variational AutoEncoder (all customized loss term by varying gamma and capacity)</p></td>
+<td><p>2018</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.vae.VAE" title="pyod.models.vae.VAE"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.vae.VAE</span></code></a></p></td>
+<td><p><span id="id44">[<a class="reference internal" href="#id101" title="Christopher P Burgess, Irina Higgins, Arka Pal, Loic Matthey, Nick Watters, Guillaume Desjardins, and Alexander Lerchner. Understanding disentangling in betvae. arXiv preprint arXiv:1804.03599, 2018.">ABHP+18</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Neural Networks</p></td>
+<td><p>SO_GAAL</p></td>
+<td><p>Single-Objective Generative Adversarial Active Learning</p></td>
+<td><p>2019</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.so_gaal.SO_GAAL" title="pyod.models.so_gaal.SO_GAAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.so_gaal.SO_GAAL</span></code></a></p></td>
+<td><p><span id="id45">[<a class="reference internal" href="#id87" title="Yezheng Liu, Zhe Li, Chong Zhou, Yuanchun Jiang, Jianshan Sun, Meng Wang, and Xiangnan He. Generative adversarial active learning for unsupervised outlier detection. IEEE Transactions on Knowledge and Data Engineering, 2019.">ALLZ+19</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Neural Networks</p></td>
+<td><p>MO_GAAL</p></td>
+<td><p>Multiple-Objective Generative Adversarial Active Learning</p></td>
+<td><p>2019</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.mo_gaal.MO_GAAL" title="pyod.models.mo_gaal.MO_GAAL"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.mo_gaal.MO_GAAL</span></code></a></p></td>
+<td><p><span id="id46">[<a class="reference internal" href="#id87" title="Yezheng Liu, Zhe Li, Chong Zhou, Yuanchun Jiang, Jianshan Sun, Meng Wang, and Xiangnan He. Generative adversarial active learning for unsupervised outlier detection. IEEE Transactions on Knowledge and Data Engineering, 2019.">ALLZ+19</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Neural Networks</p></td>
+<td><p>DeepSVDD</p></td>
+<td><p>Deep One-Class Classification</p></td>
+<td><p>2018</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.deep_svdd.DeepSVDD" title="pyod.models.deep_svdd.DeepSVDD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.deep_svdd.DeepSVDD</span></code></a></p></td>
+<td><p><span id="id47">[<a class="reference internal" href="#id106" title="Lukas Ruff, Robert Vandermeulen, Nico Görnitz, Lucas Deecke, Shoaib Siddiqui, Alexander Binder, Emmanuel Müller, and Marius Kloft. Deep one-class classification. International conference on machine learning, 2018.">ARVG+18</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Neural Networks</p></td>
+<td><p>AnoGAN</p></td>
+<td><p>Anomaly Detection with Generative Adversarial Networks</p></td>
+<td><p>2017</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.anogan.AnoGAN" title="pyod.models.anogan.AnoGAN"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.anogan.AnoGAN</span></code></a></p></td>
+<td><p><span id="id48">[<a class="reference internal" href="#id114" title="Thomas Schlegl, Philipp Seeböck, Sebastian M Waldstein, Ursula Schmidt-Erfurth, and Georg Langs. Unsupervised anomaly detection with generative adversarial networks to guide marker discovery. In International conference on information processing in medical imaging, 146–157. Springer, 2017.">ASSeebockW+17</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Neural Networks</p></td>
+<td><p>ALAD</p></td>
+<td><p>Adversarially learned anomaly detection</p></td>
+<td><p>2018</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.alad.ALAD" title="pyod.models.alad.ALAD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.alad.ALAD</span></code></a></p></td>
+<td><p><span id="id49">[<a class="reference internal" href="#id118" title="Houssam Zenati, Manon Romain, Chuan-Sheng Foo, Bruno Lecouat, and Vijay Chandrasekhar. Adversarially learned anomaly detection. In 2018 IEEE International conference on data mining (ICDM), 727–736. IEEE, 2018.">AZRF+18</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Neural Networks</p></td>
+<td><p>DevNet</p></td>
+<td><p>Deep Anomaly Detection with Deviation Networks</p></td>
+<td><p>2019</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.devnet.DevNet" title="pyod.models.devnet.DevNet"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.devnet.DevNet</span></code></a></p></td>
+<td><p><span id="id50">[<a class="reference internal" href="#id123" title="Guansong Pang, Chunhua Shen, and Anton Van Den Hengel. Deep anomaly detection with deviation networks. In Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery &amp; data mining, 353–362. 2019.">APSVDH19</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Neural Networks</p></td>
+<td><p>AE1SVM</p></td>
+<td><p>Autoencoder-based One-class Support Vector Machine</p></td>
+<td><p>2019</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.ae1svm.AE1SVM" title="pyod.models.ae1svm.AE1SVM"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.ae1svm.AE1SVM</span></code></a></p></td>
+<td><p><span id="id51">[<a class="reference internal" href="#id122" title="Minh-Nghia Nguyen and Ngo Anh Vien. Scalable and interpretable one-class svms with deep learning and random fourier features. In Machine Learning and Knowledge Discovery in Databases: European Conference, ECML PKDD 2018, Dublin, Ireland, September 10–14, 2018, Proceedings, Part I 18, 157–172. Springer, 2019.">ANV19</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Graph-based</p></td>
+<td><p>R-Graph</p></td>
+<td><p>Outlier detection by R-graph</p></td>
+<td><p>2017</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.rgraph.RGraph" title="pyod.models.rgraph.RGraph"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.rgraph.RGraph</span></code></a></p></td>
+<td><p><span id="id52">[<a class="reference internal" href="#id117" title="Chong You, Daniel P Robinson, and René Vidal. Provable self-representation based outlier detection in a union of subspaces. In Proceedings of the IEEE conference on computer vision and pattern recognition, 3395–3404. 2017.">AYRV17</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Graph-based</p></td>
+<td><p>LUNAR</p></td>
+<td><p>LUNAR: Unifying Local Outlier Detection Methods via Graph Neural Networks</p></td>
+<td><p>2022</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.lunar.LUNAR" title="pyod.models.lunar.LUNAR"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.lunar.LUNAR</span></code></a></p></td>
+<td><p><span id="id53">[<a class="reference internal" href="#id115" title="Adam Goodge, Bryan Hooi, See-Kiong Ng, and Wee Siong Ng. Lunar: unifying local outlier detection methods via graph neural networks. In Proceedings of the AAAI Conference on Artificial Intelligence, volume 36, 6737–6745. 2022.">AGHNN22</a>]</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>(ii) Outlier Ensembles &amp; Outlier Detector Combination Frameworks</strong>:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Abbr</p></th>
+<th class="head"><p>Algorithm</p></th>
+<th class="head"><p>Year</p></th>
+<th class="head"><p>Ref</p></th>
+<th class="head"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td></td>
+<td><p>Feature Bagging</p></td>
+<td><p>2005</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.feature_bagging.FeatureBagging" title="pyod.models.feature_bagging.FeatureBagging"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.feature_bagging.FeatureBagging</span></code></a></p></td>
+<td><p><span id="id54">[<a class="reference internal" href="#id74" title="Aleksandar Lazarevic and Vipin Kumar. Feature bagging for outlier detection. In Proceedings of the eleventh ACM SIGKDD international conference on Knowledge discovery in data mining, 157–166. ACM, 2005.">ALK05</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Outlier Ensembles</p></td>
+<td><p>LSCP</p></td>
+<td><p>LSCP: Locally Selective Combination of Parallel Outlier Ensembles</p></td>
+<td><p>2019</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.lscp.LSCP" title="pyod.models.lscp.LSCP"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.lscp.LSCP</span></code></a></p></td>
+<td><p><span id="id55">[<a class="reference internal" href="#id86" title="Yue Zhao, Zain Nasrullah, Maciej K Hryniewicki, and Zheng Li. LSCP: locally selective combination in parallel outlier ensembles. In Proceedings of the 2019 SIAM International Conference on Data Mining, SDM 2019, 585–593. Calgary, Canada, May 2019. SIAM. URL: https://doi.org/10.1137/1.9781611975673.66, doi:10.1137/1.9781611975673.66.">AZNHL19</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td><p>XGBOD</p></td>
+<td><p>Extreme Boosting Based Outlier Detection <strong>(Supervised)</strong></p></td>
+<td><p>2018</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.xgbod.XGBOD" title="pyod.models.xgbod.XGBOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.xgbod.XGBOD</span></code></a></p></td>
+<td><p><span id="id56">[<a class="reference internal" href="#id79" title="Yue Zhao and Maciej K Hryniewicki. Xgbod: improving supervised outlier detection with unsupervised representation learning. In International Joint Conference on Neural Networks (IJCNN). IEEE, 2018.">AZH18</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Outlier Ensembles</p></td>
+<td><p>LODA</p></td>
+<td><p>Lightweight On-line Detector of Anomalies</p></td>
+<td><p>2016</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.loda.LODA" title="pyod.models.loda.LODA"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.loda.LODA</span></code></a></p></td>
+<td><p><span id="id57">[<a class="reference internal" href="#id100" title="Tomáš Pevn\`y. Loda: lightweight on-line detector of anomalies. Machine Learning, 102(2):275–304, 2016.">APevny16</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Outlier Ensembles</p></td>
+<td><p>SUOD</p></td>
+<td><p>SUOD: Accelerating Large-scale Unsupervised Heterogeneous Outlier Detection <strong>(Acceleration)</strong></p></td>
+<td><p>2021</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.suod.SUOD" title="pyod.models.suod.SUOD"><code class="xref py py-class docutils literal notranslate"><span class="pre">pyod.models.suod.SUOD</span></code></a></p></td>
+<td><p><span id="id58">[<a class="reference internal" href="#id105" title="Yue Zhao, Xiyang Hu, Cheng Cheng, Cong Wang, Changlin Wan, Wen Wang, Jianing Yang, Haoping Bai, Zheng Li, Cao Xiao, Yunlong Wang, Zhi Qiao, Jimeng Sun, and Leman Akoglu. Suod: accelerating large-scale unsupervised heterogeneous outlier detection. Proceedings of Machine Learning and Systems, 2021.">AZHC+21</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Combination</p></td>
+<td><p>Average</p></td>
+<td><p>Simple combination by averaging the scores</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.average" title="pyod.models.combination.average"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.average()</span></code></a></p></td>
+<td><p><span id="id59">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Combination</p></td>
+<td><p>Weighted Average</p></td>
+<td><p>Simple combination by averaging the scores with detector weights</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.average" title="pyod.models.combination.average"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.average()</span></code></a></p></td>
+<td><p><span id="id60">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Combination</p></td>
+<td><p>Maximization</p></td>
+<td><p>Simple combination by taking the maximum scores</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.maximization" title="pyod.models.combination.maximization"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.maximization()</span></code></a></p></td>
+<td><p><span id="id61">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Combination</p></td>
+<td><p>AOM</p></td>
+<td><p>Average of Maximum</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.aom" title="pyod.models.combination.aom"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.aom()</span></code></a></p></td>
+<td><p><span id="id62">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Combination</p></td>
+<td><p>MOA</p></td>
+<td><p>Maximum of Average</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.moa" title="pyod.models.combination.moa"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.moa()</span></code></a></p></td>
+<td><p><span id="id63">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+<tr class="row-even"><td><p>Combination</p></td>
+<td><p>Median</p></td>
+<td><p>Simple combination by taking the median of the scores</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.median" title="pyod.models.combination.median"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.median()</span></code></a></p></td>
+<td><p><span id="id64">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+<tr class="row-odd"><td><p>Combination</p></td>
+<td><p>majority Vote</p></td>
+<td><p>Simple combination by taking the majority vote of the labels (weights can be used)</p></td>
+<td><p>2015</p></td>
+<td><p><a class="reference internal" href="pyod.models.html#pyod.models.combination.majority_vote" title="pyod.models.combination.majority_vote"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.combination.majority_vote()</span></code></a></p></td>
+<td><p><span id="id65">[<a class="reference internal" href="#id70" title="Charu C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. ACM SIGKDD Explorations Newsletter, 17(1):24–47, 2015.">AAS15</a>]</span></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>(iii) Utility Functions</strong>:</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Type</p></th>
+<th class="head"><p>Name</p></th>
+<th class="head"><p>Function</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Data</p></td>
+<td><p><a class="reference internal" href="pyod.utils.html#pyod.utils.data.generate_data" title="pyod.utils.data.generate_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.utils.data.generate_data()</span></code></a></p></td>
+<td><p>Synthesized data generation; normal data is generated by a multivariate Gaussian and outliers are generated by a uniform distribution</p></td>
+</tr>
+<tr class="row-odd"><td><p>Data</p></td>
+<td><p><a class="reference internal" href="pyod.utils.html#pyod.utils.data.generate_data_clusters" title="pyod.utils.data.generate_data_clusters"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.utils.data.generate_data_clusters()</span></code></a></p></td>
+<td><p>Synthesized data generation in clusters; more complex data patterns can be created with multiple clusters</p></td>
+</tr>
+<tr class="row-even"><td><p>Stat</p></td>
+<td><p><a class="reference internal" href="pyod.utils.html#pyod.utils.stat_models.wpearsonr" title="pyod.utils.stat_models.wpearsonr"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.utils.stat_models.wpearsonr()</span></code></a></p></td>
+<td><p>Calculate the weighted Pearson correlation of two samples</p></td>
+</tr>
+<tr class="row-odd"><td><p>Utility</p></td>
+<td><p><a class="reference internal" href="pyod.utils.html#pyod.utils.utility.get_label_n" title="pyod.utils.utility.get_label_n"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.utils.utility.get_label_n()</span></code></a></p></td>
+<td><p>Turn raw outlier scores into binary labels by assign 1 to top n outlier scores</p></td>
+</tr>
+<tr class="row-even"><td><p>Utility</p></td>
+<td><p><a class="reference internal" href="pyod.utils.html#pyod.utils.utility.precision_n_scores" title="pyod.utils.utility.precision_n_scores"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.utils.utility.precision_n_scores()</span></code></a></p></td>
+<td><p>calculate precision @ rank n</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="api-cheatsheet-reference">
+<h1>API Cheatsheet &amp; Reference<a class="headerlink" href="#api-cheatsheet-reference" title="Link to this heading">¶</a></h1>
+<p>The following APIs are applicable for all detector models for easy use.</p>
+<ul class="simple">
+<li><p><a class="reference internal" href="api_cc.html#pyod.models.base.BaseDetector.fit" title="pyod.models.base.BaseDetector.fit"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.fit()</span></code></a>: Fit detector. y is ignored in unsupervised methods.</p></li>
+<li><p><a class="reference internal" href="api_cc.html#pyod.models.base.BaseDetector.decision_function" title="pyod.models.base.BaseDetector.decision_function"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.decision_function()</span></code></a>: Predict raw anomaly score of X using the fitted detector.</p></li>
+<li><p><a class="reference internal" href="api_cc.html#pyod.models.base.BaseDetector.predict" title="pyod.models.base.BaseDetector.predict"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.predict()</span></code></a>: Predict if a particular sample is an outlier or not using the fitted detector.</p></li>
+<li><p><a class="reference internal" href="api_cc.html#pyod.models.base.BaseDetector.predict_proba" title="pyod.models.base.BaseDetector.predict_proba"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.predict_proba()</span></code></a>: Predict the probability of a sample being outlier using the fitted detector.</p></li>
+<li><p><a class="reference internal" href="api_cc.html#pyod.models.base.BaseDetector.predict_confidence" title="pyod.models.base.BaseDetector.predict_confidence"><code class="xref py py-func docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.predict_confidence()</span></code></a>: Predict the model’s sample-wise confidence (available in predict and predict_proba).</p></li>
+</ul>
+<p>Key Attributes of a fitted model:</p>
+<ul class="simple">
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.decision_scores_</span></code>: The outlier scores of the training data. The higher, the more abnormal.
+Outliers tend to have higher scores.</p></li>
+<li><p><code class="xref py py-attr docutils literal notranslate"><span class="pre">pyod.models.base.BaseDetector.labels_</span></code>: The binary labels of the training data. 0 stands for inliers and 1 for outliers/anomalies.</p></li>
+</ul>
+<hr class="docutils">
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<div class="toctree-wrapper compound">
+</div>
+<hr class="docutils">
+<p class="rubric">References</p>
+<div class="docutils container" id="id66">
+<div role="list" class="citation-list">
+<div class="citation" id="id77" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AAgg15<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id16">1</a>,<a role="doc-backlink" href="#id42">2</a>)</span>
+<p>Charu&nbsp;C Aggarwal. Outlier analysis. In <em>Data mining</em>, 75–79. Springer, 2015.</p>
+</div>
+<div class="citation" id="id70" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AAS15<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id59">1</a>,<a role="doc-backlink" href="#id60">2</a>,<a role="doc-backlink" href="#id61">3</a>,<a role="doc-backlink" href="#id62">4</a>,<a role="doc-backlink" href="#id63">5</a>,<a role="doc-backlink" href="#id64">6</a>,<a role="doc-backlink" href="#id65">7</a>)</span>
+<p>Charu&nbsp;C Aggarwal and Saket Sathe. Theoretical foundations and algorithms for outlier ensembles. <em>ACM SIGKDD Explorations Newsletter</em>, 17(1):24–47, 2015.</p>
+</div>
+<div class="citation" id="id104" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id33">AABC20</a><span class="fn-bracket">]</span></span>
+<p>Yahya Almardeny, Noureddine Boujnah, and Frances Cleary. A novel outlier detection method for multivariate data. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 2020.</p>
+</div>
+<div class="citation" id="id72" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AAP02<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id29">1</a>,<a role="doc-backlink" href="#id30">2</a>,<a role="doc-backlink" href="#id31">3</a>)</span>
+<p>Fabrizio Angiulli and Clara Pizzuti. Fast outlier detection in high dimensional spaces. In <em>European Conference on Principles of Data Mining and Knowledge Discovery</em>, 15–27. Springer, 2002.</p>
+</div>
+<div class="citation" id="id98" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id22">AAAR96</a><span class="fn-bracket">]</span></span>
+<p>Andreas Arning, Rakesh Agrawal, and Prabhakar Raghavan. A linear method for deviation detection in large databases. In <em>KDD</em>, volume 1141, 972–981. 1996.</p>
+</div>
+<div class="citation" id="id113" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id35">ABTA+18</a><span class="fn-bracket">]</span></span>
+<p>Tharindu&nbsp;R Bandaragoda, Kai&nbsp;Ming Ting, David Albrecht, Fei&nbsp;Tony Liu, Ye&nbsp;Zhu, and Jonathan&nbsp;R Wells. Isolation-based anomaly detection using nearest-neighbor ensembles. <em>Computational Intelligence</em>, 34(4):968–998, 2018.</p>
+</div>
+<div class="citation" id="id78" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id23">ABKNS00</a><span class="fn-bracket">]</span></span>
+<p>Markus&nbsp;M Breunig, Hans-Peter Kriegel, Raymond&nbsp;T Ng, and Jörg Sander. Lof: identifying density-based local outliers. In <em>ACM sigmod record</em>, volume&nbsp;29, 93–104. ACM, 2000.</p>
+</div>
+<div class="citation" id="id101" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id44">ABHP+18</a><span class="fn-bracket">]</span></span>
+<p>Christopher&nbsp;P Burgess, Irina Higgins, Arka Pal, Loic Matthey, Nick Watters, Guillaume Desjardins, and Alexander Lerchner. Understanding disentangling in betvae. <em>arXiv preprint arXiv:1804.03599</em>, 2018.</p>
+</div>
+<div class="citation" id="id126" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id1">ACQS+24</a><span class="fn-bracket">]</span></span>
+<p>Sihan Chen, Zhuangzhuang Qian, Wingchun Siu, Xingcan Hu, Jiaqi Li, Shawn Li, Yuehan Qin, Tiankai Yang, Zhuo Xiao, Wanghao Ye, and others. Pyod 2: a python library for outlier detection with llm-powered model selection. <em>arXiv preprint arXiv:2412.12154</em>, 2024.</p>
+</div>
+<div class="citation" id="id110" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id20">ACoo77</a><span class="fn-bracket">]</span></span>
+<p>R&nbsp;Dennis Cook. Detection of influential observation in linear regression. <em>Technometrics</em>, 19(1):15–18, 1977.</p>
+</div>
+<div class="citation" id="id120" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id13">AFM01</a><span class="fn-bracket">]</span></span>
+<p>Kai-Tai Fang and Chang-Xing Ma. Wrap-around l2-discrepancy of random sampling, latin hypercube and uniform designs. <em>Journal of complexity</em>, 17(4):608–624, 2001.</p>
+</div>
+<div class="citation" id="id75" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id28">AGD12</a><span class="fn-bracket">]</span></span>
+<p>Markus Goldstein and Andreas Dengel. Histogram-based outlier score (hbos): a fast unsupervised anomaly detection algorithm. <em>KI-2012: Poster and Demo Track</em>, pages 59–63, 2012.</p>
+</div>
+<div class="citation" id="id115" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id53">AGHNN22</a><span class="fn-bracket">]</span></span>
+<p>Adam Goodge, Bryan Hooi, See-Kiong Ng, and Wee&nbsp;Siong Ng. Lunar: unifying local outlier detection methods via graph neural networks. In <em>Proceedings of the AAAI Conference on Artificial Intelligence</em>, volume&nbsp;36, 6737–6745. 2022.</p>
+</div>
+<div class="citation" id="id116" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id5">AHHH+22</a><span class="fn-bracket">]</span></span>
+<p>Songqiao Han, Xiyang Hu, Hailiang Huang, Mingqi Jiang, and Yue Zhao. Adbench: anomaly detection benchmark. <em>arXiv preprint arXiv:2206.09426</em>, 2022.</p>
+</div>
+<div class="citation" id="id81" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id19">AHR04</a><span class="fn-bracket">]</span></span>
+<p>Johanna Hardin and David&nbsp;M Rocke. Outlier detection in the multiple cluster setting using the minimum covariance determinant estimator. <em>Computational Statistics &amp; Data Analysis</em>, 44(4):625–638, 2004.</p>
+</div>
+<div class="citation" id="id82" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id26">AHXD03</a><span class="fn-bracket">]</span></span>
+<p>Zengyou He, Xiaofei Xu, and Shengchun Deng. Discovering cluster-based local outliers. <em>Pattern Recognition Letters</em>, 24(9-10):1641–1650, 2003.</p>
+</div>
+<div class="citation" id="id119" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id18">AHof07</a><span class="fn-bracket">]</span></span>
+<p>Heiko Hoffmann. Kernel pca for novelty detection. <em>Pattern recognition</em>, 40(3):863–874, 2007.</p>
+</div>
+<div class="citation" id="id102" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id11">AIH93</a><span class="fn-bracket">]</span></span>
+<p>Boris Iglewicz and David&nbsp;Caster Hoaglin. <em>How to detect and handle outliers</em>. Volume&nbsp;16. Asq Press, 1993.</p>
+</div>
+<div class="citation" id="id84" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id12">AJHuszarPvdH12</a><span class="fn-bracket">]</span></span>
+<p>JHM Janssens, Ferenc Huszár, EO&nbsp;Postma, and HJ&nbsp;van&nbsp;den Herik. Stochastic outlier selection. Technical Report, Technical report TiCC TR 2012-001, Tilburg University, Tilburg Center for Cognition and Communication, Tilburg, The Netherlands, 2012.</p>
+</div>
+<div class="citation" id="id99" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id43">AKW13</a><span class="fn-bracket">]</span></span>
+<p>Diederik&nbsp;P Kingma and Max Welling. Auto-encoding variational bayes. <em>arXiv preprint arXiv:1312.6114</em>, 2013.</p>
+</div>
+<div class="citation" id="id94" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id32">AKKrogerSZ09</a><span class="fn-bracket">]</span></span>
+<p>Hans-Peter Kriegel, Peer Kröger, Erich Schubert, and Arthur Zimek. Outlier detection in axis-parallel subspaces of high dimensional data. In <em>Pacific-Asia Conference on Knowledge Discovery and Data Mining</em>, 831–838. Springer, 2009.</p>
+</div>
+<div class="citation" id="id73" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AKZ+08<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id9">1</a>,<a role="doc-backlink" href="#id10">2</a>)</span>
+<p>Hans-Peter Kriegel, Arthur Zimek, and others. Angle-based outlier detection in high-dimensional data. In <em>Proceedings of the 14th ACM SIGKDD international conference on Knowledge discovery and data mining</em>, 444–452. ACM, 2008.</p>
+</div>
+<div class="citation" id="id111" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id14">ALLP07</a><span class="fn-bracket">]</span></span>
+<p>Longin&nbsp;Jan Latecki, Aleksandar Lazarevic, and Dragoljub Pokrajac. Outlier detection with kernel density functions. In <em>International Workshop on Machine Learning and Data Mining in Pattern Recognition</em>, 61–75. Springer, 2007.</p>
+</div>
+<div class="citation" id="id74" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ALK05<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id37">1</a>,<a role="doc-backlink" href="#id54">2</a>)</span>
+<p>Aleksandar Lazarevic and Vipin Kumar. Feature bagging for outlier detection. In <em>Proceedings of the eleventh ACM SIGKDD international conference on Knowledge discovery in data mining</em>, 157–166. ACM, 2005.</p>
+</div>
+<div class="citation" id="id127" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id2">ALLX+24</a><span class="fn-bracket">]</span></span>
+<p>Yuangang Li, Jiaqi Li, Zhuo Xiao, Tiankai Yang, Yi&nbsp;Nian, Xiyang Hu, and Yue Zhao. Nlp-adbench: nlp anomaly detection benchmark. <em>arXiv preprint arXiv:2412.04784</em>, 2024.</p>
+</div>
+<div class="citation" id="id103" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id8">ALZB+20</a><span class="fn-bracket">]</span></span>
+<p>Zheng Li, Yue Zhao, Nicola Botta, Cezar Ionescu, and Xiyang Hu. COPOD: copula-based outlier detection. In <em>IEEE International Conference on Data Mining (ICDM)</em>. IEEE, 2020.</p>
+</div>
+<div class="citation" id="id109" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id7">ALZH+22</a><span class="fn-bracket">]</span></span>
+<p>Zheng Li, Yue Zhao, Xiyang Hu, Nicola Botta, Cezar Ionescu, and H.&nbsp;George Chen. Ecod: unsupervised outlier detection using empirical cumulative distribution functions. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 2022.</p>
+</div>
+<div class="citation" id="id67" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id34">ALTZ08</a><span class="fn-bracket">]</span></span>
+<p>Fei&nbsp;Tony Liu, Kai&nbsp;Ming Ting, and Zhi-Hua Zhou. Isolation forest. In <em>Data Mining, 2008. ICDM'08. Eighth IEEE International Conference on</em>, 413–422. IEEE, 2008.</p>
+</div>
+<div class="citation" id="id68" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id34">ALTZ12</a><span class="fn-bracket">]</span></span>
+<p>Fei&nbsp;Tony Liu, Kai&nbsp;Ming Ting, and Zhi-Hua Zhou. Isolation-based anomaly detection. <em>ACM Transactions on Knowledge Discovery from Data (TKDD)</em>, 6(1):3, 2012.</p>
+</div>
+<div class="citation" id="id87" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ALLZ+19<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id45">1</a>,<a role="doc-backlink" href="#id46">2</a>)</span>
+<p>Yezheng Liu, Zhe Li, Chong Zhou, Yuanchun Jiang, Jianshan Sun, Meng Wang, and Xiangnan He. Generative adversarial active learning for unsupervised outlier detection. <em>IEEE Transactions on Knowledge and Data Engineering</em>, 2019.</p>
+</div>
+<div class="citation" id="id122" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id51">ANV19</a><span class="fn-bracket">]</span></span>
+<p>Minh-Nghia Nguyen and Ngo&nbsp;Anh Vien. Scalable and interpretable one-class svms with deep learning and random fourier features. In <em>Machine Learning and Knowledge Discovery in Databases: European Conference, ECML PKDD 2018, Dublin, Ireland, September 10–14, 2018, Proceedings, Part I 18</em>, 157–172. Springer, 2019.</p>
+</div>
+<div class="citation" id="id123" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id50">APSVDH19</a><span class="fn-bracket">]</span></span>
+<p>Guansong Pang, Chunhua Shen, and Anton Van Den&nbsp;Hengel. Deep anomaly detection with deviation networks. In <em>Proceedings of the 25th ACM SIGKDD international conference on knowledge discovery &amp; data mining</em>, 353–362. 2019.</p>
+</div>
+<div class="citation" id="id85" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id27">APKGF03</a><span class="fn-bracket">]</span></span>
+<p>Spiros Papadimitriou, Hiroyuki Kitagawa, Phillip&nbsp;B Gibbons, and Christos Faloutsos. Loci: fast outlier detection using the local correlation integral. In <em>Data Engineering, 2003. Proceedings. 19th International Conference on</em>, 315–326. IEEE, 2003.</p>
+</div>
+<div class="citation" id="id108" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>APVD20<span class="fn-bracket">]</span></span>
+<p>Lorenzo Perini, Vincent Vercruyssen, and Jesse Davis. Quantifying the confidence of anomaly detectors in their example-wise predictions. In <em>Joint European Conference on Machine Learning and Knowledge Discovery in Databases</em>, 227–243. Springer, 2020.</p>
+</div>
+<div class="citation" id="id100" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>APevny16<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id40">1</a>,<a role="doc-backlink" href="#id57">2</a>)</span>
+<p>Tomáš Pevn\`y. Loda: lightweight on-line detector of anomalies. <em>Machine Learning</em>, 102(2):275–304, 2016.</p>
+</div>
+<div class="citation" id="id71" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ARRS00<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id29">1</a>,<a role="doc-backlink" href="#id30">2</a>,<a role="doc-backlink" href="#id31">3</a>)</span>
+<p>Sridhar Ramaswamy, Rajeev Rastogi, and Kyuseok Shim. Efficient algorithms for mining outliers from large data sets. In <em>ACM Sigmod Record</em>, volume&nbsp;29, 427–438. ACM, 2000.</p>
+</div>
+<div class="citation" id="id80" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id19">ARD99</a><span class="fn-bracket">]</span></span>
+<p>Peter&nbsp;J Rousseeuw and Katrien&nbsp;Van Driessen. A fast algorithm for the minimum covariance determinant estimator. <em>Technometrics</em>, 41(3):212–223, 1999.</p>
+</div>
+<div class="citation" id="id106" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id47">ARVG+18</a><span class="fn-bracket">]</span></span>
+<p>Lukas Ruff, Robert Vandermeulen, Nico Görnitz, Lucas Deecke, Shoaib Siddiqui, Alexander Binder, Emmanuel Müller, and Marius Kloft. Deep one-class classification. <em>International conference on machine learning</em>, 2018.</p>
+</div>
+<div class="citation" id="id114" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id48">ASSeebockW+17</a><span class="fn-bracket">]</span></span>
+<p>Thomas Schlegl, Philipp Seeböck, Sebastian&nbsp;M Waldstein, Ursula Schmidt-Erfurth, and Georg Langs. Unsupervised anomaly detection with generative adversarial networks to guide marker discovery. In <em>International conference on information processing in medical imaging</em>, 146–157. Springer, 2017.</p>
+</div>
+<div class="citation" id="id91" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id21">AScholkopfPST+01</a><span class="fn-bracket">]</span></span>
+<p>Bernhard Schölkopf, John&nbsp;C Platt, John Shawe-Taylor, Alex&nbsp;J Smola, and Robert&nbsp;C Williamson. Estimating the support of a high-dimensional distribution. <em>Neural computation</em>, 13(7):1443–1471, 2001.</p>
+</div>
+<div class="citation" id="id76" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id17">ASCSC03</a><span class="fn-bracket">]</span></span>
+<p>Mei-Ling Shyu, Shu-Ching Chen, Kanoksri Sarinnapakorn, and LiWu Chang. A novel anomaly detection scheme based on principal component classifier. Technical Report, MIAMI UNIV CORAL GABLES FL DEPT OF ELECTRICAL AND COMPUTER ENGINEERING, 2003.</p>
+</div>
+<div class="citation" id="id112" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id15">ASB13</a><span class="fn-bracket">]</span></span>
+<p>Mahito Sugiyama and Karsten Borgwardt. Rapid distance-based outlier detection via sampling. <em>Advances in neural information processing systems</em>, 2013.</p>
+</div>
+<div class="citation" id="id92" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>ATCFC02<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id24">1</a>,<a role="doc-backlink" href="#id25">2</a>)</span>
+<p>Jian Tang, Zhixiang Chen, Ada&nbsp;Wai-Chee Fu, and David&nbsp;W Cheung. Enhancing effectiveness of outlier detections for low density patterns. In <em>Pacific-Asia Conference on Knowledge Discovery and Data Mining</em>, 535–548. Springer, 2002.</p>
+</div>
+<div class="citation" id="id121" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id36">AXPWW23</a><span class="fn-bracket">]</span></span>
+<p>Hongzuo Xu, Guansong Pang, Yijie Wang, and Yongjun Wang. Deep isolation forest for anomaly detection. <em>IEEE Transactions on Knowledge and Data Engineering</em>, ():1–14, 2023. <a class="reference external" href="https://doi.org/10.1109/TKDE.2023.3270293">doi:10.1109/TKDE.2023.3270293</a>.</p>
+</div>
+<div class="citation" id="id125" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id3">AYNL+24</a><span class="fn-bracket">]</span></span>
+<p>Tiankai Yang, Yi&nbsp;Nian, Shawn Li, Ruiyao Xu, Yuangang Li, Jiaqi Li, Zhuo Xiao, Xiyang Hu, Ryan Rossi, Kaize Ding, and others. Ad-llm: benchmarking large language models for anomaly detection. <em>arXiv preprint arXiv:2412.11142</em>, 2024.</p>
+</div>
+<div class="citation" id="id117" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id52">AYRV17</a><span class="fn-bracket">]</span></span>
+<p>Chong You, Daniel&nbsp;P Robinson, and René Vidal. Provable self-representation based outlier detection in a union of subspaces. In <em>Proceedings of the IEEE conference on computer vision and pattern recognition</em>, 3395–3404. 2017.</p>
+</div>
+<div class="citation" id="id118" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span><a role="doc-backlink" href="#id49">AZRF+18</a><span class="fn-bracket">]</span></span>
+<p>Houssam Zenati, Manon Romain, Chuan-Sheng Foo, Bruno Lecouat, and Vijay Chandrasekhar. Adversarially learned anomaly detection. In <em>2018 IEEE International conference on data mining (ICDM)</em>, 727–736. IEEE, 2018.</p>
+</div>
+<div class="citation" id="id79" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AZH18<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id39">1</a>,<a role="doc-backlink" href="#id56">2</a>)</span>
+<p>Yue Zhao and Maciej&nbsp;K Hryniewicki. Xgbod: improving supervised outlier detection with unsupervised representation learning. In <em>International Joint Conference on Neural Networks (IJCNN)</em>. IEEE, 2018.</p>
+</div>
+<div class="citation" id="id105" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AZHC+21<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id4">1</a>,<a role="doc-backlink" href="#id41">2</a>,<a role="doc-backlink" href="#id58">3</a>)</span>
+<p>Yue Zhao, Xiyang Hu, Cheng Cheng, Cong Wang, Changlin Wan, Wen Wang, Jianing Yang, Haoping Bai, Zheng Li, Cao Xiao, Yunlong Wang, Zhi Qiao, Jimeng Sun, and Leman Akoglu. Suod: accelerating large-scale unsupervised heterogeneous outlier detection. <em>Proceedings of Machine Learning and Systems</em>, 2021.</p>
+</div>
+<div class="citation" id="id86" role="doc-biblioentry">
+<span class="label"><span class="fn-bracket">[</span>AZNHL19<span class="fn-bracket">]</span></span>
+<span class="backrefs">(<a role="doc-backlink" href="#id38">1</a>,<a role="doc-backlink" href="#id55">2</a>)</span>
+<p>Yue Zhao, Zain Nasrullah, Maciej&nbsp;K Hryniewicki, and Zheng Li. LSCP: locally selective combination in parallel outlier ensembles. In <em>Proceedings of the 2019 SIAM International Conference on Data Mining, SDM 2019</em>, 585–593. Calgary, Canada, May 2019. SIAM. URL: <a class="reference external" href="https://doi.org/10.1137/1.9781611975673.66">https://doi.org/10.1137/1.9781611975673.66</a>, <a class="reference external" href="https://doi.org/10.1137/1.9781611975673.66">doi:10.1137/1.9781611975673.66</a>.</p>
+</div>
+</div>
+</div>
+</section>
+
+        <div class="raised" data-ea-type="text" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-keywords="anomaly-detection|outlier-detection|outlier-ensembles|python|readthedocs-project-219652|readthedocs-project-pyod" data-ea-campaign-types="community|house|paid" id="readthedocs-ea-text-nostyle-sphinx"></div></article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="install.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Installation</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright © 2022, Yue Zhao
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Welcome to PyOD V2 documentation!</a><ul>
+<li><a class="reference internal" href="#read-me-first">Read Me First</a></li>
+<li><a class="reference internal" href="#about-pyod">About PyOD</a></li>
+<li><a class="reference internal" href="#adbench-benchmark-and-datasets">ADBench Benchmark and Datasets</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#implemented-algorithms">Implemented Algorithms</a></li>
+<li><a class="reference internal" href="#api-cheatsheet-reference">API Cheatsheet &amp; Reference</a><ul>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=09beee0d"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    
+<readthedocs-flyout></readthedocs-flyout><readthedocs-notification class="raised toast"></readthedocs-notification><readthedocs-search class="raised floating"></readthedocs-search><readthedocs-hotkeys></readthedocs-hotkeys></body></html>

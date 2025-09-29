@@ -1,0 +1,22 @@
+{
+  "url": "https://pyod.readthedocs.io/en/latest/relevant_knowledge.html",
+  "title": "Outlier Detection 101 - pyod 2.0.5 documentation",
+  "depth": 1,
+  "timestamp": "2025-09-09T13:16:05.387396",
+  "success": true,
+  "error": null,
+  "links_count": 0,
+  "markdown_length": 4449,
+  "html_length": 34872,
+  "metadata": {
+    "title": "Outlier Detection 101 - pyod 2.0.5 documentation",
+    "description": null,
+    "keywords": null,
+    "author": null
+  },
+  "files": {
+    "html": "pyod_website_crawl/html/20250909_131605_pyod_readthedocs_io__en_latest_relevant_knowledge.html.html",
+    "markdown": "pyod_website_crawl/markdown/20250909_131605_pyod_readthedocs_io__en_latest_relevant_knowledge.html.md",
+    "metadata": "pyod_website_crawl/metadata/20250909_131605_pyod_readthedocs_io__en_latest_relevant_knowledge.html_metadata.json"
+  }
+}

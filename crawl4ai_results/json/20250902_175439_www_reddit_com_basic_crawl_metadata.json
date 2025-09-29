@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-09-02T17:54:39.913511",
+  "url": "https://www.reddit.com/r/China_irl/comments/1n2u7sx/%E6%89%93%E8%B4%AA%E5%8D%81%E5%B9%B4%E4%B8%AD%E5%9B%BD%E8%B6%8A%E5%8F%8D%E8%B6%8A%E8%85%90/",
+  "crawl_type": "basic_crawl",
+  "success": true,
+  "status_code": 200,
+  "title": "打贪十年，中国越反越腐 : r/China_irl",
+  "html_length": 621556,
+  "markdown_length": 8487,
+  "links_count": {
+    "internal": 29,
+    "external": 5
+  },
+  "media_count": {
+    "images": 9,
+    "videos": 0
+  },
+  "saved_files": [
+    "crawl4ai_results/html/20250902_175439_www_reddit_com_basic_crawl.html",
+    "crawl4ai_results/markdown/20250902_175439_www_reddit_com_basic_crawl.md"
+  ]
+}

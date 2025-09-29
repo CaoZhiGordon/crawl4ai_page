@@ -1,0 +1,1788 @@
+<!DOCTYPE html><html class="" lang="en" data-content_root="./" data-readthedocs-tool="sphinx" data-readthedocs-tool-theme="furo"><head><meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">:root, :host {
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 7 Free";
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 7 Free";
+  --fa-font-light: normal 300 1em/1 "Font Awesome 7 Pro";
+  --fa-font-thin: normal 100 1em/1 "Font Awesome 7 Pro";
+  --fa-font-duotone: normal 900 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-regular: normal 400 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-light: normal 300 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-duotone-thin: normal 100 1em/1 "Font Awesome 7 Duotone";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 7 Brands";
+  --fa-font-sharp-solid: normal 900 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-regular: normal 400 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-light: normal 300 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-thin: normal 100 1em/1 "Font Awesome 7 Sharp";
+  --fa-font-sharp-duotone-solid: normal 900 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-regular: normal 400 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-light: normal 300 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-sharp-duotone-thin: normal 100 1em/1 "Font Awesome 7 Sharp Duotone";
+  --fa-font-slab-regular: normal 400 1em/1 "Font Awesome 7 Slab";
+  --fa-font-slab-press-regular: normal 400 1em/1 "Font Awesome 7 Slab Press";
+  --fa-font-whiteboard-semibold: normal 600 1em/1 "Font Awesome 7 Whiteboard";
+  --fa-font-thumbprint-light: normal 300 1em/1 "Font Awesome 7 Thumbprint";
+  --fa-font-notdog-solid: normal 900 1em/1 "Font Awesome 7 Notdog";
+  --fa-font-notdog-duo-solid: normal 900 1em/1 "Font Awesome 7 Notdog Duo";
+  --fa-font-etch-solid: normal 900 1em/1 "Font Awesome 7 Etch";
+  --fa-font-jelly-regular: normal 400 1em/1 "Font Awesome 7 Jelly";
+  --fa-font-jelly-fill-regular: normal 400 1em/1 "Font Awesome 7 Jelly Fill";
+  --fa-font-jelly-duo-regular: normal 400 1em/1 "Font Awesome 7 Jelly Duo";
+  --fa-font-chisel-regular: normal 400 1em/1 "Font Awesome 7 Chisel";
+}
+
+.svg-inline--fa {
+  box-sizing: content-box;
+  display: var(--fa-display, inline-block);
+  height: 1em;
+  overflow: visible;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.svg-inline--fa.fa-2xs {
+  vertical-align: 0.1em;
+}
+.svg-inline--fa.fa-xs {
+  vertical-align: 0em;
+}
+.svg-inline--fa.fa-sm {
+  vertical-align: -0.0714285714em;
+}
+.svg-inline--fa.fa-lg {
+  vertical-align: -0.2em;
+}
+.svg-inline--fa.fa-xl {
+  vertical-align: -0.25em;
+}
+.svg-inline--fa.fa-2xl {
+  vertical-align: -0.3125em;
+}
+.svg-inline--fa.fa-pull-left,
+.svg-inline--fa .fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-pull-right,
+.svg-inline--fa .fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+.svg-inline--fa.fa-li {
+  width: var(--fa-li-width, 2em);
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  inset-block-start: 0.25em; /* syncing vertical alignment with Web Font rendering */
+}
+
+.fa-layers-counter, .fa-layers-text {
+  display: inline-block;
+  position: absolute;
+  text-align: center;
+}
+
+.fa-layers {
+  display: inline-block;
+  height: 1em;
+  position: relative;
+  text-align: center;
+  vertical-align: -0.125em;
+  width: var(--fa-width, 1.25em);
+}
+.fa-layers .svg-inline--fa {
+  inset: 0;
+  margin: auto;
+  position: absolute;
+  transform-origin: center center;
+}
+
+.fa-layers-text {
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+}
+
+.fa-layers-counter {
+  background-color: var(--fa-counter-background-color, #ff253a);
+  border-radius: var(--fa-counter-border-radius, 1em);
+  box-sizing: border-box;
+  color: var(--fa-inverse, #fff);
+  line-height: var(--fa-counter-line-height, 1);
+  max-width: var(--fa-counter-max-width, 5em);
+  min-width: var(--fa-counter-min-width, 1.5em);
+  overflow: hidden;
+  padding: var(--fa-counter-padding, 0.25em 0.5em);
+  right: var(--fa-right, 0);
+  text-overflow: ellipsis;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-counter-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-bottom-right {
+  bottom: var(--fa-bottom, 0);
+  right: var(--fa-right, 0);
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom right;
+}
+
+.fa-layers-bottom-left {
+  bottom: var(--fa-bottom, 0);
+  left: var(--fa-left, 0);
+  right: auto;
+  top: auto;
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: bottom left;
+}
+
+.fa-layers-top-right {
+  top: var(--fa-top, 0);
+  right: var(--fa-right, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top right;
+}
+
+.fa-layers-top-left {
+  left: var(--fa-left, 0);
+  right: auto;
+  top: var(--fa-top, 0);
+  transform: scale(var(--fa-layers-scale, 0.25));
+  transform-origin: top left;
+}
+
+.fa-1x {
+  font-size: 1em;
+}
+
+.fa-2x {
+  font-size: 2em;
+}
+
+.fa-3x {
+  font-size: 3em;
+}
+
+.fa-4x {
+  font-size: 4em;
+}
+
+.fa-5x {
+  font-size: 5em;
+}
+
+.fa-6x {
+  font-size: 6em;
+}
+
+.fa-7x {
+  font-size: 7em;
+}
+
+.fa-8x {
+  font-size: 8em;
+}
+
+.fa-9x {
+  font-size: 9em;
+}
+
+.fa-10x {
+  font-size: 10em;
+}
+
+.fa-2xs {
+  font-size: calc(10 / 16 * 1em); /* converts a 10px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 10 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 10 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xs {
+  font-size: calc(12 / 16 * 1em); /* converts a 12px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 12 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 12 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-sm {
+  font-size: calc(14 / 16 * 1em); /* converts a 14px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 14 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 14 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-lg {
+  font-size: calc(20 / 16 * 1em); /* converts a 20px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 20 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 20 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-xl {
+  font-size: calc(24 / 16 * 1em); /* converts a 24px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 24 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 24 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-2xl {
+  font-size: calc(32 / 16 * 1em); /* converts a 32px size into an em-based value that's relative to the scale's 16px base */
+  line-height: calc(1 / 32 * 1em); /* sets the line-height of the icon back to that of it's parent */
+  vertical-align: calc((6 / 32 - 0.375) * 1em); /* vertically centers the icon taking into account the surrounding text's descender */
+}
+
+.fa-width-auto {
+  --fa-width: auto;
+}
+
+.fa-fw,
+.fa-width-fixed {
+  --fa-width: 1.25em;
+}
+
+.fa-ul {
+  list-style-type: none;
+  margin-inline-start: var(--fa-li-margin, 2.5em);
+  padding-inline-start: 0;
+}
+.fa-ul > li {
+  position: relative;
+}
+
+.fa-li {
+  inset-inline-start: calc(-1 * var(--fa-li-width, 2em));
+  position: absolute;
+  text-align: center;
+  width: var(--fa-li-width, 2em);
+  line-height: inherit;
+}
+
+/* Heads Up: Bordered Icons will not be supported in the future!
+  - This feature will be deprecated in the next major release of Font Awesome (v8)!
+  - You may continue to use it in this version *v7), but it will not be supported in Font Awesome v8.
+*/
+/* Notes:
+* --@{v.$css-prefix}-border-width = 1/16 by default (to render as ~1px based on a 16px default font-size)
+* --@{v.$css-prefix}-border-padding =
+  ** 3/16 for vertical padding (to give ~2px of vertical whitespace around an icon considering it's vertical alignment)
+  ** 4/16 for horizontal padding (to give ~4px of horizontal whitespace around an icon)
+*/
+.fa-border {
+  border-color: var(--fa-border-color, #eee);
+  border-radius: var(--fa-border-radius, 0.1em);
+  border-style: var(--fa-border-style, solid);
+  border-width: var(--fa-border-width, 0.0625em);
+  box-sizing: var(--fa-border-box-sizing, content-box);
+  padding: var(--fa-border-padding, 0.1875em 0.25em);
+}
+
+.fa-pull-left,
+.fa-pull-start {
+  float: inline-start;
+  margin-inline-end: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-pull-right,
+.fa-pull-end {
+  float: inline-end;
+  margin-inline-start: var(--fa-pull-margin, 0.3em);
+}
+
+.fa-beat {
+  animation-name: fa-beat;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-bounce {
+  animation-name: fa-bounce;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.28, 0.84, 0.42, 1));
+}
+
+.fa-fade {
+  animation-name: fa-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-beat-fade {
+  animation-name: fa-beat-fade;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, cubic-bezier(0.4, 0, 0.6, 1));
+}
+
+.fa-flip {
+  animation-name: fa-flip;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, ease-in-out);
+}
+
+.fa-shake {
+  animation-name: fa-shake;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin {
+  animation-name: fa-spin;
+  animation-delay: var(--fa-animation-delay, 0s);
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 2s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-spin-reverse {
+  --fa-animation-direction: reverse;
+}
+
+.fa-pulse,
+.fa-spin-pulse {
+  animation-name: fa-spin;
+  animation-direction: var(--fa-animation-direction, normal);
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, steps(8));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fa-beat,
+  .fa-bounce,
+  .fa-fade,
+  .fa-beat-fade,
+  .fa-flip,
+  .fa-pulse,
+  .fa-shake,
+  .fa-spin,
+  .fa-spin-pulse {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+@keyframes fa-beat {
+  0%, 90% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(var(--fa-beat-scale, 1.25));
+  }
+}
+@keyframes fa-bounce {
+  0% {
+    transform: scale(1, 1) translateY(0);
+  }
+  10% {
+    transform: scale(var(--fa-bounce-start-scale-x, 1.1), var(--fa-bounce-start-scale-y, 0.9)) translateY(0);
+  }
+  30% {
+    transform: scale(var(--fa-bounce-jump-scale-x, 0.9), var(--fa-bounce-jump-scale-y, 1.1)) translateY(var(--fa-bounce-height, -0.5em));
+  }
+  50% {
+    transform: scale(var(--fa-bounce-land-scale-x, 1.05), var(--fa-bounce-land-scale-y, 0.95)) translateY(0);
+  }
+  57% {
+    transform: scale(1, 1) translateY(var(--fa-bounce-rebound, -0.125em));
+  }
+  64% {
+    transform: scale(1, 1) translateY(0);
+  }
+  100% {
+    transform: scale(1, 1) translateY(0);
+  }
+}
+@keyframes fa-fade {
+  50% {
+    opacity: var(--fa-fade-opacity, 0.4);
+  }
+}
+@keyframes fa-beat-fade {
+  0%, 100% {
+    opacity: var(--fa-beat-fade-opacity, 0.4);
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(var(--fa-beat-fade-scale, 1.125));
+  }
+}
+@keyframes fa-flip {
+  50% {
+    transform: rotate3d(var(--fa-flip-x, 0), var(--fa-flip-y, 1), var(--fa-flip-z, 0), var(--fa-flip-angle, -180deg));
+  }
+}
+@keyframes fa-shake {
+  0% {
+    transform: rotate(-15deg);
+  }
+  4% {
+    transform: rotate(15deg);
+  }
+  8%, 24% {
+    transform: rotate(-18deg);
+  }
+  12%, 28% {
+    transform: rotate(18deg);
+  }
+  16% {
+    transform: rotate(-22deg);
+  }
+  20% {
+    transform: rotate(22deg);
+  }
+  32% {
+    transform: rotate(-12deg);
+  }
+  36% {
+    transform: rotate(12deg);
+  }
+  40%, 100% {
+    transform: rotate(0deg);
+  }
+}
+@keyframes fa-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.fa-rotate-90 {
+  transform: rotate(90deg);
+}
+
+.fa-rotate-180 {
+  transform: rotate(180deg);
+}
+
+.fa-rotate-270 {
+  transform: rotate(270deg);
+}
+
+.fa-flip-horizontal {
+  transform: scale(-1, 1);
+}
+
+.fa-flip-vertical {
+  transform: scale(1, -1);
+}
+
+.fa-flip-both,
+.fa-flip-horizontal.fa-flip-vertical {
+  transform: scale(-1, -1);
+}
+
+.fa-rotate-by {
+  transform: rotate(var(--fa-rotate-angle, 0));
+}
+
+.svg-inline--fa .fa-primary {
+  fill: var(--fa-primary-color, currentColor);
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa .fa-secondary {
+  fill: var(--fa-secondary-color, currentColor);
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-primary {
+  opacity: var(--fa-secondary-opacity, 0.4);
+}
+
+.svg-inline--fa.fa-swap-opacity .fa-secondary {
+  opacity: var(--fa-primary-opacity, 1);
+}
+
+.svg-inline--fa mask .fa-primary,
+.svg-inline--fa mask .fa-secondary {
+  fill: black;
+}
+
+.svg-inline--fa.fa-inverse {
+  fill: var(--fa-inverse, #fff);
+}
+
+.fa-stack {
+  display: inline-block;
+  height: 2em;
+  line-height: 2em;
+  position: relative;
+  vertical-align: middle;
+  width: 2.5em;
+}
+
+.fa-inverse {
+  color: var(--fa-inverse, #fff);
+}
+
+.svg-inline--fa.fa-stack-1x {
+  height: 1em;
+  width: 1.25em;
+}
+.svg-inline--fa.fa-stack-2x {
+  height: 2em;
+  width: 2.5em;
+}
+
+.fa-stack-1x,
+.fa-stack-2x {
+  bottom: 0;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: var(--fa-stack-z-index, auto);
+}</style><link rel="author" title="About these documents" href="about.html"><link rel="index" title="Index" href="genindex.html"><link rel="search" title="Search" href="search.html"><link rel="next" title="API CheatSheet" href="api_cc.html"><link rel="prev" title="Examples" href="example.html">
+
+    <!-- Generated with Sphinx 8.2.3 and Furo 2025.07.19 -->
+        <title>Benchmarks - pyod 2.0.5 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=03e43079">
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=25af2a20">
+    <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=8dab3a3b">
+    
+    
+
+
+<style>
+  body {
+    --color-code-background: #eeffcc;
+  --color-code-foreground: black;
+  
+  }
+  @media not print {
+    body[data-theme="dark"] {
+      --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+    }
+    @media (prefers-color-scheme: dark) {
+      body:not([data-theme="light"]) {
+        --color-code-background: #2b2b2b;
+  --color-code-foreground: #f8f8f2;
+  
+      }
+    }
+  }
+</style><script async="" type="text/javascript" src="/_/static/javascript/readthedocs-addons.js"></script><meta name="readthedocs-project-slug" content="pyod"><meta name="readthedocs-version-slug" content="latest"><meta name="readthedocs-resolver-filename" content="/benchmark.html"><meta name="readthedocs-http-status" content="200"><script id="ethicaladsjs" type="text/javascript" async="true" src="https://media.ethicalads.io/media/client/ethicalads.min.js"></script></head>
+  <body data-theme="auto">
+    
+    <script>
+      document.body.dataset.theme = localStorage.getItem("theme") || "auto";
+    </script>
+    
+
+<svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+  <symbol id="svg-toc" viewBox="0 0 24 24">
+    <title>Contents</title>
+    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 1024 1024">
+      <path d="M408 442h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8zm-8 204c0 4.4 3.6 8 8 8h480c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8H408c-4.4 0-8 3.6-8 8v56zm504-486H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zm0 632H120c-4.4 0-8 3.6-8 8v56c0 4.4 3.6 8 8 8h784c4.4 0 8-3.6 8-8v-56c0-4.4-3.6-8-8-8zM115.4 518.9L271.7 642c5.8 4.6 14.4.5 14.4-6.9V388.9c0-7.4-8.5-11.5-14.4-6.9L115.4 505.1a8.74 8.74 0 0 0 0 13.8z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-menu" viewBox="0 0 24 24">
+    <title>Menu</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-menu">
+      <line x1="3" y1="12" x2="21" y2="12"></line>
+      <line x1="3" y1="6" x2="21" y2="6"></line>
+      <line x1="3" y1="18" x2="21" y2="18"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-arrow-right" viewBox="0 0 24 24">
+    <title>Expand</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather-chevron-right">
+      <polyline points="9 18 15 12 9 6"></polyline>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun" viewBox="0 0 24 24">
+    <title>Light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="feather-sun">
+      <circle cx="12" cy="12" r="5"></circle>
+      <line x1="12" y1="1" x2="12" y2="3"></line>
+      <line x1="12" y1="21" x2="12" y2="23"></line>
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+      <line x1="1" y1="12" x2="3" y2="12"></line>
+      <line x1="21" y1="12" x2="23" y2="12"></line>
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon" viewBox="0 0 24 24">
+    <title>Dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-moon">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M12 3c.132 0 .263 0 .393 0a7.5 7.5 0 0 0 7.92 12.446a9 9 0 1 1 -8.313 -12.454z"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-sun-with-moon" viewBox="0 0 24 24">
+    <title>Auto light/dark, in light mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path style="opacity: 50%" d="M 5.411 14.504 C 5.471 14.504 5.532 14.504 5.591 14.504 C 3.639 16.319 4.383 19.569 6.931 20.352 C 7.693 20.586 8.512 20.551 9.25 20.252 C 8.023 23.207 4.056 23.725 2.11 21.184 C 0.166 18.642 1.702 14.949 4.874 14.536 C 5.051 14.512 5.231 14.5 5.411 14.5 L 5.411 14.504 Z"></path>
+      <line x1="14.5" y1="3.25" x2="14.5" y2="1.25"></line>
+      <line x1="14.5" y1="15.85" x2="14.5" y2="17.85"></line>
+      <line x1="10.044" y1="5.094" x2="8.63" y2="3.68"></line>
+      <line x1="19" y1="14.05" x2="20.414" y2="15.464"></line>
+      <line x1="8.2" y1="9.55" x2="6.2" y2="9.55"></line>
+      <line x1="20.8" y1="9.55" x2="22.8" y2="9.55"></line>
+      <line x1="10.044" y1="14.006" x2="8.63" y2="15.42"></line>
+      <line x1="19" y1="5.05" x2="20.414" y2="3.636"></line>
+      <circle cx="14.5" cy="9.55" r="3.6"></circle>
+    </svg>
+  </symbol>
+  <symbol id="svg-moon-with-sun" viewBox="0 0 24 24">
+    <title>Auto light/dark, in dark mode</title>
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-custom-derived-from-feather-sun-and-tabler-moon">
+      <path d="M 8.282 7.007 C 8.385 7.007 8.494 7.007 8.595 7.007 C 5.18 10.184 6.481 15.869 10.942 17.24 C 12.275 17.648 13.706 17.589 15 17.066 C 12.851 22.236 5.91 23.143 2.505 18.696 C -0.897 14.249 1.791 7.786 7.342 7.063 C 7.652 7.021 7.965 7 8.282 7 L 8.282 7.007 Z"></path>
+      <line style="opacity: 50%" x1="18" y1="3.705" x2="18" y2="2.5"></line>
+      <line style="opacity: 50%" x1="18" y1="11.295" x2="18" y2="12.5"></line>
+      <line style="opacity: 50%" x1="15.316" y1="4.816" x2="14.464" y2="3.964"></line>
+      <line style="opacity: 50%" x1="20.711" y1="10.212" x2="21.563" y2="11.063"></line>
+      <line style="opacity: 50%" x1="14.205" y1="7.5" x2="13.001" y2="7.5"></line>
+      <line style="opacity: 50%" x1="21.795" y1="7.5" x2="23" y2="7.5"></line>
+      <line style="opacity: 50%" x1="15.316" y1="10.184" x2="14.464" y2="11.036"></line>
+      <line style="opacity: 50%" x1="20.711" y1="4.789" x2="21.563" y2="3.937"></line>
+      <circle style="opacity: 50%" cx="18" cy="7.5" r="2.169"></circle>
+    </svg>
+  </symbol>
+  <symbol id="svg-pencil" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-pencil-code">
+      <path d="M4 20h4l10.5 -10.5a2.828 2.828 0 1 0 -4 -4l-10.5 10.5v4"></path>
+      <path d="M13.5 6.5l4 4"></path>
+      <path d="M20 21l2 -2l-2 -2"></path>
+      <path d="M17 17l-2 2l2 2"></path>
+    </svg>
+  </symbol>
+  <symbol id="svg-eye" viewBox="0 0 24 24">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" class="icon-tabler-eye-code">
+      <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+      <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+      <path d="M11.11 17.958c-3.209 -.307 -5.91 -2.293 -8.11 -5.958c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6c-.21 .352 -.427 .688 -.647 1.008"></path>
+      <path d="M20 21l2 -2l-2 -2"></path>
+      <path d="M17 17l-2 2l2 2"></path>
+    </svg>
+  </symbol>
+</svg>
+
+<input type="checkbox" class="sidebar-toggle" name="__navigation" id="__navigation">
+<input type="checkbox" class="sidebar-toggle" name="__toc" id="__toc">
+<label class="overlay sidebar-overlay" for="__navigation">
+  <div class="visually-hidden">Hide navigation sidebar</div>
+</label>
+<label class="overlay toc-overlay" for="__toc">
+  <div class="visually-hidden">Hide table of contents sidebar</div>
+</label>
+
+<a class="skip-to-content muted-link" href="#furo-main-content">Skip to content</a>
+
+
+
+<div class="page">
+  <header class="mobile-header">
+    <div class="header-left">
+      <label class="nav-overlay-icon" for="__navigation">
+        <div class="visually-hidden">Toggle site navigation sidebar</div>
+        <i class="icon"><svg><use href="#svg-menu"></use></svg></i>
+      </label>
+    </div>
+    <div class="header-center">
+      <a href="index.html"><div class="brand">pyod 2.0.5 documentation</div></a>
+    </div>
+    <div class="header-right">
+      <div class="theme-toggle-container theme-toggle-header">
+        <button class="theme-toggle">
+          <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+          <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+          <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+          <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+          <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+        </button>
+      </div>
+      <label class="toc-overlay-icon toc-header-icon" for="__toc">
+        <div class="visually-hidden">Toggle table of contents sidebar</div>
+        <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+      </label>
+    </div>
+  </header>
+  <aside class="sidebar-drawer">
+    <div class="sidebar-container">
+      
+      <div class="sidebar-sticky"><a class="sidebar-brand" href="index.html">
+  
+  <span class="sidebar-brand-text">pyod 2.0.5 documentation</span>
+  
+</a><form class="sidebar-search-container" method="get" action="search.html" role="search">
+  <input class="sidebar-search" placeholder="Search" name="q" aria-label="Search">
+  <input type="hidden" name="check_keywords" value="yes">
+  <input type="hidden" name="area" value="default">
+</form>
+<div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
+  <p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="model_persistence.html">Model Save &amp; Load</a></li>
+<li class="toctree-l1"><a class="reference internal" href="fast_train.html">Fast Train with SUOD</a></li>
+<li class="toctree-l1"><a class="reference internal" href="example.html">Examples</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Benchmarks</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Documentation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="api_cc.html">API CheatSheet</a></li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="pyod.html">API Reference</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of API Reference</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="pyod.models.html">All Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pyod.utils.html">Utility Functions</a></li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Additional Information</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="issues.html">Known Issues &amp; Warnings</a></li>
+<li class="toctree-l1"><a class="reference internal" href="relevant_knowledge.html">Outlier Detection 101</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pubs.html">Citations &amp; Achievements</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">Frequently Asked Questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About us</a></li>
+</ul>
+
+</div>
+</div>
+
+      </div>
+      
+    </div>
+  </aside>
+  <div class="main">
+    <div class="content">
+      <div class="article-container">
+        <a href="#" class="back-to-top muted-link">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+            <path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8v12z"></path>
+          </svg>
+          <span>Back to top</span>
+        </a>
+        <div class="content-icon-container">
+          <div class="view-this-page">
+  <a class="muted-link" href="_sources/benchmark.rst.txt" title="View this page">
+    <svg><use href="#svg-eye"></use></svg>
+    <span class="visually-hidden">View this page</span>
+  </a>
+</div>
+<div class="theme-toggle-container theme-toggle-content">
+            <button class="theme-toggle">
+              <div class="visually-hidden">Toggle Light / Dark / Auto color theme</div>
+              <svg class="theme-icon-when-auto-light"><use href="#svg-sun-with-moon"></use></svg>
+              <svg class="theme-icon-when-auto-dark"><use href="#svg-moon-with-sun"></use></svg>
+              <svg class="theme-icon-when-dark"><use href="#svg-moon"></use></svg>
+              <svg class="theme-icon-when-light"><use href="#svg-sun"></use></svg>
+            </button>
+          </div>
+          <label class="toc-overlay-icon toc-content-icon" for="__toc">
+            <div class="visually-hidden">Toggle table of contents sidebar</div>
+            <i class="icon"><svg><use href="#svg-toc"></use></svg></i>
+          </label>
+        </div>
+        <article role="main" id="furo-main-content">
+          <section id="benchmarks">
+<h1>Benchmarks<a class="headerlink" href="#benchmarks" title="Link to this heading">¶</a></h1>
+<section id="latest-adbench-2022">
+<h2>Latest ADBench (2022)<a class="headerlink" href="#latest-adbench-2022" title="Link to this heading">¶</a></h2>
+<p>We just released a 45-page, the most comprehensive <a class="reference external" href="https://arxiv.org/abs/2206.09426">ADBench: Anomaly Detection Benchmark</a> <a href="#id6"><span class="problematic" id="id1">[#Han2022ADBench]_</span></a>.
+The fully <a class="reference external" href="https://github.com/Minqi824/ADBench">open-sourced ADBench</a> compares 30 anomaly detection algorithms on 57 benchmark datasets.</p>
+<p>The organization of <strong>ADBench</strong> is provided below:</p>
+<a class="reference external image-reference" href="https://github.com/Minqi824/ADBench/blob/main/figs/ADBench.png?raw=true"><img alt="benchmark-fig" src="https://github.com/Minqi824/ADBench/blob/main/figs/ADBench.png?raw=true">
+</a>
+<p>For a simpler visualization, we make <strong>the comparison of selected models</strong> via
+<a class="reference external" href="https://github.com/yzhao062/pyod/blob/master/examples/compare_all_models.py">compare_all_models.py</a>.</p>
+<a class="reference external image-reference" href="https://github.com/yzhao062/pyod/blob/development/examples/ALL.png?raw=true"><img alt="Comparison_of_All" src="https://github.com/yzhao062/pyod/blob/development/examples/ALL.png?raw=true">
+</a>
+</section>
+<section id="old-results-2019">
+<h2>Old Results (2019)<a class="headerlink" href="#old-results-2019" title="Link to this heading">¶</a></h2>
+<p>A benchmark is supplied for select algorithms to provide an overview of the implemented models.
+In total, 17 benchmark datasets are used for comparison, which
+can be downloaded at <a class="reference external" href="http://odds.cs.stonybrook.edu/#table1">ODDS</a>.</p>
+<p>For each dataset, it is first split into 60% for training and 40% for testing.
+All experiments are repeated 10 times independently with random splits.
+The mean of 10 trials is regarded as the final result. Three evaluation metrics
+are provided:</p>
+<ul class="simple">
+<li><p>The area under receiver operating characteristic (ROC) curve</p></li>
+<li><p>Precision @ rank n (P@N)</p></li>
+<li><p>Execution time</p></li>
+</ul>
+<p>You could replicate this process by running
+<a class="reference external" href="https://github.com/yzhao062/pyod/blob/master/notebooks/benchmark.py">benchmark.py</a>.</p>
+<p>We also provide the hardware specification for reference.</p>
+<div class="table-wrapper docutils container">
+<table class="docutils align-default">
+<thead>
+<tr class="row-odd"><th class="head"><p>Specification</p></th>
+<th class="head"><p>Value</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Platform</p></td>
+<td><p>PC</p></td>
+</tr>
+<tr class="row-odd"><td><p>OS</p></td>
+<td><p>Microsoft Windows 10 Enterprise</p></td>
+</tr>
+<tr class="row-even"><td><p>CPU</p></td>
+<td><p>Intel i7-6820HQ @ 2.70GHz</p></td>
+</tr>
+<tr class="row-odd"><td><p>RAM</p></td>
+<td><p>32GB</p></td>
+</tr>
+<tr class="row-even"><td><p>Software</p></td>
+<td><p>PyCharm 2018.02</p></td>
+</tr>
+<tr class="row-odd"><td><p>Python</p></td>
+<td><p>Python 3.6.2</p></td>
+</tr>
+<tr class="row-even"><td><p>Core</p></td>
+<td><p>Single core (no parallelization)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="roc-performance">
+<h2>ROC Performance<a class="headerlink" href="#roc-performance" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper docutils container" id="id2">
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">ROC Performances (average of 10 independent trials)</span><a class="headerlink" href="#id2" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>#Samples</p></th>
+<th class="head"><p># Dimensions</p></th>
+<th class="head"><p>Outlier Perc</p></th>
+<th class="head"><p>ABOD</p></th>
+<th class="head"><p>CBLOF</p></th>
+<th class="head"><p>FB</p></th>
+<th class="head"><p>HBOS</p></th>
+<th class="head"><p>IForest</p></th>
+<th class="head"><p>KNN</p></th>
+<th class="head"><p>LOF</p></th>
+<th class="head"><p>MCD</p></th>
+<th class="head"><p>OCSVM</p></th>
+<th class="head"><p>PCA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>arrhythmia</p></td>
+<td><p>452</p></td>
+<td><p>274</p></td>
+<td><p>14.6018</p></td>
+<td><p>0.7688</p></td>
+<td><p>0.7835</p></td>
+<td><p>0.7781</p></td>
+<td><p>0.8219</p></td>
+<td><p>0.8005</p></td>
+<td><p>0.7861</p></td>
+<td><p>0.7787</p></td>
+<td><p>0.7790</p></td>
+<td><p>0.7812</p></td>
+<td><p>0.7815</p></td>
+</tr>
+<tr class="row-odd"><td><p>cardio</p></td>
+<td><p>1831</p></td>
+<td><p>21</p></td>
+<td><p>9.6122</p></td>
+<td><p>0.5692</p></td>
+<td><p>0.9276</p></td>
+<td><p>0.5867</p></td>
+<td><p>0.8351</p></td>
+<td><p>0.9213</p></td>
+<td><p>0.7236</p></td>
+<td><p>0.5736</p></td>
+<td><p>0.8135</p></td>
+<td><p>0.9348</p></td>
+<td><p>0.9504</p></td>
+</tr>
+<tr class="row-even"><td><p>glass</p></td>
+<td><p>214</p></td>
+<td><p>9</p></td>
+<td><p>4.2056</p></td>
+<td><p>0.7951</p></td>
+<td><p>0.8504</p></td>
+<td><p>0.8726</p></td>
+<td><p>0.7389</p></td>
+<td><p>0.7569</p></td>
+<td><p>0.8508</p></td>
+<td><p>0.8644</p></td>
+<td><p>0.7901</p></td>
+<td><p>0.6324</p></td>
+<td><p>0.6747</p></td>
+</tr>
+<tr class="row-odd"><td><p>ionosphere</p></td>
+<td><p>351</p></td>
+<td><p>33</p></td>
+<td><p>35.8974</p></td>
+<td><p>0.9248</p></td>
+<td><p>0.8134</p></td>
+<td><p>0.8730</p></td>
+<td><p>0.5614</p></td>
+<td><p>0.8499</p></td>
+<td><p>0.9267</p></td>
+<td><p>0.8753</p></td>
+<td><p>0.9557</p></td>
+<td><p>0.8419</p></td>
+<td><p>0.7962</p></td>
+</tr>
+<tr class="row-even"><td><p>letter</p></td>
+<td><p>1600</p></td>
+<td><p>32</p></td>
+<td><p>6.2500</p></td>
+<td><p>0.8783</p></td>
+<td><p>0.5070</p></td>
+<td><p>0.8660</p></td>
+<td><p>0.5927</p></td>
+<td><p>0.6420</p></td>
+<td><p>0.8766</p></td>
+<td><p>0.8594</p></td>
+<td><p>0.8074</p></td>
+<td><p>0.6118</p></td>
+<td><p>0.5283</p></td>
+</tr>
+<tr class="row-odd"><td><p>lympho</p></td>
+<td><p>148</p></td>
+<td><p>18</p></td>
+<td><p>4.0541</p></td>
+<td><p>0.9110</p></td>
+<td><p>0.9728</p></td>
+<td><p>0.9753</p></td>
+<td><p>0.9957</p></td>
+<td><p>0.9941</p></td>
+<td><p>0.9745</p></td>
+<td><p>0.9771</p></td>
+<td><p>0.9000</p></td>
+<td><p>0.9759</p></td>
+<td><p>0.9847</p></td>
+</tr>
+<tr class="row-even"><td><p>mnist</p></td>
+<td><p>7603</p></td>
+<td><p>100</p></td>
+<td><p>9.2069</p></td>
+<td><p>0.7815</p></td>
+<td><p>0.8009</p></td>
+<td><p>0.7205</p></td>
+<td><p>0.5742</p></td>
+<td><p>0.8159</p></td>
+<td><p>0.8481</p></td>
+<td><p>0.7161</p></td>
+<td><p>0.8666</p></td>
+<td><p>0.8529</p></td>
+<td><p>0.8527</p></td>
+</tr>
+<tr class="row-odd"><td><p>musk</p></td>
+<td><p>3062</p></td>
+<td><p>166</p></td>
+<td><p>3.1679</p></td>
+<td><p>0.1844</p></td>
+<td><p>0.9879</p></td>
+<td><p>0.5263</p></td>
+<td><p>1.0000</p></td>
+<td><p>0.9999</p></td>
+<td><p>0.7986</p></td>
+<td><p>0.5287</p></td>
+<td><p>0.9998</p></td>
+<td><p>1.0000</p></td>
+<td><p>1.0000</p></td>
+</tr>
+<tr class="row-even"><td><p>optdigits</p></td>
+<td><p>5216</p></td>
+<td><p>64</p></td>
+<td><p>2.8758</p></td>
+<td><p>0.4667</p></td>
+<td><p>0.5089</p></td>
+<td><p>0.4434</p></td>
+<td><p>0.8732</p></td>
+<td><p>0.7253</p></td>
+<td><p>0.3708</p></td>
+<td><p>0.4500</p></td>
+<td><p>0.3979</p></td>
+<td><p>0.4997</p></td>
+<td><p>0.5086</p></td>
+</tr>
+<tr class="row-odd"><td><p>pendigits</p></td>
+<td><p>6870</p></td>
+<td><p>16</p></td>
+<td><p>2.2707</p></td>
+<td><p>0.6878</p></td>
+<td><p>0.9486</p></td>
+<td><p>0.4595</p></td>
+<td><p>0.9238</p></td>
+<td><p>0.9435</p></td>
+<td><p>0.7486</p></td>
+<td><p>0.4698</p></td>
+<td><p>0.8344</p></td>
+<td><p>0.9303</p></td>
+<td><p>0.9352</p></td>
+</tr>
+<tr class="row-even"><td><p>pima</p></td>
+<td><p>768</p></td>
+<td><p>8</p></td>
+<td><p>34.8958</p></td>
+<td><p>0.6794</p></td>
+<td><p>0.7348</p></td>
+<td><p>0.6235</p></td>
+<td><p>0.7000</p></td>
+<td><p>0.6806</p></td>
+<td><p>0.7078</p></td>
+<td><p>0.6271</p></td>
+<td><p>0.6753</p></td>
+<td><p>0.6215</p></td>
+<td><p>0.6481</p></td>
+</tr>
+<tr class="row-odd"><td><p>satellite</p></td>
+<td><p>6435</p></td>
+<td><p>36</p></td>
+<td><p>31.6395</p></td>
+<td><p>0.5714</p></td>
+<td><p>0.6693</p></td>
+<td><p>0.5572</p></td>
+<td><p>0.7581</p></td>
+<td><p>0.7022</p></td>
+<td><p>0.6836</p></td>
+<td><p>0.5573</p></td>
+<td><p>0.8030</p></td>
+<td><p>0.6622</p></td>
+<td><p>0.5988</p></td>
+</tr>
+<tr class="row-even"><td><p>satimage-2</p></td>
+<td><p>5803</p></td>
+<td><p>36</p></td>
+<td><p>1.2235</p></td>
+<td><p>0.8190</p></td>
+<td><p>0.9917</p></td>
+<td><p>0.4570</p></td>
+<td><p>0.9804</p></td>
+<td><p>0.9947</p></td>
+<td><p>0.9536</p></td>
+<td><p>0.4577</p></td>
+<td><p>0.9959</p></td>
+<td><p>0.9978</p></td>
+<td><p>0.9822</p></td>
+</tr>
+<tr class="row-odd"><td><p>shuttle</p></td>
+<td><p>49097</p></td>
+<td><p>9</p></td>
+<td><p>7.1511</p></td>
+<td><p>0.6234</p></td>
+<td><p>0.6272</p></td>
+<td><p>0.4724</p></td>
+<td><p>0.9855</p></td>
+<td><p>0.9971</p></td>
+<td><p>0.6537</p></td>
+<td><p>0.5264</p></td>
+<td><p>0.9903</p></td>
+<td><p>0.9917</p></td>
+<td><p>0.9898</p></td>
+</tr>
+<tr class="row-even"><td><p>vertebral</p></td>
+<td><p>240</p></td>
+<td><p>6</p></td>
+<td><p>12.5000</p></td>
+<td><p>0.4262</p></td>
+<td><p>0.3486</p></td>
+<td><p>0.4166</p></td>
+<td><p>0.3263</p></td>
+<td><p>0.3905</p></td>
+<td><p>0.3817</p></td>
+<td><p>0.4081</p></td>
+<td><p>0.3906</p></td>
+<td><p>0.4431</p></td>
+<td><p>0.4027</p></td>
+</tr>
+<tr class="row-odd"><td><p>vowels</p></td>
+<td><p>1456</p></td>
+<td><p>12</p></td>
+<td><p>3.4341</p></td>
+<td><p>0.9606</p></td>
+<td><p>0.5856</p></td>
+<td><p>0.9425</p></td>
+<td><p>0.6727</p></td>
+<td><p>0.7585</p></td>
+<td><p>0.9680</p></td>
+<td><p>0.9410</p></td>
+<td><p>0.8076</p></td>
+<td><p>0.7802</p></td>
+<td><p>0.6027</p></td>
+</tr>
+<tr class="row-even"><td><p>wbc</p></td>
+<td><p>378</p></td>
+<td><p>30</p></td>
+<td><p>5.5556</p></td>
+<td><p>0.9047</p></td>
+<td><p>0.9227</p></td>
+<td><p>0.9325</p></td>
+<td><p>0.9516</p></td>
+<td><p>0.9310</p></td>
+<td><p>0.9366</p></td>
+<td><p>0.9349</p></td>
+<td><p>0.9210</p></td>
+<td><p>0.9319</p></td>
+<td><p>0.9159</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="p-n-performance">
+<h2>P@N Performance<a class="headerlink" href="#p-n-performance" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper docutils container" id="id3">
+<table class="docutils align-default" id="id3">
+<caption><span class="caption-text">Precision @ N Performances (average of 10 independent trials)</span><a class="headerlink" href="#id3" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>#Samples</p></th>
+<th class="head"><p># Dimensions</p></th>
+<th class="head"><p>Outlier Perc</p></th>
+<th class="head"><p>ABOD</p></th>
+<th class="head"><p>CBLOF</p></th>
+<th class="head"><p>FB</p></th>
+<th class="head"><p>HBOS</p></th>
+<th class="head"><p>IForest</p></th>
+<th class="head"><p>KNN</p></th>
+<th class="head"><p>LOF</p></th>
+<th class="head"><p>MCD</p></th>
+<th class="head"><p>OCSVM</p></th>
+<th class="head"><p>PCA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>arrhythmia</p></td>
+<td><p>452</p></td>
+<td><p>274</p></td>
+<td><p>14.6018</p></td>
+<td><p>0.3808</p></td>
+<td><p>0.4539</p></td>
+<td><p>0.4230</p></td>
+<td><p>0.5111</p></td>
+<td><p>0.4961</p></td>
+<td><p>0.4464</p></td>
+<td><p>0.4334</p></td>
+<td><p>0.3995</p></td>
+<td><p>0.4614</p></td>
+<td><p>0.4613</p></td>
+</tr>
+<tr class="row-odd"><td><p>cardio</p></td>
+<td><p>1831</p></td>
+<td><p>21</p></td>
+<td><p>9.6122</p></td>
+<td><p>0.2374</p></td>
+<td><p>0.5876</p></td>
+<td><p>0.1690</p></td>
+<td><p>0.4476</p></td>
+<td><p>0.5041</p></td>
+<td><p>0.3323</p></td>
+<td><p>0.1541</p></td>
+<td><p>0.4317</p></td>
+<td><p>0.5011</p></td>
+<td><p>0.6090</p></td>
+</tr>
+<tr class="row-even"><td><p>glass</p></td>
+<td><p>214</p></td>
+<td><p>9</p></td>
+<td><p>4.2056</p></td>
+<td><p>0.1702</p></td>
+<td><p>0.0726</p></td>
+<td><p>0.1476</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.0726</p></td>
+<td><p>0.0726</p></td>
+<td><p>0.1476</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.1726</p></td>
+<td><p>0.0726</p></td>
+</tr>
+<tr class="row-odd"><td><p>ionosphere</p></td>
+<td><p>351</p></td>
+<td><p>33</p></td>
+<td><p>35.8974</p></td>
+<td><p>0.8442</p></td>
+<td><p>0.6088</p></td>
+<td><p>0.7056</p></td>
+<td><p>0.3295</p></td>
+<td><p>0.6369</p></td>
+<td><p>0.8602</p></td>
+<td><p>0.7063</p></td>
+<td><p>0.8806</p></td>
+<td><p>0.7000</p></td>
+<td><p>0.5729</p></td>
+</tr>
+<tr class="row-even"><td><p>letter</p></td>
+<td><p>1600</p></td>
+<td><p>32</p></td>
+<td><p>6.2500</p></td>
+<td><p>0.3801</p></td>
+<td><p>0.0749</p></td>
+<td><p>0.3642</p></td>
+<td><p>0.0715</p></td>
+<td><p>0.1003</p></td>
+<td><p>0.3312</p></td>
+<td><p>0.3641</p></td>
+<td><p>0.1933</p></td>
+<td><p>0.1510</p></td>
+<td><p>0.0875</p></td>
+</tr>
+<tr class="row-odd"><td><p>lympho</p></td>
+<td><p>148</p></td>
+<td><p>18</p></td>
+<td><p>4.0541</p></td>
+<td><p>0.4483</p></td>
+<td><p>0.7517</p></td>
+<td><p>0.7517</p></td>
+<td><p>0.8467</p></td>
+<td><p>0.9267</p></td>
+<td><p>0.7517</p></td>
+<td><p>0.7517</p></td>
+<td><p>0.5183</p></td>
+<td><p>0.7517</p></td>
+<td><p>0.7517</p></td>
+</tr>
+<tr class="row-even"><td><p>mnist</p></td>
+<td><p>7603</p></td>
+<td><p>100</p></td>
+<td><p>9.2069</p></td>
+<td><p>0.3555</p></td>
+<td><p>0.3348</p></td>
+<td><p>0.3299</p></td>
+<td><p>0.1188</p></td>
+<td><p>0.3135</p></td>
+<td><p>0.4204</p></td>
+<td><p>0.3343</p></td>
+<td><p>0.3462</p></td>
+<td><p>0.3962</p></td>
+<td><p>0.3846</p></td>
+</tr>
+<tr class="row-odd"><td><p>musk</p></td>
+<td><p>3062</p></td>
+<td><p>166</p></td>
+<td><p>3.1679</p></td>
+<td><p>0.0507</p></td>
+<td><p>0.7766</p></td>
+<td><p>0.2230</p></td>
+<td><p>0.9783</p></td>
+<td><p>0.9680</p></td>
+<td><p>0.2733</p></td>
+<td><p>0.1695</p></td>
+<td><p>0.9742</p></td>
+<td><p>1.0000</p></td>
+<td><p>0.9799</p></td>
+</tr>
+<tr class="row-even"><td><p>optdigits</p></td>
+<td><p>5216</p></td>
+<td><p>64</p></td>
+<td><p>2.8758</p></td>
+<td><p>0.0060</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.0244</p></td>
+<td><p>0.2194</p></td>
+<td><p>0.0301</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.0234</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.0000</p></td>
+</tr>
+<tr class="row-odd"><td><p>pendigits</p></td>
+<td><p>6870</p></td>
+<td><p>16</p></td>
+<td><p>2.2707</p></td>
+<td><p>0.0812</p></td>
+<td><p>0.2768</p></td>
+<td><p>0.0658</p></td>
+<td><p>0.2979</p></td>
+<td><p>0.3422</p></td>
+<td><p>0.0984</p></td>
+<td><p>0.0653</p></td>
+<td><p>0.0893</p></td>
+<td><p>0.3287</p></td>
+<td><p>0.3187</p></td>
+</tr>
+<tr class="row-even"><td><p>pima</p></td>
+<td><p>768</p></td>
+<td><p>8</p></td>
+<td><p>34.8958</p></td>
+<td><p>0.5193</p></td>
+<td><p>0.5413</p></td>
+<td><p>0.4480</p></td>
+<td><p>0.5424</p></td>
+<td><p>0.5111</p></td>
+<td><p>0.5413</p></td>
+<td><p>0.4555</p></td>
+<td><p>0.4962</p></td>
+<td><p>0.4704</p></td>
+<td><p>0.4943</p></td>
+</tr>
+<tr class="row-odd"><td><p>satellite</p></td>
+<td><p>6435</p></td>
+<td><p>36</p></td>
+<td><p>31.6395</p></td>
+<td><p>0.3902</p></td>
+<td><p>0.4152</p></td>
+<td><p>0.3902</p></td>
+<td><p>0.5690</p></td>
+<td><p>0.5676</p></td>
+<td><p>0.4994</p></td>
+<td><p>0.3893</p></td>
+<td><p>0.6845</p></td>
+<td><p>0.5346</p></td>
+<td><p>0.4784</p></td>
+</tr>
+<tr class="row-even"><td><p>satimage-2</p></td>
+<td><p>5803</p></td>
+<td><p>36</p></td>
+<td><p>1.2235</p></td>
+<td><p>0.2130</p></td>
+<td><p>0.8846</p></td>
+<td><p>0.0555</p></td>
+<td><p>0.6939</p></td>
+<td><p>0.8754</p></td>
+<td><p>0.3809</p></td>
+<td><p>0.0555</p></td>
+<td><p>0.6481</p></td>
+<td><p>0.9356</p></td>
+<td><p>0.8041</p></td>
+</tr>
+<tr class="row-odd"><td><p>shuttle</p></td>
+<td><p>49097</p></td>
+<td><p>9</p></td>
+<td><p>7.1511</p></td>
+<td><p>0.1977</p></td>
+<td><p>0.2943</p></td>
+<td><p>0.0695</p></td>
+<td><p>0.9551</p></td>
+<td><p>0.9546</p></td>
+<td><p>0.2184</p></td>
+<td><p>0.1424</p></td>
+<td><p>0.7506</p></td>
+<td><p>0.9542</p></td>
+<td><p>0.9501</p></td>
+</tr>
+<tr class="row-even"><td><p>vertebral</p></td>
+<td><p>240</p></td>
+<td><p>6</p></td>
+<td><p>12.5000</p></td>
+<td><p>0.0601</p></td>
+<td><p>0.0000</p></td>
+<td><p>0.0644</p></td>
+<td><p>0.0071</p></td>
+<td><p>0.0343</p></td>
+<td><p>0.0238</p></td>
+<td><p>0.0506</p></td>
+<td><p>0.0071</p></td>
+<td><p>0.0238</p></td>
+<td><p>0.0226</p></td>
+</tr>
+<tr class="row-odd"><td><p>vowels</p></td>
+<td><p>1456</p></td>
+<td><p>12</p></td>
+<td><p>3.4341</p></td>
+<td><p>0.5710</p></td>
+<td><p>0.0831</p></td>
+<td><p>0.3224</p></td>
+<td><p>0.1297</p></td>
+<td><p>0.1875</p></td>
+<td><p>0.5093</p></td>
+<td><p>0.3551</p></td>
+<td><p>0.2186</p></td>
+<td><p>0.2791</p></td>
+<td><p>0.1364</p></td>
+</tr>
+<tr class="row-even"><td><p>wbc</p></td>
+<td><p>378</p></td>
+<td><p>30</p></td>
+<td><p>5.5556</p></td>
+<td><p>0.3060</p></td>
+<td><p>0.5055</p></td>
+<td><p>0.5188</p></td>
+<td><p>0.5817</p></td>
+<td><p>0.5088</p></td>
+<td><p>0.4952</p></td>
+<td><p>0.5188</p></td>
+<td><p>0.4577</p></td>
+<td><p>0.5125</p></td>
+<td><p>0.4767</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="execution-time">
+<h2>Execution Time<a class="headerlink" href="#execution-time" title="Link to this heading">¶</a></h2>
+<div class="table-wrapper docutils container" id="id4">
+<table class="docutils align-default" id="id4">
+<caption><span class="caption-text">Time Elapsed in Seconds (average of 10 independent trials)</span><a class="headerlink" href="#id4" title="Link to this table">¶</a></caption>
+<thead>
+<tr class="row-odd"><th class="head"><p>Data</p></th>
+<th class="head"><p>#Samples</p></th>
+<th class="head"><p># Dimensions</p></th>
+<th class="head"><p>Outlier Perc</p></th>
+<th class="head"><p>ABOD</p></th>
+<th class="head"><p>CBLOF</p></th>
+<th class="head"><p>FB</p></th>
+<th class="head"><p>HBOS</p></th>
+<th class="head"><p>IForest</p></th>
+<th class="head"><p>KNN</p></th>
+<th class="head"><p>LOF</p></th>
+<th class="head"><p>MCD</p></th>
+<th class="head"><p>OCSVM</p></th>
+<th class="head"><p>PCA</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>arrhythmia</p></td>
+<td><p>452</p></td>
+<td><p>274</p></td>
+<td><p>14.6018</p></td>
+<td><p>0.3667</p></td>
+<td><p>0.2123</p></td>
+<td><p>0.5651</p></td>
+<td><p>0.1383</p></td>
+<td><p>0.2669</p></td>
+<td><p>0.1075</p></td>
+<td><p>0.0743</p></td>
+<td><p>1.4165</p></td>
+<td><p>0.0473</p></td>
+<td><p>0.0596</p></td>
+</tr>
+<tr class="row-odd"><td><p>cardio</p></td>
+<td><p>1831</p></td>
+<td><p>21</p></td>
+<td><p>9.6122</p></td>
+<td><p>0.3824</p></td>
+<td><p>0.1255</p></td>
+<td><p>0.7741</p></td>
+<td><p>0.0053</p></td>
+<td><p>0.2672</p></td>
+<td><p>0.2249</p></td>
+<td><p>0.0993</p></td>
+<td><p>0.5418</p></td>
+<td><p>0.0883</p></td>
+<td><p>0.0035</p></td>
+</tr>
+<tr class="row-even"><td><p>glass</p></td>
+<td><p>214</p></td>
+<td><p>9</p></td>
+<td><p>4.2056</p></td>
+<td><p>0.0352</p></td>
+<td><p>0.0359</p></td>
+<td><p>0.0317</p></td>
+<td><p>0.0022</p></td>
+<td><p>0.1724</p></td>
+<td><p>0.0173</p></td>
+<td><p>0.0025</p></td>
+<td><p>0.0325</p></td>
+<td><p>0.0010</p></td>
+<td><p>0.0011</p></td>
+</tr>
+<tr class="row-odd"><td><p>ionosphere</p></td>
+<td><p>351</p></td>
+<td><p>33</p></td>
+<td><p>35.8974</p></td>
+<td><p>0.0645</p></td>
+<td><p>0.0459</p></td>
+<td><p>0.0728</p></td>
+<td><p>0.0082</p></td>
+<td><p>0.1864</p></td>
+<td><p>0.0302</p></td>
+<td><p>0.0070</p></td>
+<td><p>0.0718</p></td>
+<td><p>0.0048</p></td>
+<td><p>0.0018</p></td>
+</tr>
+<tr class="row-even"><td><p>letter</p></td>
+<td><p>1600</p></td>
+<td><p>32</p></td>
+<td><p>6.2500</p></td>
+<td><p>0.3435</p></td>
+<td><p>0.1014</p></td>
+<td><p>0.7361</p></td>
+<td><p>0.0080</p></td>
+<td><p>0.2617</p></td>
+<td><p>0.1882</p></td>
+<td><p>0.0935</p></td>
+<td><p>1.1942</p></td>
+<td><p>0.0888</p></td>
+<td><p>0.0041</p></td>
+</tr>
+<tr class="row-odd"><td><p>lympho</p></td>
+<td><p>148</p></td>
+<td><p>18</p></td>
+<td><p>4.0541</p></td>
+<td><p>0.0277</p></td>
+<td><p>0.0353</p></td>
+<td><p>0.0266</p></td>
+<td><p>0.0037</p></td>
+<td><p>0.1712</p></td>
+<td><p>0.0111</p></td>
+<td><p>0.0021</p></td>
+<td><p>0.0327</p></td>
+<td><p>0.0014</p></td>
+<td><p>0.0012</p></td>
+</tr>
+<tr class="row-even"><td><p>mnist</p></td>
+<td><p>7603</p></td>
+<td><p>100</p></td>
+<td><p>9.2069</p></td>
+<td><p>7.4192</p></td>
+<td><p>1.1339</p></td>
+<td><p>48.2750</p></td>
+<td><p>0.0480</p></td>
+<td><p>1.9314</p></td>
+<td><p>7.3431</p></td>
+<td><p>6.7901</p></td>
+<td><p>4.7448</p></td>
+<td><p>5.0203</p></td>
+<td><p>0.1569</p></td>
+</tr>
+<tr class="row-odd"><td><p>musk</p></td>
+<td><p>3062</p></td>
+<td><p>166</p></td>
+<td><p>3.1679</p></td>
+<td><p>2.3860</p></td>
+<td><p>0.4134</p></td>
+<td><p>13.8610</p></td>
+<td><p>0.0587</p></td>
+<td><p>1.2736</p></td>
+<td><p>2.2057</p></td>
+<td><p>1.9835</p></td>
+<td><p>25.5501</p></td>
+<td><p>1.3774</p></td>
+<td><p>0.1637</p></td>
+</tr>
+<tr class="row-even"><td><p>optdigits</p></td>
+<td><p>5216</p></td>
+<td><p>64</p></td>
+<td><p>2.8758</p></td>
+<td><p>2.7279</p></td>
+<td><p>0.4977</p></td>
+<td><p>14.2399</p></td>
+<td><p>0.0303</p></td>
+<td><p>0.7783</p></td>
+<td><p>2.1205</p></td>
+<td><p>1.7799</p></td>
+<td><p>1.8599</p></td>
+<td><p>1.5618</p></td>
+<td><p>0.0519</p></td>
+</tr>
+<tr class="row-odd"><td><p>pendigits</p></td>
+<td><p>6870</p></td>
+<td><p>16</p></td>
+<td><p>2.2707</p></td>
+<td><p>1.4339</p></td>
+<td><p>0.2847</p></td>
+<td><p>3.8185</p></td>
+<td><p>0.0090</p></td>
+<td><p>0.5879</p></td>
+<td><p>0.8659</p></td>
+<td><p>0.5936</p></td>
+<td><p>2.2209</p></td>
+<td><p>0.9666</p></td>
+<td><p>0.0062</p></td>
+</tr>
+<tr class="row-even"><td><p>pima</p></td>
+<td><p>768</p></td>
+<td><p>8</p></td>
+<td><p>34.8958</p></td>
+<td><p>0.1357</p></td>
+<td><p>0.0698</p></td>
+<td><p>0.0908</p></td>
+<td><p>0.0019</p></td>
+<td><p>0.1923</p></td>
+<td><p>0.0590</p></td>
+<td><p>0.0102</p></td>
+<td><p>0.0474</p></td>
+<td><p>0.0087</p></td>
+<td><p>0.0013</p></td>
+</tr>
+<tr class="row-odd"><td><p>satellite</p></td>
+<td><p>6435</p></td>
+<td><p>36</p></td>
+<td><p>31.6395</p></td>
+<td><p>1.7970</p></td>
+<td><p>0.4269</p></td>
+<td><p>7.5566</p></td>
+<td><p>0.0161</p></td>
+<td><p>0.6449</p></td>
+<td><p>1.2578</p></td>
+<td><p>0.9868</p></td>
+<td><p>2.6916</p></td>
+<td><p>1.3697</p></td>
+<td><p>0.0245</p></td>
+</tr>
+<tr class="row-even"><td><p>satimage-2</p></td>
+<td><p>5803</p></td>
+<td><p>36</p></td>
+<td><p>1.2235</p></td>
+<td><p>1.5209</p></td>
+<td><p>0.3705</p></td>
+<td><p>5.6561</p></td>
+<td><p>0.0148</p></td>
+<td><p>0.5529</p></td>
+<td><p>1.0587</p></td>
+<td><p>0.7525</p></td>
+<td><p>2.3935</p></td>
+<td><p>1.1114</p></td>
+<td><p>0.0151</p></td>
+</tr>
+<tr class="row-odd"><td><p>shuttle</p></td>
+<td><p>49097</p></td>
+<td><p>9</p></td>
+<td><p>7.1511</p></td>
+<td><p>14.3611</p></td>
+<td><p>1.2524</p></td>
+<td><p>59.2131</p></td>
+<td><p>0.0953</p></td>
+<td><p>3.3906</p></td>
+<td><p>9.4958</p></td>
+<td><p>11.1500</p></td>
+<td><p>12.1449</p></td>
+<td><p>44.6830</p></td>
+<td><p>0.0378</p></td>
+</tr>
+<tr class="row-even"><td><p>vertebral</p></td>
+<td><p>240</p></td>
+<td><p>6</p></td>
+<td><p>12.5000</p></td>
+<td><p>0.0529</p></td>
+<td><p>0.0444</p></td>
+<td><p>0.0339</p></td>
+<td><p>0.0014</p></td>
+<td><p>0.1786</p></td>
+<td><p>0.0161</p></td>
+<td><p>0.0025</p></td>
+<td><p>0.0446</p></td>
+<td><p>0.0015</p></td>
+<td><p>0.0010</p></td>
+</tr>
+<tr class="row-odd"><td><p>vowels</p></td>
+<td><p>1456</p></td>
+<td><p>12</p></td>
+<td><p>3.4341</p></td>
+<td><p>0.3380</p></td>
+<td><p>0.0889</p></td>
+<td><p>0.3125</p></td>
+<td><p>0.0044</p></td>
+<td><p>0.2751</p></td>
+<td><p>0.1125</p></td>
+<td><p>0.0367</p></td>
+<td><p>0.9745</p></td>
+<td><p>0.0469</p></td>
+<td><p>0.0023</p></td>
+</tr>
+<tr class="row-even"><td><p>wbc</p></td>
+<td><p>378</p></td>
+<td><p>30</p></td>
+<td><p>5.5556</p></td>
+<td><p>0.1014</p></td>
+<td><p>0.0691</p></td>
+<td><p>0.0771</p></td>
+<td><p>0.0063</p></td>
+<td><p>0.2030</p></td>
+<td><p>0.0287</p></td>
+<td><p>0.0078</p></td>
+<td><p>0.0864</p></td>
+<td><p>0.0062</p></td>
+<td><p>0.0035</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+
+        <div class="raised" data-ea-type="text" data-ea-manual="true" data-ea-publisher="readthedocs" data-ea-keywords="anomaly-detection|outlier-detection|outlier-ensembles|python|readthedocs-project-219652|readthedocs-project-pyod" data-ea-campaign-types="community|house|paid" id="readthedocs-ea-text-nostyle-sphinx"></div></article>
+      </div>
+      <footer>
+        
+        <div class="related-pages">
+          <a class="next-page" href="api_cc.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">API CheatSheet</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
+          <a class="prev-page" href="example.html">
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+              <div class="page-info">
+                <div class="context">
+                  <span>Previous</span>
+                </div>
+                
+                <div class="title">Examples</div>
+                
+              </div>
+            </a>
+        </div>
+        <div class="bottom-of-page">
+          <div class="left-details">
+            <div class="copyright">
+                Copyright © 2022, Yue Zhao
+            </div>
+            Made with <a href="https://www.sphinx-doc.org/">Sphinx</a> and <a class="muted-link" href="https://pradyunsg.me">@pradyunsg</a>'s
+            
+            <a href="https://github.com/pradyunsg/furo">Furo</a>
+            
+          </div>
+          <div class="right-details">
+            
+          </div>
+        </div>
+        
+      </footer>
+    </div>
+    <aside class="toc-drawer">
+      
+      
+      <div class="toc-sticky toc-scroll">
+        <div class="toc-title-container">
+          <span class="toc-title">
+            On this page
+          </span>
+        </div>
+        <div class="toc-tree-container">
+          <div class="toc-tree">
+            <ul>
+<li><a class="reference internal" href="#">Benchmarks</a><ul>
+<li><a class="reference internal" href="#latest-adbench-2022">Latest ADBench (2022)</a></li>
+<li><a class="reference internal" href="#old-results-2019">Old Results (2019)</a></li>
+<li><a class="reference internal" href="#roc-performance">ROC Performance</a></li>
+<li><a class="reference internal" href="#p-n-performance">P@N Performance</a></li>
+<li><a class="reference internal" href="#execution-time">Execution Time</a></li>
+</ul>
+</li>
+</ul>
+
+          </div>
+        </div>
+      </div>
+      
+      
+    </aside>
+  </div>
+</div><script src="_static/documentation_options.js?v=09beee0d"></script>
+    <script src="_static/doctools.js?v=9bcbadda"></script>
+    <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/scripts/furo.js?v=46bd48cc"></script>
+    
+<readthedocs-flyout></readthedocs-flyout><readthedocs-notification class="raised toast"></readthedocs-notification><readthedocs-search class="raised floating"></readthedocs-search><readthedocs-hotkeys></readthedocs-hotkeys></body></html>

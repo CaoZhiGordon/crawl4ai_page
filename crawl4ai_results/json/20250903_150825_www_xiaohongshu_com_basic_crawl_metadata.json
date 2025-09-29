@@ -1,0 +1,22 @@
+{
+  "timestamp": "2025-09-03T15:08:25.985657",
+  "url": "https://www.xiaohongshu.com/explore/68b69055000000001c009ada?xsec_token=ABlcA6Ctv93h6i7CwRp37Tqxz-OpZmClN0zK0yuQbUeaY=&xsec_source=pc_feed&m_source=pwa",
+  "crawl_type": "basic_crawl",
+  "success": true,
+  "status_code": 200,
+  "title": "这就是那个wm的面试现场吗！！怪不得这么多人 - 小红书",
+  "html_length": 336840,
+  "markdown_length": 6915,
+  "links_count": {
+    "internal": 18,
+    "external": 11
+  },
+  "media_count": {
+    "images": 6,
+    "videos": 1
+  },
+  "saved_files": [
+    "crawl4ai_results/html/20250903_150825_www_xiaohongshu_com_basic_crawl.html",
+    "crawl4ai_results/markdown/20250903_150825_www_xiaohongshu_com_basic_crawl.md"
+  ]
+}
